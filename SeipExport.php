@@ -16,11 +16,9 @@ if (!class_exists('SeipExport')) {
 
         public function seip_export()
         {
-//            ini_set('display_errors', 1);
-//            ini_set('display_startup_errors', 1);
-//            error_reporting(E_ALL);
 
-            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'seip_export')) {
+            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'],
+                    'seip_export') || !current_user_can('administrator')) {
                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
             }
 
@@ -44,13 +42,13 @@ if (!class_exists('SeipExport')) {
 
             $data = json_encode($data);
 
-            $json_file_name = $post->post_name . '-' . date('y-m-d'). '.json';
+            $json_file_name = $post->post_name.'-'.date('y-m-d').'.json';
 
             header('Content-Type: application/json');
-            header('Content-Disposition: attachment; filename=' . $json_file_name);
+            header('Content-Disposition: attachment; filename='.$json_file_name);
             header('Expires: 0'); //No caching allowed
             header('Cache-Control: must-revalidate');
-            header('Content-Length: ' . strlen($data));
+            header('Content-Length: '.strlen($data));
             file_put_contents('php://output', $data);
 
         }
