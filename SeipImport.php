@@ -12,6 +12,7 @@ if (!class_exists('SeipImport')) {
         {
             $self = new self;
             add_action('admin_post_seip_import', [$self, 'seip_import']);
+            add_action('admin_post_seip_option_import', [$self, 'seip_import_options']);
             add_filter('upload_mimes', [$self, 'mime_types']);
         }
 
@@ -67,6 +68,53 @@ if (!class_exists('SeipImport')) {
             }
 
             wp_delete_file($movefile['file']);
+        }
+
+        public function seip_import_options()
+        {
+            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'],
+                    'seip_option_import') || !current_user_can('administrator')) {
+                wp_send_json_error(['message' => 'You are not allowed to submit data.']);
+            }
+
+            if (!function_exists('wp_handle_upload')) {
+                require_once(ABSPATH.'wp-admin/includes/file.php');
+            }
+
+            $uploadedfile = $_FILES['file'];
+
+            $upload_overrides = array(
+                'test_form' => false
+            );
+
+            $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
+
+            if (!$movefile || isset($movefile['error'])) {
+                wp_send_json_success(['message' => $movefile['error']]);
+            }
+
+            if ($movefile['type'] !== 'application/json') {
+                wp_send_json_error(['message' => "This file is not supported"]);
+            }
+
+            $content = file_get_contents($movefile['file']);
+
+            if (empty($content)) {
+                wp_send_json_error(['message' => "File is empty"]);
+            }
+
+            $data = json_decode($content, 1);
+            print_r($data);
+
+
+            foreach ($data['options'] as $key => $value) {
+                update_field($key, $value, 'option');
+            }
+
+            wp_delete_file($movefile['file']);
+
+            // wp_redirect($_POST['_wp_http_referer']);
+            // exit();
         }
 
         public function mime_types($mimes)

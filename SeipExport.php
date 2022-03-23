@@ -12,6 +12,7 @@ if (!class_exists('SeipExport')) {
         {
             $self = new self;
             add_action('admin_post_seip_export', [$self, 'seip_export']);
+            add_action('admin_post_seip_option_export', [$self, 'seip_export_options']);
         }
 
         public function seip_export()
@@ -53,6 +54,48 @@ if (!class_exists('SeipExport')) {
 
         }
 
+        public function seip_export_options()
+        {
+
+            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'],
+                    'seip_option_export') || !current_user_can('administrator')) {
+                wp_send_json_error(['message' => 'You are not allowed to submit data.']);
+            }
+
+            $options = get_fields('options');
+
+            $sorted_metas = [];
+
+            foreach ($options as $key => $value) {
+                // Need work here
+                $field = get_field_object(get_option('_options_' .$key));
+
+                if(empty($field)){
+                    $sorted_metas[$key] = $value;
+                    continue;
+                }
+
+                $sorted_metas[$key] = $this->get_value_based_on_field_type($field, $value);
+            }
+
+            $data = [
+                'type'   => 'options',
+                'options'        => (array) $sorted_metas
+            ];
+
+            $data = json_encode($data);
+
+            $json_file_name = 'Options-'.date('y-m-d').'.json';
+
+            header('Content-Type: application/json');
+            header('Content-Disposition: attachment; filename='.$json_file_name);
+            header('Expires: 0'); //No caching allowed
+            header('Cache-Control: must-revalidate');
+            header('Content-Length: '.strlen($data));
+            file_put_contents('php://output', $data);
+
+        }
+
         /**
          * @param $key
          * @param $value
@@ -76,7 +119,12 @@ if (!class_exists('SeipExport')) {
                 return $value;
             }
 
-            if ($related_field['type'] === 'image') {
+            return $this->get_value_based_on_field_type($related_field, $value);
+        }
+
+        private function get_value_based_on_field_type($field, $value)
+        {
+            if ($field['type'] === 'image') {
                 return $this->get_image_link($value);
             }
 

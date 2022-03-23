@@ -56,11 +56,42 @@
                     <input type="file" name="file" id="file">
                 </p>
                 <div>
+                    <input type="submit" class="button button-primary" value="Import">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Export Options</h2>
+        <div class="export-form-wrapper">
+            <form action="<?= admin_url('/admin-post.php') ?>" method="post">
+                <?php    wp_nonce_field('seip_option_export'); ?>
+                <input type="hidden" name="action" value="seip_option_export">
+                <div>
                     <input type="submit" class="button button-primary" value="Export">
                 </div>
             </form>
         </div>
     </div>
+
+    <div class="card">
+        <h2>Import Options</h2>
+        <div class="import-form-wrapper">
+            <form action="<?= admin_url('/admin-post.php') ?>" method="post" enctype="multipart/form-data">
+                <?php    wp_nonce_field('seip_option_import'); ?>
+                <input type="hidden" name="action" value="seip_option_import">
+                <p>
+                    <label for="file">Upload File</label>
+                    <input type="file" name="file" id="file">
+                </p>
+                <div>
+                    <input type="submit" class="button button-primary" value="Import">
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 <script>
