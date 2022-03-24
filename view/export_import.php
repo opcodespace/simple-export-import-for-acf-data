@@ -1,101 +1,74 @@
-<div class="wrap">
-    <h1>Simple Export Import</h1>
-    <div class="card">
-        <h2>Export Page/Post</h2>
-        <div class="export-form-wrapper">
-            <form action="<?= admin_url('/admin-post.php') ?>" method="post">
-                <?php    wp_nonce_field('seip_export'); ?>
-                <input type="hidden" name="action" value="seip_export">
-                <p>
-                    <label for="">Type</label>
-                    <select name="post_type">
-                        <option value="">Please Select Type</option>
-                        <?php foreach(get_post_types([], 'objects') as $post_type):
-                        echo "<option value='{$post_type->name}'>{$post_type->label}</option>";
-                        endforeach;
-                        ?>
-                    </select>
-                </p>
-                <p>
-                    <label for="">Post/Page</label>
-                    <select name="post_id" id="">
+<style>
+<?php include'bootstrap-multiselect.min.css'?>
+<?php include'bootstrap.min.css'?>
+<?php include'style.css'?>
+</style>
 
-                    </select>
-                </p>
-                <div>
-                    <input type="submit" class="button button-primary" value="Export">
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <div class="card">
-        <h2>Import Page/Post</h2>
-        <div class="import-form-wrapper">
-            <form action="<?= admin_url('/admin-post.php') ?>" method="post" enctype="multipart/form-data">
-                <?php    wp_nonce_field('seip_import'); ?>
-                <input type="hidden" name="action" value="seip_import">
-                <p>
-                    <label for="">Type</label>
-                    <select name="post_type">
-                        <option value="">Please Select Type</option>
-                        <?php foreach(get_post_types([], 'objects') as $post_type):
-                            echo "<option value='{$post_type->name}'>{$post_type->label}</option>";
-                        endforeach;
-                        ?>
-                    </select>
-                </p>
-                <p>
-                    <label for="">Post/Page</label>
-                    <select name="post_id" id="">
 
-                    </select>
-                </p>
-                <p>
-                    <label for="file">Upload File</label>
-                    <input type="file" name="file" id="file">
-                </p>
-                <div>
-                    <input type="submit" class="button button-primary" value="Import">
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="card">
-        <h2>Export Options</h2>
-        <div class="export-form-wrapper">
-            <form action="<?= admin_url('/admin-post.php') ?>" method="post">
-                <?php    wp_nonce_field('seip_option_export'); ?>
-                <input type="hidden" name="action" value="seip_option_export">
-                <div>
-                    <input type="submit" class="button button-primary" value="Export">
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="card">
-        <h2>Import Options</h2>
-        <div class="import-form-wrapper">
-            <form action="<?= admin_url('/admin-post.php') ?>" method="post" enctype="multipart/form-data">
-                <?php    wp_nonce_field('seip_option_import'); ?>
-                <input type="hidden" name="action" value="seip_option_import">
-                <p>
-                    <label for="file">Upload File</label>
-                    <input type="file" name="file" id="file">
-                </p>
-                <div>
-                    <input type="submit" class="button button-primary" value="Import">
-                </div>
-            </form>
-        </div>
-    </div>
+<div class="export_import_wrapper">
+    <?php $tab = sanitize_text_field( $_GET['tab'] ) ?>
+    <nav  class="nav-tab-wrapper">
+        <a class="nav-tab <?= $tab === 'export' ? 'nav-tab-active' : ''  ?>" href="<?= admin_url( 'options-general.php?page=seip-simple-export-import&tab=export' ) ?>">Export</a>
+        <a class="nav-tab <?= $tab === 'import' ? 'nav-tab-active' : ''  ?>" href="<?= admin_url( 'options-general.php?page=seip-simple-export-import&tab=import' ) ?>">Import</a>
+    </nav>
+    <div class="tap-contet-wrapper">
+        <?php 
+        switch($tab){
+            case 'import':
+            $path = '_import.php';
+            break;
+            default:
+            $path = '_export.php';
+            break;
+        }
+        include $path;
+        ?>
+    </div>  
 
 </div>
 
 <script>
+    <?php include'bootstrap-multiselect.min.js' ?>
+    <?php include'bootstrap.bundle.js' ?>
+</script>
+<script>
     jQuery(function ($){
+
+         $("#export_option_data").click(function() {
+            if($('#export_option_data').is(':checked')) { 
+                $('.block_exports').slideUp();
+            } else {
+                $('.block_exports').slideDown();
+            }
+        });
+         $("#import_option_data").click(function() {
+            if($('#import_option_data').is(':checked')) { 
+                $('.block_imports').slideUp();
+            } else {
+                $('.block_imports').slideDown();
+            }
+        });
+
+         $("#bulk_export").click(function() {
+            if($('#bulk_export').is(':checked')) { 
+                $('.bulk_export_block').slideUp();
+            } else {
+                $('.bulk_export_block').slideDown();
+            }
+        });
+
+         $("#bulk_import").click(function() {
+            if($('#bulk_import').is(':checked')) { 
+                $('.bulk_import_block').slideUp();
+            } else {
+                $('.bulk_import_block').slideDown();
+            }
+        });
+
+
+        $('#export_mulit_pages').multiselect();
+
         $('[name="post_type"]').change(function (){
             let _this_parent = $(this).parents('form');
             $.ajax({
