@@ -1,3 +1,7 @@
+<div class="error notice">
+    <p><strong>Please keep your site backup before importing data.</strong></p>
+</div>
+
 <div class="card">
     <h4>Import Page/Post</h4>
     <div class="import-form-wrapper">
@@ -5,7 +9,8 @@
             <?php    wp_nonce_field('seip_import'); ?>
             <input type="hidden" name="action" value="seip_import">
             <div class="form-group">
-                <input type="checkbox" id="bulk_import"><label for="bulk_import">Bulk Import</label>
+                <input type="checkbox" id="bulk_import" name="bulk_import"><label for="bulk_import">Bulk Import</label> <br>
+                <small>(If slug is matched, update that post/page. Otherwise, it creates a new post.)</small>
             </div>
             <div class="block_imports">
                 <table>
@@ -38,15 +43,15 @@
                             <td></td>
                             <td>
                                 <div>
-                                    <input type="checkbox" id="update_post_page_ttl"><label for="update_post_page_ttl">Update Post/Page Title</label>
+                                    <input type="checkbox" id="update_post_page_ttl" name="update_post_page_ttl" checked><label for="update_post_page_ttl">Update Post/Page Title</label>
                                 </div>
                                 <div class="bulk_import_block">
-                                    <input type="checkbox" id="update_post_page_slug"><label for="update_post_page_slug">Update Post/Page Slug</label>
+                                    <input type="checkbox" id="update_post_page_slug" name="update_post_page_slug"><label for="update_post_page_slug">Update Post/Page Slug</label>
                                 </div>
 
                             </td>
                         </tr>
-                        <tr class="bulk_import_block">
+                        <tr class="">
                             <td><label for="file">Upload File</label></td>
                             <td>
                                 <input type="file" name="file" id="file">

@@ -23,7 +23,35 @@ if (!class_exists('SeipExport')) {
                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
             }
 
-            $post_id    = (int) $_POST['post_id'];
+            ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+
+            $post_data = [];
+            if(isset($_POST['bulk_export'])){
+                foreach ($_POST['post_ids'] as $post_id) {
+                    $post_data[] = $this->post_data($post_id);
+                }
+            }
+            else{
+                $post_id    = (int) $_POST['post_id'];
+                $post_data[] = $this->post_data($post_id);
+            }
+
+
+            $data = json_encode($post_data);
+
+            $json_file_name = 'post-export-'.date('y-m-d').'.json';
+
+            header('Content-Type: application/json');
+            header('Content-Disposition: attachment; filename='.$json_file_name);
+            header('Expires: 0'); //No caching allowed
+            header('Cache-Control: must-revalidate');
+            header('Content-Length: '.strlen($data));
+            file_put_contents('php://output', $data);
+
+        }
+
+        private function post_data($post_id)
+        {
             $post       = get_post($post_id);
             $post_metas = get_post_meta($post_id);
 
@@ -35,23 +63,12 @@ if (!class_exists('SeipExport')) {
                 $sorted_metas[$key] = $this->get_field_value($key, $value[0]);
             }
 
-            $data = [
+            return [
                 'post_title'   => $post->post_title,
+                'post_name'    => $post->post_name,
                 'post_content' => $post->post_content,
                 'metas'        => (array) $sorted_metas
             ];
-
-            $data = json_encode($data);
-
-            $json_file_name = $post->post_name.'-'.date('y-m-d').'.json';
-
-            header('Content-Type: application/json');
-            header('Content-Disposition: attachment; filename='.$json_file_name);
-            header('Expires: 0'); //No caching allowed
-            header('Cache-Control: must-revalidate');
-            header('Content-Length: '.strlen($data));
-            file_put_contents('php://output', $data);
-
         }
 
         public function seip_export_options()
@@ -103,9 +120,13 @@ if (!class_exists('SeipExport')) {
          */
         public function get_field_value($key, $value)
         {
+            if(!function_exists('get_field_object')){
+                return $value;
+            }
+
             $field = get_field_object($value);
 
-            if ($field) {
+            if (!$field) {
                 return $value;
             }
 

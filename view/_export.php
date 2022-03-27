@@ -5,7 +5,7 @@
 			<?php    wp_nonce_field('seip_export'); ?>
 			<input type="hidden" name="action" value="seip_export">
 			<div class="form-group">
-				<input type="checkbox" id="bulk_export"><label for="bulk_export">Bulk Export</label>
+				<input type="checkbox" id="bulk_export" name="bulk_export"><label for="bulk_export">Bulk Export</label>
 			</div>
 			<div class="block_exports">
 				<table>
@@ -23,35 +23,29 @@
 							</select>
 						</td>
 					</tr>
-					<tr>
+					<tr class="bulk_export_block">
 						<td>
 							<label class="label_block">Post/Page</label>
 						</td>
 						<td>
-							<select name="post_id" id="" class="chosen-select">
+							<select name="post_id" class="chosen-select">
 
 							</select>
 						</td>
 					</tr>
-					<tr>
+					<tr class="bulk_export_visible">
 						<td>
 							<label class="label_block">Posts/Pages</label>
 						</td>
 						<td>
-							<select id="export_mulit_pages" multiple="multiple">
-								<option value="cheese">Cheese</option>
-								<option value="tomatoes">Tomatoes</option>
-								<option value="mozarella">Mozzarella</option>
-								<option value="mushrooms">Mushrooms</option>
-								<option value="pepperoni">Pepperoni</option>
-								<option value="onions">Onions</option>
+							<select id="export_mulit_pages" multiple="multiple" name="post_ids[]">
 							</select>
 						</td>
 					</tr>
 				</table>
 			</div>
 
-			<div class="bulk_export_block">
+			<div class="">
 				<input type="submit" class="button button-primary" value="Export">
 			</div>
 		</form>

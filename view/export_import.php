@@ -43,7 +43,7 @@
 
 
 
-<div class="export_import_wrapper">
+<div class="export_import_wrapper wrap">
     <h2 class="main_title">Simple ACF Data Export Import</h2>
     <?php $tab = sanitize_text_field( $_GET['tab'] ) ?>
     <nav  class="nav-tab-wrapper">
@@ -84,11 +84,14 @@
             }
         });
 
+        $('.bulk_export_visible').slideUp();
          $("#bulk_export").click(function() {
             if($('#bulk_export').is(':checked')) {
                 $('.bulk_export_block').slideUp();
+                $('.bulk_export_visible').slideDown();
             } else {
                 $('.bulk_export_block').slideDown();
+                $('.bulk_export_visible').slideUp();
             }
         });
 
@@ -98,6 +101,10 @@
             } else {
                 $('.bulk_import_block').slideDown();
             }
+        });
+        $('#export_mulit_pages').multiselect({
+            includeSelectAllOption: true,
+                        enableFiltering: true
         });
 
         $('[name="post_type"]').change(function (){

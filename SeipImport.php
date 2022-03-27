@@ -18,15 +18,24 @@ if (!class_exists('SeipImport')) {
 
         public function seip_import()
         {
-            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'],
-                    'seip_import') || !current_user_can('administrator')) {
+            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(
+                $_POST['_wpnonce'],
+                'seip_import'
+            ) || !current_user_can('administrator')) {
                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
             }
 
             $post_id = (int) $_POST['post_id'];
+            $settings = [
+                'bulk_import' => isset($_POST['bulk_import']),
+                'update_post_page_ttl'  => isset($_POST['update_post_page_ttl']),
+                'update_post_page_slug' => isset($_POST['update_post_page_slug']),
+                'single_post_id' => $post_id,
+                'post_type' => sanitize_text_field($_POST['post_type'])
+            ];
 
             if (!function_exists('wp_handle_upload')) {
-                require_once(ABSPATH.'wp-admin/includes/file.php');
+                require_once(ABSPATH . 'wp-admin/includes/file.php');
             }
 
             $uploadedfile = $_FILES['file'];
@@ -41,44 +50,82 @@ if (!class_exists('SeipImport')) {
                 wp_send_json_success(['message' => $movefile['error']]);
             }
 
-            if ($movefile['type'] !== 'application/json') {
-                wp_send_json_error(['message' => "This file is not supported"]);
-            }
+            // if ($movefile['type'] !== 'application/json') {
+            //     wp_send_json_error(['message' => "This file is not supported"]);
+            // }
 
-            $content = file_get_contents($movefile['file']);
+            $content = wp_json_file_decode($movefile['file'], ['associative' => true]);
 
-            if (empty($content)) {
+            if (empty($posts)) {
                 wp_send_json_error(['message' => "File is empty"]);
             }
 
-            $data = json_decode($content, 1);
+            foreach ($posts as $post) {
+                $this->post_data($post, $settings);
+            }
 
-            wp_update_post(
-                [
-                    'ID'           => $post_id,
-                    'post_content' => $data['post_content'],
-                    'post_title'   => $data['post_title']
-                ]
-            );
+            wp_delete_file($movefile['file']);
+        }
+
+        private function post_data($data, $settings)
+        {
+
+            $post_data = [
+                'post_content' => $data['post_content'],
+            ];
+
+            if($settings['update_post_page_ttl']){
+                $post_data['post_title'] = $data['post_title'];
+            }
+            if($settings['update_post_page_slug']){
+                $post_data['post_name'] = $data['post_name'];
+            }
+
+            if ($settings['bulk_import']) {
+                $post = get_posts([
+                    'name' => $data['post_name'],
+                    'post_type' => $settings['post_type']
+                ]);
+
+                if(empty($post)){
+                    $post_id = wp_insert_post( [
+                        'post_content' => $data['post_content'],
+                        'post_title'   => $data['post_title'],
+                    ] );
+                }
+                else{
+                    $post_id = $post[0]->ID;
+                    $post_data['ID'] = $post_id;
+                    wp_update_post($post_data);
+                }
+            }
+            else{
+                $post_id = $settings['single_post_id'];
+                $post_data['ID'] = $post_id;
+
+                wp_update_post(
+                    $post_data
+                );
+            }
 
             $this->post_metas = $data['metas'];
 
             foreach ($data['metas'] as $key => $value) {
                 update_post_meta($post_id, $key, $this->get_field_value($key, $value));
             }
-
-            wp_delete_file($movefile['file']);
         }
 
         public function seip_import_options()
         {
-            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'],
-                    'seip_option_import') || !current_user_can('administrator')) {
+            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(
+                $_POST['_wpnonce'],
+                'seip_option_import'
+            ) || !current_user_can('administrator')) {
                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
             }
 
             if (!function_exists('wp_handle_upload')) {
-                require_once(ABSPATH.'wp-admin/includes/file.php');
+                require_once(ABSPATH . 'wp-admin/includes/file.php');
             }
 
             $uploadedfile = $_FILES['file'];
@@ -93,9 +140,9 @@ if (!class_exists('SeipImport')) {
                 wp_send_json_success(['message' => $movefile['error']]);
             }
 
-            if ($movefile['type'] !== 'application/json') {
-                wp_send_json_error(['message' => "This file is not supported"]);
-            }
+            // if ($movefile['type'] !== 'application/json') {
+            //     wp_send_json_error(['message' => "This file is not supported"]);
+            // }
 
             $content = file_get_contents($movefile['file']);
 
@@ -119,7 +166,8 @@ if (!class_exists('SeipImport')) {
 
         public function mime_types($mimes)
         {
-            $mimes['json'] = 'application/json';
+            // $mimes['json'] = 'application/json';
+            $mimes['json'] = 'text/plain';
             return $mimes;
         }
 
@@ -130,17 +178,21 @@ if (!class_exists('SeipImport')) {
          */
         public function get_field_value($key, $value)
         {
+            if(!function_exists('get_field_object')){
+                return $value;
+            }
+
             $field = get_field_object($value);
 
             if ($field) {
                 return $value;
             }
 
-            if (!isset($this->post_metas['_'.$key]) || empty($this->post_metas['_'.$key])) {
+            if (!isset($this->post_metas['_' . $key]) || empty($this->post_metas['_' . $key])) {
                 return $value;
             }
 
-            $related_field = get_field_object($this->post_metas['_'.$key]);
+            $related_field = get_field_object($this->post_metas['_' . $key]);
 
             if (!$related_field) {
                 return $value;
@@ -202,6 +254,5 @@ if (!class_exists('SeipImport')) {
             );
             return wp_insert_attachment($attachment, $upload['file']);
         }
-
     }
 }
