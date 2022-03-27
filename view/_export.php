@@ -1,11 +1,10 @@
 <div class="card">
-	<h2>Export Page/Post</h2>
+	<h4>Export Page/Post</h4>
 	<div class="export-form-wrapper">
 		<form action="<?= admin_url('/admin-post.php') ?>" method="post">
 			<?php    wp_nonce_field('seip_export'); ?>
 			<input type="hidden" name="action" value="seip_export">
 			<div class="form-group">
-				<input type="checkbox" id="export_option_data"><label for="export_option_data">Option Data</label>
 				<input type="checkbox" id="bulk_export"><label for="bulk_export">Bulk Export</label>
 			</div>
 			<div class="block_exports">
@@ -60,7 +59,7 @@
 </div>
 
 <div class="card">
-	<h2>Export Options</h2>
+	<h4>Export Options</h4>
 	<div class="export-form-wrapper">
 		<form action="<?= admin_url('/admin-post.php') ?>" method="post">
 			<?php    wp_nonce_field('seip_option_export'); ?>
