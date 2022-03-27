@@ -25,3 +25,18 @@ label{
 .block_exports.hide{
     display: none;
 }
+
+
+.export_import_wrapper .chosen-container {
+    min-width: 250px !important;
+    width: 100% !important;
+    display: block !important;
+}
+.export_import_wrapper .btn-group {
+    min-width: 250px !important;
+}
+.main_title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 15px 0;
+}

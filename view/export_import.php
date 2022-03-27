@@ -1,12 +1,50 @@
 <style>
-<?php include'bootstrap-multiselect.min.css'?>
-<?php include'bootstrap.min.css'?>
-<?php include'style.css'?>
+    .chosen-container-single .chosen-single {
+        height: 30px;
+        border: 1px solid #c3c4c7;
+        border-radius: 4px;
+        background: transparent;
+        box-shadow: none;
+        line-height: 24px;
+    }
+    .submin_btn_wrapper {
+        text-align: center;
+        margin-top: 20px;
+    }
+    select{
+        min-width: 190px;
+    }
+    td{
+        min-width: 166px;
+    }
+    tr{
+        margin-bottom: 10px;
+        display: block;
+    }
+    /* Tablet Layout: 768px. */
+    @media only screen and (min-width: 768px) and (max-width: 991px) { 
+        select {
+            min-width: 210px;
+        }
+    }
+    /* Mobile Layout: 320px. */
+    @media only screen and (max-width: 767px) { 
+        td {
+            min-width: 100%;
+            display: block;
+        }
+        select {
+            min-width: 100%;
+            display: block;
+        }
+
+    }
 </style>
 
 
 
 <div class="export_import_wrapper">
+    <h2 class="main_title">Simple ACF Data Export Import</h2>
     <?php $tab = sanitize_text_field( $_GET['tab'] ) ?>
     <nav  class="nav-tab-wrapper">
         <a class="nav-tab <?= $tab === 'export' ? 'nav-tab-active' : ''  ?>" href="<?= admin_url( 'options-general.php?page=seip-simple-export-import&tab=export' ) ?>">Export</a>
@@ -28,10 +66,6 @@
 
 </div>
 
-<script>
-    <?php include'bootstrap-multiselect.min.js' ?>
-    <?php include'bootstrap.bundle.js' ?>
-</script>
 <script>
     jQuery(function ($){
 

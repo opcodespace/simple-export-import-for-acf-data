@@ -13,12 +13,15 @@ Text Domain: simple-export-import-page
 if ( ! defined( 'ABSPATH' ) ) {exit;}
 
 define("SEIP_VIEW_PATH", wp_normalize_path(plugin_dir_path(__FILE__) . "view/"));
+define("SEIP_ASSETSURL", plugins_url("assets/", __FILE__));
 
 include_once 'SeipFront.php';
 include_once 'SeipExport.php';
+include_once 'SeipEnqueue.php';
 include_once 'SeipImport.php';
 
 add_action('plugins_loaded', array('SeipFront', 'init'));
 add_action('plugins_loaded', array('SeipExport', 'init'));
 add_action('plugins_loaded', array('SeipImport', 'init'));
+add_action('plugins_loaded', array('SeipEnqueue', 'init'));
 
