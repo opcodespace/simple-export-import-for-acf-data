@@ -15,7 +15,7 @@ class SeipEnqueue
         if($_GET['page'] === 'seip-simple-export-import'){
             wp_enqueue_style('chosen-style', SEIP_ASSETSURL . "add-on/chosen-js/chosen.min.css");
             // wp_enqueue_style('font-awesome', SEIP_ASSETSURL . "add-on/font-awesome/css/font-awesome.min.css");
-            wp_enqueue_style('bootstrap-css', SEIP_ASSETSURL . "add-on/bootstrap/bootstrap.min.css", false, '1.0.0');
+            wp_enqueue_style('bootstrap-css', SEIP_ASSETSURL . "add-on/bootstrap/bootstrap-wrapper.css", false, '1.0.0');
             wp_enqueue_style('multiselect-css', SEIP_ASSETSURL . "add-on/multiselect/bootstrap-multiselect.min.css", false, '1.0.0');
 
             wp_enqueue_style('main-style', SEIP_ASSETSURL . "add-on/style.css", array(), time());
