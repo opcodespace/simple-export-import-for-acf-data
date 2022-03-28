@@ -79,13 +79,24 @@
         <form action="<?= admin_url('/admin-post.php') ?>" method="post" enctype="multipart/form-data">
             <?php    wp_nonce_field('seip_option_import'); ?>
             <input type="hidden" name="action" value="seip_option_import">
-            <div class="form-group">
-                <label for="file" class="label_block">Upload File</label>
-                <input type="file" name="file" id="file">
-            </div>
-            <div>
-                <input type="submit" class="button button-primary" value="Import">
-            </div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label for="file" class="label_block">Upload File</label>
+                        </td>
+                        <td>
+                            <input type="file" name="file" id="file">
+                        </td>
+                    </tr>
+                    <tr>
+                         <td></td>
+                        <td>
+                           <input type="submit" class="button button-primary" value="Import"> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </form>
     </div>
 </div>
