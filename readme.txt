@@ -13,6 +13,58 @@ With this plugin you simply export and import page, post and custom post. This p
 == Description ==
 This "Simple Export Import for ACF Data" plugin is very helpful for developers who develop theme locally with ACF and deploy to live.
 
+ #Basic   
+        Text
+        Text Area
+        Number
+        Range
+        Email
+        Url
+        Password
+    
+    #Content
+       Image
+        File
+        Wysiwyg Editor
+        oEmbed
+        Typography
+        Gallery (Pro only)
+    
+    #Choice
+        Select
+        Checkbox
+        Radio Button
+        Button Group
+        True / False
+    
+    #Relational
+        Link
+        Post Object
+        Page Link
+        Relationship
+        Taxonomy
+        User
+  
+    #jQuery
+        Google Map
+       Date Picker
+        Date Time Picker
+       Time Picker
+        Color Picker
+    
+    #Layout
+        Message
+        Accordion
+        Tab
+        Group
+        Repeater (Pro only)
+        Flexible Content (Pro only)
+        Clone (Pro only)
+
+
+
+
+
 = Supported ACF fields in FREE Plugin =
 1. Basic
 * Text
