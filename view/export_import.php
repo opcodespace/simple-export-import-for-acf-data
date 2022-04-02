@@ -50,12 +50,16 @@
         <nav  class="nav-tab-wrapper">
             <a class="nav-tab <?= $tab === 'export' || empty($tab) ? 'nav-tab-active' : ''  ?>" href="<?= admin_url( 'options-general.php?page=seip-simple-export-import&tab=export' ) ?>">Export</a>
             <a class="nav-tab <?= $tab === 'import' ? 'nav-tab-active' : ''  ?>" href="<?= admin_url( 'options-general.php?page=seip-simple-export-import&tab=import' ) ?>">Import</a>
+            <a class="nav-tab <?= $tab === 'license' ? 'nav-tab-active' : ''  ?>" href="<?= admin_url( 'options-general.php?page=seip-simple-export-import&tab=license' ) ?>">License</a>
         </nav>
         <div class="tap-contet-wrapper">
             <?php
             switch($tab){
                 case 'import':
                 $path = '_import.php';
+                break;
+                case 'license':
+                $path = '_license.php';
                 break;
                 default:
                 $path = '_export.php';

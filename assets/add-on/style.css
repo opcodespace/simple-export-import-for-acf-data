@@ -1,3 +1,6 @@
+.bootstrap-wrapper{
+    overflow: hidden;
+}
 label{
     margin: 0;
 }
@@ -48,4 +51,42 @@ label{
 .export_import_wrapper .nav-tab-wrapper a.nav-tab {
     color: inherit;
     background-color: #e5e5e5;
+}
+
+.sidebar_box {
+    border: 1px solid #ccc;
+    margin-bottom: 30px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 3px 51px 0 rgba(0, 0, 0, 0.05);
+    margin: 20px 0;
+}
+.sidebar_ttl {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: left;
+}
+.sidebar_box_body {
+    padding: 10px;
+}
+.sidebar_box_body ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.sidebar_box_body ul li {
+    position: relative;
+    padding-left: 25px;
+    list-style: none;
+    font-size: 14px;
+    line-height: 20px;
+}
+.sidebar_box_body ul li span.li_icon{
+    color: #fe7e17;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
