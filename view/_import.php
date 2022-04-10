@@ -1,4 +1,7 @@
-<div class="bootstrap-wrapper">    
+<?php
+if ( ! defined( 'ABSPATH' ) ) {exit;}
+?>
+<div class="bootstrap-wrapper">
     <div class="error notice">
         <p><strong>Please keep your site backup before importing data.</strong></p>
     </div>
@@ -94,7 +97,7 @@
                             <tr>
                              <td></td>
                              <td>
-                               <input type="submit" class="button button-primary" value="Import"> 
+                               <input type="submit" class="button button-primary" value="Import">
                            </td>
                        </tr>
                    </tbody>

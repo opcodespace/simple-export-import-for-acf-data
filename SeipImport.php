@@ -82,6 +82,11 @@ if (!class_exists('SeipImport')) {
             }
 
             if ($settings['bulk_import']) {
+
+                if(!SeipOpcodespace::isPaid()){
+                    wp_send_json_error(['message' => 'You are using free plugin. Please upgrade to access this feature.']);
+                }
+
                 $post = get_posts([
                     'name' => $data['post_name'],
                     'post_type' => $settings['post_type']
@@ -160,8 +165,8 @@ if (!class_exists('SeipImport')) {
 
             wp_delete_file($movefile['file']);
 
-            // wp_redirect($_POST['_wp_http_referer']);
-            // exit();
+            wp_redirect($_POST['_wp_http_referer']);
+            exit();
         }
 
         public function mime_types($mimes)
@@ -195,6 +200,10 @@ if (!class_exists('SeipImport')) {
             $related_field = get_field_object($this->post_metas['_' . $key]);
 
             if (!$related_field) {
+                return $value;
+            }
+
+            if(!SeipOpcodespace::isPaid()){
                 return $value;
             }
 

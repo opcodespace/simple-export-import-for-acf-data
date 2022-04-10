@@ -1,3 +1,6 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {exit;}
+?>
 <style>
     .chosen-container-single .chosen-single {
         height: 30px;

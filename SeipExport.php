@@ -23,10 +23,12 @@ if (!class_exists('SeipExport')) {
                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
             }
 
-            ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
-
             $post_data = [];
             if(isset($_POST['bulk_export'])){
+                if(!SeipOpcodespace::isPaid()){
+                    wp_send_json_error(['message' => 'You are using free plugin. Please upgrade to access this feature.']);
+                }
+
                 foreach ($_POST['post_ids'] as $post_id) {
                     $post_data[] = $this->post_data($post_id);
                 }
@@ -77,6 +79,10 @@ if (!class_exists('SeipExport')) {
             if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'],
                     'seip_option_export') || !current_user_can('administrator')) {
                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
+            }
+
+            if(!SeipOpcodespace::isPaid()){
+                wp_send_json_error(['message' => 'You are using free plugin. Please upgrade to access this feature.']);
             }
 
             $options = get_fields('options');
@@ -145,6 +151,10 @@ if (!class_exists('SeipExport')) {
 
         private function get_value_based_on_field_type($field, $value)
         {
+            if(!SeipOpcodespace::isPaid()){
+                $value;
+            }
+
             if ($field['type'] === 'image') {
                 return $this->get_image_link($value);
             }

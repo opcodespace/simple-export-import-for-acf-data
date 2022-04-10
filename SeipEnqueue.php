@@ -1,5 +1,5 @@
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) {exit;}
 
 class SeipEnqueue
 {
@@ -25,14 +25,16 @@ class SeipEnqueue
             wp_enqueue_script('multiselect-js', SEIP_ASSETSURL . "add-on/multiselect/bootstrap-multiselect.min.js", array(), '1.0.0', true);
             wp_enqueue_script('bootstrap-js', SEIP_ASSETSURL . "add-on/chosen-js/chosen.jquery.min.js", array(), '1.0.0', true);
             wp_enqueue_script('admin-script', SEIP_ASSETSURL . "add-on/admin-script.js", array(), time(), true);
+
+
+            wp_localize_script(
+                'admin-script',
+                'frontend_form_object',
+                array(
+                    'ajaxurl' => admin_url('admin-ajax.php')
+                )
+            );
         }
 
-        // wp_localize_script(
-        //     'admin-script',
-        //     'frontend_form_object',
-        //     array(
-        //         'ajaxurl' => admin_url('admin-ajax.php')
-        //     )
-        // );
     }
 }

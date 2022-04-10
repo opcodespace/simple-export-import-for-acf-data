@@ -10,6 +10,7 @@ if(!class_exists('SeipFront')) {
             $self = new self;
             add_action( 'admin_menu', [$self, 'export_import'] );
             add_action('wp_ajax_seip_get_all_posts', [$self, 'seip_get_all_posts']);
+            add_action('wp_ajax_seip_save_license_key', [$self, 'seip_save_license_key']);
 
         }
 
@@ -56,6 +57,21 @@ if(!class_exists('SeipFront')) {
             }
 
             wp_send_json_success(['posts' => $sorted_posts]);
+        }
+
+        public function seip_save_license_key()
+        {
+            ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+
+            if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'seip_save_license_key' ) ) {
+                wp_send_json_error(['message' => 'You are not allowed to submit data.']);
+            }
+
+            $license_key = sanitize_text_field( $_POST['seip_license_key'] );
+
+            $SeipOpcodespace = new SeipOpcodespace($license_key);
+            $SeipOpcodespace->setSubscriptionStatus();
+
         }
     }
 }
