@@ -36,9 +36,9 @@ if(!class_exists('SeipFront')) {
 
         public function seip_get_all_posts()
         {
-            if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'seip_export' ) ) {
-                wp_send_json_error(['message' => 'You are not allowed to submit data.']);
-            }
+            // if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'seip_export' ) ) {
+            //     wp_send_json_error(['message' => 'You are not allowed to submit data.']);
+            // }
 
             $post_type = sanitize_text_field($_POST['post_type']);
 
