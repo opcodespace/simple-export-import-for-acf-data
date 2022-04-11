@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
                         <?php    wp_nonce_field('seip_import'); ?>
                         <input type="hidden" name="action" value="seip_import">
                         <div class="form-group">
-                            <input type="checkbox" id="bulk_import" name="bulk_import"><label for="bulk_import" class="checkbox_label">Bulk Import</label> <br>
-                            <small>(If slug is matched, update that post/page. Otherwise, it creates a new post.)</small>
+                            <input type="checkbox" id="bulk_import" name="bulk_import" <?= !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>><label for="bulk_import" class="checkbox_label" >Bulk Import</label> <br>
+                            <small><?= !SeipOpcodespace::isPaid() ? '(This if for paid user)' : '(If slug is matched, update that post/page. Otherwise, it creates a new post.)' ?></small>
                         </div>
                         <div class="block_imports">
                             <table>
@@ -91,13 +91,14 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
                                     <label for="file" class="label_block">Upload File</label>
                                 </td>
                                 <td>
-                                    <input type="file" name="file" id="file">
+                                    <input type="file" name="file" id="file" <?= !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>>
                                 </td>
                             </tr>
                             <tr>
                              <td></td>
                              <td>
-                               <input type="submit" class="button button-primary" value="Import">
+                               <input type="submit" class="button button-primary" value="Import" <?= !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>>
+                               <?= !SeipOpcodespace::isPaid() ? '(This if for paid user)' : '' ?>
                            </td>
                        </tr>
                    </tbody>

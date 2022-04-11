@@ -69,6 +69,8 @@ if(!class_exists('SeipFront')) {
 
             $license_key = sanitize_text_field( $_POST['seip_license_key'] );
 
+            update_option('seip_license_key', $license_key);
+
             $SeipOpcodespace = new SeipOpcodespace($license_key);
             $SeipOpcodespace->setSubscriptionStatus();
 
