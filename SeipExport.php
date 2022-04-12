@@ -38,7 +38,6 @@ if (!class_exists('SeipExport')) {
                 $post_data[] = $this->post_data($post_id);
             }
 
-
             $data = json_encode($post_data);
 
             $json_file_name = 'post-export-'.date('y-m-d').'.json';
@@ -130,17 +129,12 @@ if (!class_exists('SeipExport')) {
                 return $value;
             }
 
-            $field = get_field_object($value);
-
-            if (!$field) {
-                return $value;
-            }
-
             if (!isset($this->post_metas['_'.$key][0]) || empty($this->post_metas['_'.$key][0])) {
                 return $value;
             }
 
             $related_field = get_field_object($this->post_metas['_'.$key][0]);
+
 
             if (!$related_field) {
                 return $value;
@@ -157,6 +151,14 @@ if (!class_exists('SeipExport')) {
 
             if ($field['type'] === 'image') {
                 return $this->get_image_link($value);
+            }
+
+            if ($field['type'] === 'gallery') {
+                $image_links = [];
+                foreach(maybe_unserialize( $value ) as $attach_id){
+                    $image_links[] = $this->get_image_link($attach_id);
+                }
+                return maybe_serialize( $image_links );
             }
 
             return $value;

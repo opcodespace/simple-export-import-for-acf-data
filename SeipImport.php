@@ -54,7 +54,7 @@ if (!class_exists('SeipImport')) {
             //     wp_send_json_error(['message' => "This file is not supported"]);
             // }
 
-            $content = wp_json_file_decode($movefile['file'], ['associative' => true]);
+            $posts = wp_json_file_decode($movefile['file'], ['associative' => true]);
 
             if (empty($posts)) {
                 wp_send_json_error(['message' => "File is empty"]);
@@ -65,6 +65,9 @@ if (!class_exists('SeipImport')) {
             }
 
             wp_delete_file($movefile['file']);
+
+            wp_redirect( $_POST['_wp_http_referer'] );
+            exit();
         }
 
         private function post_data($data, $settings)
@@ -125,7 +128,7 @@ if (!class_exists('SeipImport')) {
             if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(
                 $_POST['_wpnonce'],
                 'seip_option_import'
-            ) || !current_user_can('administrator')) {
+            ) || !current_user_can(['administrator', 'editor'])) {
                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
             }
 
@@ -141,9 +144,11 @@ if (!class_exists('SeipImport')) {
 
             $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
 
+
             if (!$movefile || isset($movefile['error'])) {
                 wp_send_json_success(['message' => $movefile['error']]);
             }
+
 
             // if ($movefile['type'] !== 'application/json') {
             //     wp_send_json_error(['message' => "This file is not supported"]);
@@ -172,7 +177,11 @@ if (!class_exists('SeipImport')) {
         public function mime_types($mimes)
         {
             // $mimes['json'] = 'application/json';
-            $mimes['json'] = 'text/plain';
+            // if(current_user_can(['administrator', 'editor'])){
+                // $mimes['json'] = 'text/plain';
+                $mimes['json'] = 'application/json';
+            // }
+
             return $mimes;
         }
 
@@ -184,12 +193,6 @@ if (!class_exists('SeipImport')) {
         public function get_field_value($key, $value)
         {
             if(!function_exists('get_field_object')){
-                return $value;
-            }
-
-            $field = get_field_object($value);
-
-            if ($field) {
                 return $value;
             }
 
@@ -216,6 +219,18 @@ if (!class_exists('SeipImport')) {
                 return maybe_unserialize($value);
             }
 
+            if ($related_field['type'] === 'gallery') {
+                $images = maybe_unserialize($value);
+
+                $new_images = [];
+                foreach ($images as $image) {
+                    $upload = $this->download($image);
+                    $new_images[] = $this->attach($upload);
+                }
+
+                return $new_images;
+            }
+
             return $value;
         }
 
@@ -233,6 +248,7 @@ if (!class_exists('SeipImport')) {
                     'filename' => basename($value)
                 )
             );
+
 
             $response_code = wp_remote_retrieve_response_code($response);
             $content       = wp_remote_retrieve_body($response);
