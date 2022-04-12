@@ -54,7 +54,17 @@ if (!class_exists('SeipImport')) {
             //     wp_send_json_error(['message' => "This file is not supported"]);
             // }
 
-            $posts = wp_json_file_decode($movefile['file'], ['associative' => true]);
+            if(function_exists('wp_json_file_decode')){
+                $posts = wp_json_file_decode($movefile['file'], ['associative' => true]);
+            }
+            else{
+                $content = file_get_contents($movefile['file']);
+                if (empty($content)) {
+                    wp_send_json_error(['message' => "File is empty"]);
+                }
+                $posts = json_decode($content, 1);
+            }
+
 
             if (empty($posts)) {
                 wp_send_json_error(['message' => "File is empty"]);
@@ -150,19 +160,16 @@ if (!class_exists('SeipImport')) {
             }
 
 
-            // if ($movefile['type'] !== 'application/json') {
-            //     wp_send_json_error(['message' => "This file is not supported"]);
-            // }
-
-            $content = file_get_contents($movefile['file']);
-
-            if (empty($content)) {
-                wp_send_json_error(['message' => "File is empty"]);
+            if(function_exists('wp_json_file_decode')){
+                $data = wp_json_file_decode($movefile['file'], ['associative' => true]);
             }
-
-            $data = json_decode($content, 1);
-            print_r($data);
-
+            else{
+                $content = file_get_contents($movefile['file']);
+                if (empty($content)) {
+                    wp_send_json_error(['message' => "File is empty"]);
+                }
+                $data = json_decode($content, 1);
+            }
 
             foreach ($data['options'] as $key => $value) {
                 update_field($key, $value, 'option');
