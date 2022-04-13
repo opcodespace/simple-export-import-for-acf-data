@@ -114,6 +114,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
      $('#export_mulit_pages').multiselect({
         includeSelectAllOption: true,
         buttonTextAlignment: 'left',
+        maxHeight: 200,
         enableFiltering: true
     });
 

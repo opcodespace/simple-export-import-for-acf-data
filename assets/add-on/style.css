@@ -90,3 +90,9 @@ label{
     left: 0;
     top: 0;
 }
+
+.multiselect-container.dropdown-menu.show{
+    transform: inherit !important;
+    max-height: 200px !important;
+    overflow-y: scroll !important;
+}
