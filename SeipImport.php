@@ -16,6 +16,41 @@ if (!class_exists('SeipImport')) {
             add_filter('upload_mimes', [$self, 'mime_types']);
         }
 
+        public function upload()
+        {
+            if( empty($_FILES['file']['size']) ) {
+                wp_send_json_error(['message' => __('No file selected', 'simple-export-import-for-acf-data')]);
+            }
+
+            $file = $_FILES['file'];
+
+            if( $file['error'] ) {
+                wp_send_json_error(['message' => __('Error uploading file. Please try again', 'simple-export-import-for-acf-data')]);
+            }
+
+            if( pathinfo($file['name'], PATHINFO_EXTENSION) !== 'json' ) {
+                wp_send_json_error(['message' => __('Incorrect file type', 'simple-export-import-for-acf-data')]);
+            }
+
+            if(function_exists('wp_json_file_decode')){
+                $posts = wp_json_file_decode($file['tmp_name'], ['associative' => true]);
+            }
+            else{
+                $content = file_get_contents($file['tmp_name']);
+                if (empty($content)) {
+                    wp_send_json_error(['message' => "File is empty"]);
+                }
+                $posts = json_decode($content, 1);
+            }
+
+            if( !$posts || !is_array($posts) ) {
+                wp_send_json_error(['message' => __('Import file empty', 'simple-export-import-for-acf-data')]);
+            }
+
+            return $posts;
+
+        }
+
         public function seip_import()
         {
             if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(
@@ -34,47 +69,47 @@ if (!class_exists('SeipImport')) {
                 'post_type' => sanitize_text_field($_POST['post_type'])
             ];
 
-            if (!function_exists('wp_handle_upload')) {
-                require_once(ABSPATH . 'wp-admin/includes/file.php');
-            }
-
-            $uploadedfile = $_FILES['file'];
-
-            $upload_overrides = array(
-                'test_form' => false
-            );
-
-            $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
-
-            if (!$movefile || isset($movefile['error'])) {
-                wp_send_json_success(['message' => $movefile['error']]);
-            }
+//            if (!function_exists('wp_handle_upload')) {
+//                require_once(ABSPATH . 'wp-admin/includes/file.php');
+//            }
+//
+//            $uploadedfile = $_FILES['file'];
+//
+//            $upload_overrides = array(
+//                'test_form' => false
+//            );
+//
+//            $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
+//
+//            if (!$movefile || isset($movefile['error'])) {
+//                wp_send_json_success(['message' => $movefile['error']]);
+//            }
 
             // if ($movefile['type'] !== 'application/json') {
             //     wp_send_json_error(['message' => "This file is not supported"]);
             // }
 
-            if(function_exists('wp_json_file_decode')){
-                $posts = wp_json_file_decode($movefile['file'], ['associative' => true]);
-            }
-            else{
-                $content = file_get_contents($movefile['file']);
-                if (empty($content)) {
-                    wp_send_json_error(['message' => "File is empty"]);
-                }
-                $posts = json_decode($content, 1);
-            }
+//            if(function_exists('wp_json_file_decode')){
+//                $posts = wp_json_file_decode($movefile['file'], ['associative' => true]);
+//            }
+//            else{
+//                $content = file_get_contents($movefile['file']);
+//                if (empty($content)) {
+//                    wp_send_json_error(['message' => "File is empty"]);
+//                }
+//                $posts = json_decode($content, 1);
+//            }
+//
+//
+//            if (empty($posts)) {
+//                wp_send_json_error(['message' => "File is empty"]);
+//            }
 
-
-            if (empty($posts)) {
-                wp_send_json_error(['message' => "File is empty"]);
-            }
+            $posts = $this->upload();
 
             foreach ($posts as $post) {
                 $this->post_data($post, $settings);
             }
-
-            wp_delete_file($movefile['file']);
 
             wp_redirect( $_POST['_wp_http_referer'] );
             exit();
@@ -142,40 +177,40 @@ if (!class_exists('SeipImport')) {
                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
             }
 
-            if (!function_exists('wp_handle_upload')) {
-                require_once(ABSPATH . 'wp-admin/includes/file.php');
-            }
+//            if (!function_exists('wp_handle_upload')) {
+//                require_once(ABSPATH . 'wp-admin/includes/file.php');
+//            }
 
-            $uploadedfile = $_FILES['file'];
+//            $uploadedfile = $_FILES['file'];
+//
+//            $upload_overrides = array(
+//                'test_form' => false
+//            );
+//
+//            $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
+//
+//
+//            if (!$movefile || isset($movefile['error'])) {
+//                wp_send_json_success(['message' => $movefile['error']]);
+//            }
+//
+//
+//            if(function_exists('wp_json_file_decode')){
+//                $data = wp_json_file_decode($movefile['file'], ['associative' => true]);
+//            }
+//            else{
+//                $content = file_get_contents($movefile['file']);
+//                if (empty($content)) {
+//                    wp_send_json_error(['message' => "File is empty"]);
+//                }
+//                $data = json_decode($content, 1);
+//            }
 
-            $upload_overrides = array(
-                'test_form' => false
-            );
-
-            $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
-
-
-            if (!$movefile || isset($movefile['error'])) {
-                wp_send_json_success(['message' => $movefile['error']]);
-            }
-
-
-            if(function_exists('wp_json_file_decode')){
-                $data = wp_json_file_decode($movefile['file'], ['associative' => true]);
-            }
-            else{
-                $content = file_get_contents($movefile['file']);
-                if (empty($content)) {
-                    wp_send_json_error(['message' => "File is empty"]);
-                }
-                $data = json_decode($content, 1);
-            }
+            $data = $this->upload();
 
             foreach ($data['options'] as $key => $value) {
                 update_field($key, $value, 'option');
             }
-
-            wp_delete_file($movefile['file']);
 
             wp_redirect($_POST['_wp_http_referer']);
             exit();
