@@ -8,11 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 			<div class="card">
 				<h4>Export Page/Post</h4>
 				<div class="export-form-wrapper">
-					<form action="<?= admin_url('/admin-post.php') ?>" method="post">
+					<form action="<?php echo esc_url(admin_url('/admin-post.php')) ?>" method="post">
 						<?php    wp_nonce_field('seip_export'); ?>
 						<input type="hidden" name="action" value="seip_export">
 						<div class="form-group">
-							<input type="checkbox" id="bulk_export" name="bulk_export" <?= !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>><label class="checkbox_label" for="bulk_export">Bulk Export <?= !SeipOpcodespace::isPaid() ? '(This is for paid user)' : '' ?></label>
+							<input type="checkbox" id="bulk_export" name="bulk_export" <?php echo !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>><label class="checkbox_label" for="bulk_export">Bulk Export <?php echo !SeipOpcodespace::isPaid() ? '(This is for paid user)' : '' ?></label>
 						</div>
 						<div class="block_exports">
 							<table>
@@ -24,7 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 										<select name="post_type" class="chosen-select">
 											<option value="">Please Select Type</option>
 											<?php foreach(get_post_types([], 'objects') as $post_type):
-												echo "<option value='{$post_type->name}'>{$post_type->label}</option>";
+                                                ?>
+												<option value='<?php echo esc_attr($post_type->name) ?>'><?php echo esc_attr($post_type->label) ?></option>
+                                            <?php
 											endforeach;
 											?>
 										</select>
@@ -62,12 +64,12 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 			<div class="card">
 				<h4>Export Options</h4>
 				<div class="export-form-wrapper">
-					<form action="<?= admin_url('/admin-post.php') ?>" method="post">
+					<form action="<?php echo esc_url(admin_url('/admin-post.php')) ?>" method="post">
 						<?php    wp_nonce_field('seip_option_export'); ?>
 						<input type="hidden" name="action" value="seip_option_export">
 						<div>
-							<input type="submit" class="button button-primary" value="Export" <?= !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>>
-							<?= !SeipOpcodespace::isPaid() ? '(This is for paid user)' : '' ?>
+							<input type="submit" class="button button-primary" value="Export" <?php echo !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>>
+							<?php echo !SeipOpcodespace::isPaid() ? '(This is for paid user)' : '' ?>
 						</div>
 					</form>
 				</div>

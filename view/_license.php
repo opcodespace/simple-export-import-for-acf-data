@@ -6,26 +6,15 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 		<div class="col-md-4">
 			<div class="card">
 				 <h4>License Key</h4>
+                <div class="license_wrapper">
+                <input type="password" class="form-control" value="<?php echo esc_attr(get_option('seip_license_key')) ?>" name="seip_license_key">
+                <input type="submit" class="button button-primary save-license-key" value="Save">
+                <div class="alert"></div>
 				 <?php
 				 wp_nonce_field( 'seip_save_license_key');
 				 ?>
-				 <div class="license_wrapper">
-				 	<table>
-				 		<tbody>
-				 			<tr>
-				 				<td><label class="label_block">Type</label></td>
-				 				<td>
-				 					<input type="password" class="form-control" value="<?= get_option('seip_license_key') ?>" name="seip_license_key">
-				 				</td>
-				 			</tr>
-				 			<tr>
-				 				<td></td>
-				 				<td><input type="submit" class="button button-primary save-license-key" value="Save"></td>
-				 			</tr>
-							 <div class="alert"></div>
-				 		</tbody>
-				 	</table>
-				 </div>
+                </div>
+
 			</div>
 		</div>
 	</div>

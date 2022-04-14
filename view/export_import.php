@@ -24,6 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
         margin-bottom: 10px;
         display: block;
     }
+    .export_import_wrapper{
+        margin-top: 30px;
+    }
     /* Tablet Layout: 768px. */
     @media only screen and (min-width: 768px) and (max-width: 991px) {
         select {
@@ -43,17 +46,14 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 
     }
 </style>
-
-
-
 <div class="bootstrap-wrapper">
     <div class="export_import_wrapper">
-        <h2 class="main_title">Simple ACF Data Export Import</h2>
+        <h5 class="main_title">Simple Export Import for ACF Data</h5>
         <?php $tab = sanitize_text_field( $_GET['tab'] ) ?>
         <nav  class="nav-tab-wrapper">
-            <a class="nav-tab <?= $tab === 'export' || empty($tab) ? 'nav-tab-active' : ''  ?>" href="<?= admin_url( 'options-general.php?page=seip-simple-export-import&tab=export' ) ?>">Export</a>
-            <a class="nav-tab <?= $tab === 'import' ? 'nav-tab-active' : ''  ?>" href="<?= admin_url( 'options-general.php?page=seip-simple-export-import&tab=import' ) ?>">Import</a>
-            <a class="nav-tab <?= $tab === 'license' ? 'nav-tab-active' : ''  ?>" href="<?= admin_url( 'options-general.php?page=seip-simple-export-import&tab=license' ) ?>">License</a>
+            <a class="nav-tab <?php echo $tab === 'export' || empty($tab) ? 'nav-tab-active' : ''  ?>" href="<?php echo esc_url(admin_url( 'options-general.php?page=seip-simple-export-import&tab=export' )) ?>">Export</a>
+            <a class="nav-tab <?php echo $tab === 'import' ? 'nav-tab-active' : ''  ?>" href="<?php echo esc_url(admin_url( 'options-general.php?page=seip-simple-export-import&tab=import' )) ?>">Import</a>
+            <a class="nav-tab <?php echo $tab === 'license' ? 'nav-tab-active' : ''  ?>" href="<?php echo  esc_url(admin_url( 'options-general.php?page=seip-simple-export-import&tab=license' )) ?>">License</a>
         </nav>
         <div class="tap-contet-wrapper">
             <?php
@@ -122,7 +122,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
         let _this_parent = $(this).parents('form');
         $.ajax({
           method: "POST",
-          url: "<?=admin_url('/admin-ajax.php'); ?>",
+          url: "<?php echo esc_url(admin_url('/admin-ajax.php')); ?>",
           data: { action: "seip_get_all_posts", post_type: $(this).val(), _wpnonce: $('#_wpnonce').val()}
       })
         .done(function( response ) {
