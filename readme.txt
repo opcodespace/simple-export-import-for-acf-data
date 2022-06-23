@@ -11,7 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 With this plugin you simply export and import page, post and custom post. This plugin supports ACF fields.
 
 == Description ==
-This "Simple Export Import for ACF Data" plugin is very helpful for developers who develop theme locally with ACF and deploy to live.
+This "Simple Export Import for ACF Data" plugin is very helpful for developers who develop theme in staging website with ACF and deploy to live.
 
 = Supported ACF fields in FREE Plugin =
 * Text
@@ -41,11 +41,18 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 * Bulk Export/Import
 * ACF Options
 
+[Simple Export Import PRO for ACF](https://opcodespace.com/product/simple-export-import-pro-for-acf/)
+[Simple Export Import PRO for ACF – Unlimited](https://opcodespace.com/product/simple-export-import-pro-for-acf-unlimited/)
+
+**Notes:** Image, Gallery will work if your website is public. From localhost to live website will not work as localhost is not publicly accessable. If you can set your website public, image, gallery fields will work.
+
+*If you want new features or have bug, please send an email to mehedee@opcodespace.com or send a request [here](https://opcodespace.com/contact-us/)*
+
 = Privacy Policy =
 We are not disclosing or storing any data outside your website. Moreover, we are not storing data in browser cookie as well. So, it is safe to use. While you insert License key, we are storing only your domain in our system.
 
 = Terms & Condition =
-We strongly recommend that you should keep your website backup before importing data. If your site get broken due to importing data or using this plugin, we cannot compensate or fix your site. While you are using this plugin, you agree to these terms & condition.
+We strongly recommend that you should keep your website backup before importing data. If your site get broken due to importing data or using this plugin, we cannot compensate or fix your site. This plugin depends on [Adavnced Custom Fields plugin](https://www.advancedcustomfields.com/). If ACF updates its field structure, it could be affected.  If ACF gets terminated, "Simple export import for ACF data" will be terminated. While you are using this plugin, you agree to these terms & condition.
 
 
 == Installation ==
@@ -64,3 +71,5 @@ e.g.
 Yes, free plugin is supporting many fields including repeater, groups. Please see description in details.
 
 == Screenshots ==
+1. Export
+2. Import
