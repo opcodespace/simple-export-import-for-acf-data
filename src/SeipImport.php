@@ -66,42 +66,6 @@ if (!class_exists('SeipImport')) {
                 'post_type' => sanitize_text_field($_POST['post_type'])
             ];
 
-            //            if (!function_exists('wp_handle_upload')) {
-            //                require_once(ABSPATH . 'wp-admin/includes/file.php');
-            //            }
-            //
-            //            $uploadedfile = $_FILES['file'];
-            //
-            //            $upload_overrides = array(
-            //                'test_form' => false
-            //            );
-            //
-            //            $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
-            //
-            //            if (!$movefile || isset($movefile['error'])) {
-            //                wp_send_json_success(['message' => $movefile['error']]);
-            //            }
-
-            // if ($movefile['type'] !== 'application/json') {
-            //     wp_send_json_error(['message' => "This file is not supported"]);
-            // }
-
-            //            if(function_exists('wp_json_file_decode')){
-            //                $posts = wp_json_file_decode($movefile['file'], ['associative' => true]);
-            //            }
-            //            else{
-            //                $content = file_get_contents($movefile['file']);
-            //                if (empty($content)) {
-            //                    wp_send_json_error(['message' => "File is empty"]);
-            //                }
-            //                $posts = json_decode($content, 1);
-            //            }
-            //
-            //
-            //            if (empty($posts)) {
-            //                wp_send_json_error(['message' => "File is empty"]);
-            //            }
-
             $posts = $this->upload();
 
             foreach ($posts as $post) {
@@ -134,6 +98,9 @@ if (!class_exists('SeipImport')) {
 
             $post_data = [
                 'post_content' => wp_kses_post($data['post_content']),
+                'post_status'  => sanitize_text_field($data['post_status']),
+                'post_excerpt' => sanitize_textarea_field($data['post_excerpt']),
+                'post_password' => sanitize_text_field($data['post_password']),
             ];
 
             if ($settings['update_post_page_ttl']) {
@@ -182,6 +149,13 @@ if (!class_exists('SeipImport')) {
 
             foreach ($data['metas'] as $key => $value) {
                 update_post_meta($post_id, $key, $this->get_field_value($key, $value));
+            }
+
+            # Adding Featured image
+            $featured_image = sanitize_url($data['featured_image']);
+            if (!empty($featured_image)) {
+                $upload = $this->download($featured_image);
+                $this->set_featured_image($post_id, $upload);
             }
         }
 
@@ -258,6 +232,7 @@ if (!class_exists('SeipImport')) {
             }
 
             $upload = wp_upload_bits(basename($value), null, $content);
+
             if (!empty($upload['error'])) {
                 return false;
             }
@@ -278,6 +253,22 @@ if (!class_exists('SeipImport')) {
                 'post_content'   => '',
             );
             return wp_insert_attachment($attachment, $upload['file']);
+        }
+
+        /**
+         * @param $upload
+         * @param $post
+         * @return int|WP_Error
+         */
+        protected function set_featured_image($post, $upload)
+        {
+            $attachment_id = $this->attach($upload);
+
+            if (is_wp_error($attachment_id)) {
+                return $attachment_id;
+            }
+
+            return set_post_thumbnail($post, $attachment_id);
         }
     }
 }

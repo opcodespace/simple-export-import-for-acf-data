@@ -4,7 +4,7 @@ Tags: Export, Import, Page, Post, Custom Post Type, ACF, Advanced custom field
 Requires at least: 5.4.0
 Tested up to: 5.9.3
 Requires PHP: 7.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,6 +12,12 @@ With this plugin you simply export and import page, post and custom post. This p
 
 == Description ==
 This "Simple Export Import for ACF Data" plugin is very helpful for developers who develop theme in staging website with ACF and deploy to live.
+
+= Supported Post/Page data in FREE Plugin =
+* Title
+* Slug
+* Content (Just copy editor content. It does not export, import files or images which are in post content )
+* Featured Image
 
 = Supported ACF fields in FREE Plugin =
 * Text
@@ -77,3 +83,6 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 == Changelog ==
 = 1.0.1 =
 * **Bug Fix: ** Bulk Export
+
+= 1.0.2 =
+* **New: ** Featured Image added

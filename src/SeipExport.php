@@ -71,7 +71,9 @@ if (!class_exists('SeipExport')) {
                 'post_status'  => $post->post_status,
                 'post_excerpt' => $post->post_excerpt,
                 'post_password' => $post->post_password,
-                'metas'        => $sorted_metas
+                'featured_image' => get_the_post_thumbnail_url($post, 'full'),
+                'metas'        => $sorted_metas,
+
             ];
         }
 
