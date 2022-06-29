@@ -1,8 +1,25 @@
-.bootstrap-wrapper{
-    overflow: hidden;
+.export_import_wrapper .vscomp-wrapper.has-select-all .vscomp-search-input{
+    border: none;
 }
-label{
+.export_import_wrapper .vscomp-wrapper.has-select-all .vscomp-search-input:focus{
+    box-shadow: none;
+}
+.export_import_wrapper .vscomp-wrapper .checkbox-icon.checked::after,
+.export_import_wrapper .vscomp-wrapper.multiple .vscomp-option.selected .checkbox-icon::after {
+    border-color: #2271b1;
+    border-left-color: rgba(0,0,0,0);
+    border-top-color: rgba(0,0,0,0)
+}
+.export_import_wrapper label{
     margin: 0;
+}
+.export_import_wrapper .vscomp-ele {
+    min-width: 250px;
+}
+.export_import_wrapper .vscomp-toggle-button {
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    height: 30px;
 }
 .form-group {
     margin-bottom: 15px;
