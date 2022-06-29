@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
                             <input type="checkbox" id="bulk_import"
                                    name="bulk_import" <?php echo !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>><label
                                     for="bulk_import" class="checkbox_label">Bulk Import</label> <br>
-                            <small><?php echo !SeipOpcodespace::isPaid() ? '(This is for paid user)' : '(If slug is matched, update that post/page. Otherwise, it creates a new post.)' ?></small>
+                            <small><?php echo !SeipOpcodespace::isPaid() ? '(This is for paid user)' : '(If slug is matched, it will update that post/page. Otherwise, it creates a new post.)' ?></small>
                         </div>
                         <div class="block_imports">
                             <table>

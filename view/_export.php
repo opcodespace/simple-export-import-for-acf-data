@@ -47,24 +47,15 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 									<label class="label_block">Posts/Pages</label>
 								</td>
 								<td>
-									<select id="export_mulit_pages" name="post_ids[]">
-										<option value="Optioin1">Optioin 1</option>
-										<option value="Optioin2">Optioin 2</option>
-										<option value="Optioin3">Optioin 3</option>
-										<option value="Optioin4">Optioin 4</option>
-										<option value="Optioin5">Optioin 5</option>
-										<option value="Optioin6">Optioin 6</option>
-										<option value="Optioin6">Optioin 6</option>
-										<option value="Optioin6">Optioin 6</option>
-										<option value="Optioin6">Optioin 6</option>
-										<option value="Optioin6">Optioin 6</option>
-										<option value="Optioin6">Optioin 6</option>
-										<option value="Optioin6">Optioin 6</option>
-										<option value="Optioin6">Optioin 6</option>
-										<option value="Optioin6">Optioin 6</option>
-										<option value="Optioin6">Optioin 6</option>
-										<option value="Optioin6">Optioin 6</option>
-									</select>
+									<div id="export_mulit_pages"
+									multiple
+									placeholder="Select page/post"
+									name="post_ids"
+									autofocus
+									>
+
+									</div>
+
 								</td>
 							</tr>
 						</table>

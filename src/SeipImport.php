@@ -17,24 +17,23 @@ if (!class_exists('SeipImport')) {
 
         public function upload()
         {
-            if( empty($_FILES['file']['size']) ) {
+            if (empty($_FILES['file']['size'])) {
                 seip_notices_with_redirect('msg1', __('No file selected', 'simple-export-import-for-acf-data'), 'success');
             }
 
             $file = $_FILES['file'];
 
-            if( $file['error'] ) {
+            if ($file['error']) {
                 seip_notices_with_redirect('msg1', __('Error uploading file. Please try again', 'simple-export-import-for-acf-data'), 'success');
             }
 
-            if( pathinfo($file['name'], PATHINFO_EXTENSION) !== 'json' ) {
+            if (pathinfo($file['name'], PATHINFO_EXTENSION) !== 'json') {
                 seip_notices_with_redirect('msg1', __('Incorrect file type', 'simple-export-import-for-acf-data'), 'success');
             }
 
-            if(function_exists('wp_json_file_decode')){
+            if (function_exists('wp_json_file_decode')) {
                 $posts = wp_json_file_decode($file['tmp_name'], ['associative' => true]);
-            }
-            else{
+            } else {
                 $content = file_get_contents($file['tmp_name']);
                 if (empty($content)) {
                     wp_send_json_error(['message' => "File is empty"]);
@@ -42,12 +41,11 @@ if (!class_exists('SeipImport')) {
                 $posts = json_decode($content, 1);
             }
 
-            if( !$posts || !is_array($posts) ) {
+            if (!$posts || !is_array($posts)) {
                 seip_notices_with_redirect('msg1', __('Import file empty', 'simple-export-import-for-acf-data'), 'success');
             }
 
             return $posts;
-
         }
 
         public function seip_import()
@@ -68,41 +66,41 @@ if (!class_exists('SeipImport')) {
                 'post_type' => sanitize_text_field($_POST['post_type'])
             ];
 
-//            if (!function_exists('wp_handle_upload')) {
-//                require_once(ABSPATH . 'wp-admin/includes/file.php');
-//            }
-//
-//            $uploadedfile = $_FILES['file'];
-//
-//            $upload_overrides = array(
-//                'test_form' => false
-//            );
-//
-//            $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
-//
-//            if (!$movefile || isset($movefile['error'])) {
-//                wp_send_json_success(['message' => $movefile['error']]);
-//            }
+            //            if (!function_exists('wp_handle_upload')) {
+            //                require_once(ABSPATH . 'wp-admin/includes/file.php');
+            //            }
+            //
+            //            $uploadedfile = $_FILES['file'];
+            //
+            //            $upload_overrides = array(
+            //                'test_form' => false
+            //            );
+            //
+            //            $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
+            //
+            //            if (!$movefile || isset($movefile['error'])) {
+            //                wp_send_json_success(['message' => $movefile['error']]);
+            //            }
 
             // if ($movefile['type'] !== 'application/json') {
             //     wp_send_json_error(['message' => "This file is not supported"]);
             // }
 
-//            if(function_exists('wp_json_file_decode')){
-//                $posts = wp_json_file_decode($movefile['file'], ['associative' => true]);
-//            }
-//            else{
-//                $content = file_get_contents($movefile['file']);
-//                if (empty($content)) {
-//                    wp_send_json_error(['message' => "File is empty"]);
-//                }
-//                $posts = json_decode($content, 1);
-//            }
-//
-//
-//            if (empty($posts)) {
-//                wp_send_json_error(['message' => "File is empty"]);
-//            }
+            //            if(function_exists('wp_json_file_decode')){
+            //                $posts = wp_json_file_decode($movefile['file'], ['associative' => true]);
+            //            }
+            //            else{
+            //                $content = file_get_contents($movefile['file']);
+            //                if (empty($content)) {
+            //                    wp_send_json_error(['message' => "File is empty"]);
+            //                }
+            //                $posts = json_decode($content, 1);
+            //            }
+            //
+            //
+            //            if (empty($posts)) {
+            //                wp_send_json_error(['message' => "File is empty"]);
+            //            }
 
             $posts = $this->upload();
 
@@ -111,15 +109,14 @@ if (!class_exists('SeipImport')) {
             }
 
             seip_notices_with_redirect('msg1', 'Successfully imported', 'success');
-
         }
 
         public function seip_import_options()
         {
             if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(
-                    $_POST['_wpnonce'],
-                    'seip_option_import'
-                ) || (!current_user_can('administrator') && !current_user_can('editor'))) {
+                $_POST['_wpnonce'],
+                'seip_option_import'
+            ) || (!current_user_can('administrator') && !current_user_can('editor'))) {
                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
             }
 
@@ -130,7 +127,6 @@ if (!class_exists('SeipImport')) {
             }
 
             seip_notices_with_redirect('msg1', 'Successfully imported', 'success');
-
         }
 
         private function post_data($data, $settings)
@@ -140,16 +136,16 @@ if (!class_exists('SeipImport')) {
                 'post_content' => wp_kses_post($data['post_content']),
             ];
 
-            if($settings['update_post_page_ttl']){
+            if ($settings['update_post_page_ttl']) {
                 $post_data['post_title'] = sanitize_text_field($data['post_title']);
             }
-            if($settings['update_post_page_slug']){
+            if ($settings['update_post_page_slug']) {
                 $post_data['post_name'] = sanitize_title($data['post_name']);
             }
 
             if ($settings['bulk_import']) {
 
-                if(!SeipOpcodespace::isPaid()){
+                if (!SeipOpcodespace::isPaid()) {
                     wp_send_json_error(['message' => 'You are using free plugin. Please upgrade to access this feature.']);
                 }
 
@@ -158,19 +154,22 @@ if (!class_exists('SeipImport')) {
                     'post_type' => sanitize_text_field($settings['post_type'])
                 ]);
 
-                if(empty($post)){
-                    $post_id = wp_insert_post( [
+                if (empty($post)) {
+                    $primary_data = [
                         'post_content' => wp_kses_post($data['post_content']),
                         'post_title'   => sanitize_text_field($data['post_title']),
-                    ] );
-                }
-                else{
+                        'post_status'  => sanitize_text_field($data['post_status']),
+                        'post_excerpt' => sanitize_textarea_field($data['post_excerpt']),
+                        'post_password' => sanitize_text_field($data['post_password']),
+                    ];
+
+                    $post_id = wp_insert_post($primary_data);
+                } else {
                     $post_id = $post[0]->ID;
                     $post_data['ID'] = $post_id;
                     wp_update_post($post_data);
                 }
-            }
-            else{
+            } else {
                 $post_id = (int)$settings['single_post_id'];
                 $post_data['ID'] = $post_id;
 
@@ -193,7 +192,7 @@ if (!class_exists('SeipImport')) {
          */
         public function get_field_value($key, $value)
         {
-            if(!function_exists('get_field_object')){
+            if (!function_exists('get_field_object')) {
                 return $value;
             }
 
@@ -207,7 +206,7 @@ if (!class_exists('SeipImport')) {
                 return $value;
             }
 
-            if(!SeipOpcodespace::isPaid()){
+            if (!SeipOpcodespace::isPaid()) {
                 return $value;
             }
 

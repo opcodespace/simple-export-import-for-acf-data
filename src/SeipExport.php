@@ -18,38 +18,37 @@ if (!class_exists('SeipExport')) {
         public function seip_export()
         {
 
-            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'],
-                    'seip_export') || (!current_user_can('administrator') && !current_user_can('editor'))) {
+            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(
+                $_POST['_wpnonce'],
+                'seip_export'
+            ) || (!current_user_can('administrator') && !current_user_can('editor'))) {
                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
             }
 
             $post_data = [];
-            if(isset($_POST['bulk_export'])){
-                if(!SeipOpcodespace::isPaid()){
+            if (isset($_POST['bulk_export'])) {
+                if (!SeipOpcodespace::isPaid()) {
                     seip_notices_with_redirect('msg1', __('You are using free plugin. Please upgrade to access this feature.', 'simple-export-import-for-acf-data'), 'error');
-
                 }
 
-                foreach ($_POST['post_ids'] as $post_id) {
-                    $post_data[] = $this->post_data((int) $post_id);
+                foreach (explode(',', $_POST['post_ids']) as $post_id) {
+                    $post_data[] = $this->post_data((int) trim($post_id));
                 }
-            }
-            else{
+            } else {
                 $post_id    = (int) $_POST['post_id'];
                 $post_data[] = $this->post_data($post_id);
             }
 
             $data = json_encode($post_data);
 
-            $json_file_name = 'post-export-'.date('y-m-d').'.json';
+            $json_file_name = 'post-export-' . date('y-m-d') . '.json';
 
             header('Content-Type: application/json');
-            header('Content-Disposition: attachment; filename='.$json_file_name);
+            header('Content-Disposition: attachment; filename=' . $json_file_name);
             header('Expires: 0'); //No caching allowed
             header('Cache-Control: must-revalidate');
-            header('Content-Length: '.strlen($data));
+            header('Content-Length: ' . strlen($data));
             file_put_contents('php://output', $data);
-
         }
 
         private function post_data($post_id)
@@ -69,6 +68,9 @@ if (!class_exists('SeipExport')) {
                 'post_title'   => $post->post_title,
                 'post_name'    => $post->post_name,
                 'post_content' => $post->post_content,
+                'post_status'  => $post->post_status,
+                'post_excerpt' => $post->post_excerpt,
+                'post_password' => $post->post_password,
                 'metas'        => $sorted_metas
             ];
         }
@@ -76,12 +78,14 @@ if (!class_exists('SeipExport')) {
         public function seip_export_options()
         {
 
-            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'],
-                    'seip_option_export') || (!current_user_can('administrator') && !current_user_can('editor'))) {
+            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(
+                $_POST['_wpnonce'],
+                'seip_option_export'
+            ) || (!current_user_can('administrator') && !current_user_can('editor'))) {
                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
             }
 
-            if(!SeipOpcodespace::isPaid()){
+            if (!SeipOpcodespace::isPaid()) {
                 seip_notices_with_redirect('msg1', __('You are using a free plugin. Please upgrade to access this feature.', 'simple-export-import-for-acf-data'), 'error');
             }
 
@@ -91,9 +95,9 @@ if (!class_exists('SeipExport')) {
 
             foreach ($options as $key => $value) {
                 // Need work here
-                $field = get_field_object(get_option('_options_' .$key));
+                $field = get_field_object(get_option('_options_' . $key));
 
-                if(empty($field)){
+                if (empty($field)) {
                     $sorted_metas[$key] = $value;
                     continue;
                 }
@@ -108,15 +112,14 @@ if (!class_exists('SeipExport')) {
 
             $data = json_encode($data);
 
-            $json_file_name = 'Options-'.date('y-m-d').'.json';
+            $json_file_name = 'Options-' . date('y-m-d') . '.json';
 
             header('Content-Type: application/json');
-            header('Content-Disposition: attachment; filename='.$json_file_name);
+            header('Content-Disposition: attachment; filename=' . $json_file_name);
             header('Expires: 0'); //No caching allowed
             header('Cache-Control: must-revalidate');
-            header('Content-Length: '.strlen($data));
+            header('Content-Length: ' . strlen($data));
             file_put_contents('php://output', $data);
-
         }
 
         /**
@@ -126,15 +129,15 @@ if (!class_exists('SeipExport')) {
          */
         public function get_field_value($key, $value)
         {
-            if(!function_exists('get_field_object')){
+            if (!function_exists('get_field_object')) {
                 return $value;
             }
 
-            if (!isset($this->post_metas['_'.$key][0]) || empty($this->post_metas['_'.$key][0])) {
+            if (!isset($this->post_metas['_' . $key][0]) || empty($this->post_metas['_' . $key][0])) {
                 return $value;
             }
 
-            $related_field = get_field_object($this->post_metas['_'.$key][0]);
+            $related_field = get_field_object($this->post_metas['_' . $key][0]);
 
 
             if (!$related_field) {
@@ -146,7 +149,7 @@ if (!class_exists('SeipExport')) {
 
         private function get_value_based_on_field_type($field, $value)
         {
-            if(!SeipOpcodespace::isPaid()){
+            if (!SeipOpcodespace::isPaid()) {
                 return $value;
             }
 
@@ -156,10 +159,10 @@ if (!class_exists('SeipExport')) {
 
             if ($field['type'] === 'gallery') {
                 $image_links = [];
-                foreach(maybe_unserialize( $value ) as $attach_id){
+                foreach (maybe_unserialize($value) as $attach_id) {
                     $image_links[] = $this->get_image_link($attach_id);
                 }
-                return maybe_serialize( $image_links );
+                return maybe_serialize($image_links);
             }
 
             return $value;
@@ -178,7 +181,5 @@ if (!class_exists('SeipExport')) {
 
             return wp_get_attachment_url($acf_field_value);
         }
-
-
     }
 }
