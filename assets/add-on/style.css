@@ -64,7 +64,9 @@ a{
 }
 
 */
-
+.seip_row .card{
+    padding: 15px !important;
+}
 .bootstrap-wrapper label.checkbox_label{
     margin-bottom: 0;
     margin-left: 5px;

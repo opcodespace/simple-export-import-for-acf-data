@@ -3,8 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 ?>
 
 
-<div class="row">
-	<div class="col-md-4">
+<div class="seip_row">
+	<div class="seip_col-md-6 seip_col-lg-6">
 		<div class="card">
 			<h2>Export Page/Post</h2>
 			<div class="export-form-wrapper">
@@ -82,7 +82,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 			</div>
 		</div>
 	</div>
-	<div class="col-md-3">
+	<div class="seip_col-md-4 seip_col-lg-4">
 		<?php include '_sidebar.php'; ?>
 	</div>
 </div>

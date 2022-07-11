@@ -12,9 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 			<li><span class="li_icon"><span class="dashicons dashicons-saved"></span></span>Flexible Content Layout</li>
 			<li><span class="li_icon"><span class="dashicons dashicons-saved"></span></span>Upcoming all pro fields will be available.</li>
 		</ul>
-		<a href="https://opcodespace.com/product/simple-export-import-pro-for-acf/" class="btn btn-warning">Upgrade Now (only $9 for two sites)</a>
+		<a href="https://opcodespace.com/product/simple-export-import-pro-for-acf/" class="seip_btn seip_btn-warning">Upgrade Now (only $9 for two sites)</a>
         <br><br>
-		<a href="https://opcodespace.com/product/simple-export-import-pro-for-acf-unlimited/" class="btn btn-warning">Upgrade Now (only $49/year for unlimited sites)</a>
+		<a href="https://opcodespace.com/product/simple-export-import-pro-for-acf-unlimited/" class="seip_btn seip_btn-warning">Upgrade Now (only $49/year for unlimited sites)</a>
 	</div>
 </div>
 <?php endif ?>
