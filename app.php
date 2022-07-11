@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 define("SEIP_VIEW_PATH", wp_normalize_path(plugin_dir_path(__FILE__) . "view/"));
 define("SEIP_ASSETSURL", plugins_url("assets/", __FILE__));
 define('SEIP_PLUGIN_VERSION', '1.1.0');
+define('PAID_TEXT', '<small class="paid_text">(This is for paid user)</small>');
 
 include_once 'functions.php';
 include_once 'src/SeipFront.php';

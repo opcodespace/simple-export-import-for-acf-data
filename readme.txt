@@ -18,6 +18,8 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 * Slug
 * Content (Just copy editor content. It does not export, import files or images which are in post content )
 * Featured Image
+* Excerpt
+* Post / Page status including password
 
 = Supported ACF fields in FREE Plugin =
 * Text
@@ -42,7 +44,7 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 * File
 * Bulk Export/Import
 * ACF Options
-* (upcoming all pro fields)
+* (Upcoming all pro fields)
 
 [Simple Export Import PRO for ACF](https://opcodespace.com/product/simple-export-import-pro-for-acf/)
 [Simple Export Import PRO for ACF – Unlimited](https://opcodespace.com/product/simple-export-import-pro-for-acf-unlimited/)
@@ -79,7 +81,7 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 
 == Changelog ==
 = 1.1.0 =
-* New Feature: Flexible Content field supported
+* New Feature: Flexible Content Layout supported
 * New Feature: File field supported
 * New Feature: Multiple selecte supported
 

@@ -12,7 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 					<?php    wp_nonce_field('seip_export'); ?>
 					<input type="hidden" name="action" value="seip_export">
 					<div class="form-group">
-						<input type="checkbox" id="bulk_export" name="bulk_export" <?php echo !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>><label class="checkbox_label" for="bulk_export">Bulk Export <?php echo !SeipOpcodespace::isPaid() ? '(This is for paid user)' : '' ?></label>
+						<input type="checkbox" id="bulk_export" name="bulk_export" <?php echo !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>><label class="checkbox_label" for="bulk_export">Bulk Export <br>
+							<?php echo !SeipOpcodespace::isPaid() ? PAID_TEXT : '' ?></label>
 					</div>
 					<div class="block_exports">
 						<table>
@@ -75,8 +76,8 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 					<?php    wp_nonce_field('seip_option_export'); ?>
 					<input type="hidden" name="action" value="seip_option_export">
 					<div>
-						<input type="submit" class="button button-primary" value="Export" <?php echo !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>>
-						<?php echo !SeipOpcodespace::isPaid() ? '(This is for paid user)' : '' ?>
+						<input type="submit" class="button button-primary" value="Export" <?php echo !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>> <br>
+						<?php echo !SeipOpcodespace::isPaid() ? PAID_TEXT : '' ?>
 					</div>
 				</form>
 			</div>

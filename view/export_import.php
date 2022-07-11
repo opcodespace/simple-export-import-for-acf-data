@@ -35,6 +35,10 @@ if (!defined('ABSPATH')) {
         margin-top: 30px;
     }
 
+    .paid_text{
+        color: red;
+    }
+
     /* Tablet Layout: 768px. */
     @media only screen and (min-width: 768px) and (max-width: 991px) {
         select {
