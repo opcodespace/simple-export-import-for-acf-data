@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 ?>
 
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<div class="card">
 			<h4>License Key</h4>
 			<div class="license_wrapper">
