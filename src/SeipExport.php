@@ -22,7 +22,7 @@ if (!class_exists('SeipExport')) {
                 $_POST['_wpnonce'],
                 'seip_export'
             ) || (!current_user_can('administrator') && !current_user_can('editor'))) {
-                wp_send_json_error(['message' => 'You are not allowed to submit data.']);
+                wp_send_json_error(['message' => __('You are not allowed to submit data.', 'simple-export-import-for-acf-data')]);
             }
 
             $post_data = [];
@@ -45,7 +45,7 @@ if (!class_exists('SeipExport')) {
 
             header('Content-Type: application/json');
             header('Content-Disposition: attachment; filename=' . $json_file_name);
-            header('Expires: 0'); //No caching allowed
+            header('Expires: 0');
             header('Cache-Control: must-revalidate');
             header('Content-Length: ' . strlen($data));
             file_put_contents('php://output', $data);
@@ -118,7 +118,7 @@ if (!class_exists('SeipExport')) {
 
             header('Content-Type: application/json');
             header('Content-Disposition: attachment; filename=' . $json_file_name);
-            header('Expires: 0'); //No caching allowed
+            header('Expires: 0');
             header('Cache-Control: must-revalidate');
             header('Content-Length: ' . strlen($data));
             file_put_contents('php://output', $data);
@@ -141,6 +141,10 @@ if (!class_exists('SeipExport')) {
 
             $related_field = get_field_object($this->post_metas['_' . $key][0]);
 
+            // echo '<pre>'; print_r($related_field); echo '</pre>';
+
+            // echo $value;
+
 
             if (!$related_field) {
                 return $value;
@@ -157,6 +161,10 @@ if (!class_exists('SeipExport')) {
 
             if ($field['type'] === 'image') {
                 return $this->get_image_link($value);
+            }
+
+            if ($field['type'] === 'file') {
+                return $this->get_file_link($value);
             }
 
             if ($field['type'] === 'gallery') {
@@ -176,6 +184,19 @@ if (!class_exists('SeipExport')) {
          * @return false|string
          */
         public function get_image_link($acf_field_value)
+        {
+            if (empty($acf_field_value)) {
+                return '';
+            }
+
+            return wp_get_attachment_url($acf_field_value);
+        }
+
+        /**
+         * @param $acf_field_value
+         * @return false|string
+         */
+        public function get_file_link($acf_field_value)
         {
             if (empty($acf_field_value)) {
                 return '';

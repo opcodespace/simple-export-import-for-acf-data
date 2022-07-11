@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 <div class="row">
 	<div class="col-md-4">
 		<div class="card">
-			<h4>Export Page/Post</h4>
+			<h2>Export Page/Post</h2>
 			<div class="export-form-wrapper">
 				<form action="<?php echo esc_url(admin_url('/admin-post.php')) ?>" method="post">
 					<?php    wp_nonce_field('seip_export'); ?>
@@ -69,7 +69,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 		</div>
 
 		<div class="card">
-			<h4>Export Options</h4>
+			<h2>Export Options</h2>
 			<div class="export-form-wrapper">
 				<form action="<?php echo esc_url(admin_url('/admin-post.php')) ?>" method="post">
 					<?php    wp_nonce_field('seip_option_export'); ?>

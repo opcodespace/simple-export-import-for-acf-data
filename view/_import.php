@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
     <div class="row">
         <div class="col-md-4">
             <div class="card">
-                <h4>Import Page/Post</h4>
+                <h2>Import Page/Post</h2>
                 <div class="import-form-wrapper">
                     <form action="<?php echo esc_url(admin_url('/admin-post.php')) ?>" method="post" enctype="multipart/form-data">
                         <?php wp_nonce_field('seip_import'); ?>
@@ -86,7 +86,7 @@ if (!defined('ABSPATH')) {
 
 
             <div class="card">
-                <h4>Import Options</h4>
+                <h2>Import Options</h2>
                 <div class="import-form-wrapper">
                     <form action="<?php echo esc_url(admin_url('/admin-post.php')) ?>" method="post" enctype="multipart/form-data">
                         <?php wp_nonce_field('seip_option_import'); ?>

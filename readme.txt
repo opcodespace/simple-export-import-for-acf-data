@@ -2,9 +2,9 @@
 Contributors: opcodespace
 Tags: Export, Import, Page, Post, Custom Post Type, ACF, Advanced custom field
 Requires at least: 5.4.0
-Tested up to: 5.9.3
+Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,25 +27,22 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 * Url
 * Password
 * Editor
-* Select
-* Check Box
-* Radio
-* Button Group
-* True False
+* Choice (Select, Multi-select, Checkbox, Radio, Button Group, True / False)
 * User
 * Google Map
 * Date Picker
 * Date Time Picker
 * Time Picker
-* Tab
 * Group
 
 = Supported ACF fields in Paid Plugin =
+* Flexible Content
 * Image
 * Gallery
-* (upcoming all pro fields)
+* File
 * Bulk Export/Import
 * ACF Options
+* (upcoming all pro fields)
 
 [Simple Export Import PRO for ACF](https://opcodespace.com/product/simple-export-import-pro-for-acf/)
 [Simple Export Import PRO for ACF – Unlimited](https://opcodespace.com/product/simple-export-import-pro-for-acf-unlimited/)
@@ -81,8 +78,13 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 2. Import
 
 == Changelog ==
+= 1.1.0 =
+* New Feature: Flexible Content field supported
+* New Feature: File field supported
+* New Feature: Multiple selecte supported
+
 = 1.0.1 =
-* **Bug Fix: ** Bulk Export
+* Bug Fix: Bulk Export
 
 = 1.0.2 =
-* **New: ** Featured Image added
+* New Feature: Featured Image added
