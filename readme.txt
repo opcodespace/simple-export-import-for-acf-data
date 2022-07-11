@@ -19,7 +19,7 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 * Content (Just copy editor content. It does not export, import files or images which are in post content )
 * Featured Image
 * Excerpt
-* Post / Page status including password
+* Status of Post / Page including password
 
 = Supported ACF fields in FREE Plugin =
 * Text
