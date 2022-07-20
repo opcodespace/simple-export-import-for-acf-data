@@ -72,8 +72,8 @@ if (!class_exists('SeipExport')) {
                 'post_excerpt' => $post->post_excerpt,
                 'post_password' => $post->post_password,
                 'featured_image' => get_the_post_thumbnail_url($post, 'full'),
-                'metas'        => $sorted_metas,
-
+                'metas'             => $sorted_metas,
+                'terms'             => isset($_POST['export_taxonomy']) ? $this->terms($post) : ''
             ];
         }
 
@@ -203,6 +203,30 @@ if (!class_exists('SeipExport')) {
             }
 
             return wp_get_attachment_url($acf_field_value);
+        }
+
+        protected function taxonomies($post_type)
+        {
+            return get_object_taxonomies($post_type);
+        }
+
+        protected function terms($post)
+        {
+            $terms = [];
+
+            if (!SeipOpcodespace::isPaid()) {
+                return $terms;
+            }
+
+            foreach ($this->taxonomies($post->post_type) as $taxonomy) {
+                $term =  get_the_terms($post, $taxonomy);
+                if(!empty($term)){
+                    $terms[] = (array)$term;
+                }
+
+            }
+
+            return $terms;
         }
     }
 }

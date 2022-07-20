@@ -59,7 +59,13 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 
 								</td>
 							</tr>
+
 						</table>
+					</div>
+					<div class="form-group">
+						<input type="checkbox" id="export_taxonomy" name="export_taxonomy" <?php echo !SeipOpcodespace::isPaid() ? 'disabled' : 'checked' ?>><label class="checkbox_label" for="export_taxonomy">Export Taxonomy of Post / Custom Post Type</label>
+						<span class="dashicons dashicons-info-outline" title="If you have already related terms of post, this plugin can import and attach terms to the post or custom post type. If you have hierarchical taxonomies, you must have taxonomies in your destination site. If slug of term is matched, it attaches to post. Otherwise, it creates a new term, but does not maintain hierarchy."></span> <br>
+							<?php echo !SeipOpcodespace::isPaid() ? PAID_TEXT : '' ?>
 					</div>
 
 					<div class="">

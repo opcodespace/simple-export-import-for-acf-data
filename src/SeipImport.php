@@ -157,6 +157,9 @@ if (!class_exists('SeipImport')) {
                 $upload = $this->download($featured_image);
                 $this->set_featured_image($post_id, $upload);
             }
+
+            # Setting Terms
+            $this->set_terms($post_id, $data['terms']);
         }
 
         /**
@@ -282,6 +285,35 @@ if (!class_exists('SeipImport')) {
             }
 
             return set_post_thumbnail($post, $attachment_id);
+        }
+
+
+        protected function set_terms($post, $terms){
+            if (!SeipOpcodespace::isPaid()) {
+                return false;
+            }
+
+            if(empty($terms)){
+                return false;
+            }
+
+            foreach($terms as $_term){
+                foreach($_term as $term){
+                    if(empty($term)){
+                        continue;
+                    }
+
+                    $post_term = get_term_by('slug', $term['slug'], $term['taxonomy']);
+
+                    if(!$post_term){
+                        wp_set_object_terms($post, $term['name'],  $term['taxonomy'], true);
+                        continue;
+                    }
+
+                    wp_set_object_terms($post, [$post_term->term_id],  $post_term->taxonomy, true);
+                }
+
+            }
         }
     }
 }

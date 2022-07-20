@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 ?>
-<div class="bootstrap-wrapper">
+
     <div class="seip_row">
         <div class="seip_col-md-6 seip_col-lg-6">
             <div class="card">
@@ -120,4 +120,3 @@ if (!defined('ABSPATH')) {
             <?php include '_sidebar.php'; ?>
         </div>
     </div>
-</div>

@@ -2,9 +2,9 @@
 Contributors: opcodespace
 Tags: Export, Import, Page, Post, Custom Post Type, ACF, Advanced custom field
 Requires at least: 5.4.0
-Tested up to: 6.0
+Tested up to: 6.0.1
 Requires PHP: 7.0
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,12 +44,14 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 * File
 * Bulk Export/Import
 * ACF Options
-* (Upcoming all pro fields)
+* Taxonomy (Category, Tag, Custom Taxonomy) of Post / Custom Post Type.
 
 [Simple Export Import PRO for ACF](https://opcodespace.com/product/simple-export-import-pro-for-acf/)
 [Simple Export Import PRO for ACF – Unlimited](https://opcodespace.com/product/simple-export-import-pro-for-acf-unlimited/)
 
 **Notes:** Image, Gallery will work if your website is public. From localhost to live website will not work as localhost is not publicly accessable. If you can set your website public, image, gallery fields will work.
+
+**Notes for Taxonomy:** If you have already related terms of post, this plugin can import and attach terms to the post or custom post type. If you have hierarchical taxonomies, you must have taxonomies in your destination site. If slug of term is matched, it attaches to post. Otherwise, it creates a new term, but does not maintain hierarchy.
 
 *If you want new features or have bug, please send an email to mehedee@opcodespace.com or send a request [here](https://opcodespace.com/contact-us/)*
 
@@ -80,6 +82,9 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 2. Import
 
 == Changelog ==
+= 1.2.0 =
+* New Feature: Taxonomy (Category, Tag, Custom Taxonomy) of Post / Custom Post Type
+
 = 1.1.0 =
 * New Feature: Flexible Content Layout supported
 * New Feature: File field supported
