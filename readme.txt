@@ -4,7 +4,7 @@ Tags: Export, Import, Page, Post, Custom Post Type, ACF, Advanced custom field
 Requires at least: 5.4.0
 Tested up to: 6.0.1
 Requires PHP: 7.0
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,8 @@ We are not disclosing or storing any data outside your website. Moreover, we are
 = Terms & Condition =
 We strongly recommend that you should keep your website backup before importing data. If your site get broken due to importing data or using this plugin, we cannot compensate or fix your site. This plugin depends on [Adavnced Custom Fields plugin](https://www.advancedcustomfields.com/). If ACF updates its field structure, it could be affected.  If ACF gets terminated, "Simple export import for ACF data" will be terminated. While you are using this plugin, you agree to these terms & condition.
 
+= Tutorial =
+[youtube https://www.youtube.com/watch?v=VovrgBe3VJ0]
 
 == Installation ==
 
@@ -82,6 +84,9 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 2. Import
 
 == Changelog ==
+= 1.2.1 =
+* Bug Fix: Meta data of media file
+
 = 1.2.0 =
 * New Feature: Taxonomy (Category, Tag, Custom Taxonomy) of Post / Custom Post Type
 

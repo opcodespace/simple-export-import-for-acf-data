@@ -169,9 +169,13 @@ if (!class_exists('SeipExport')) {
 
             if ($field['type'] === 'gallery') {
                 $image_links = [];
-                foreach (maybe_unserialize($value) as $attach_id) {
-                    $image_links[] = $this->get_image_link($attach_id);
+                $attach_ids = maybe_unserialize($value);
+                if (!empty($attach_ids)) {
+                    foreach ($attach_ids as $attach_id) {
+                        $image_links[] = $this->media_file($attach_id);
+                    }
                 }
+
                 return maybe_serialize($image_links);
             }
 
@@ -189,7 +193,7 @@ if (!class_exists('SeipExport')) {
                 return '';
             }
 
-            return wp_get_attachment_url($acf_field_value);
+            return $this->media_file($acf_field_value);
         }
 
         /**
@@ -202,7 +206,7 @@ if (!class_exists('SeipExport')) {
                 return '';
             }
 
-            return wp_get_attachment_url($acf_field_value);
+            return $this->media_file($acf_field_value);
         }
 
         protected function taxonomies($post_type)
@@ -218,15 +222,47 @@ if (!class_exists('SeipExport')) {
                 return $terms;
             }
 
-            foreach ($this->taxonomies($post->post_type) as $taxonomy) {
-                $term =  get_the_terms($post, $taxonomy);
-                if(!empty($term)){
-                    $terms[] = (array)$term;
-                }
+            $taxonomies = $this->taxonomies($post->post_type);
 
+            if (!empty($taxonomies)) {
+                foreach ($taxonomies as $taxonomy) {
+                    $term =  get_the_terms($post, $taxonomy);
+                    if (!empty($term)) {
+                        $terms[] = (array)$term;
+                    }
+                }
             }
 
+
             return $terms;
+        }
+
+        protected function media_file($attach_id)
+        {
+            if (empty($attach_id)) {
+                return false;
+            }
+
+            $post = get_post($attach_id);
+
+            if (empty($post)) {
+                return false;
+            }
+
+            $data = [
+                'post_title' => $post->post_title,
+                'post_content' => $post->post_content,
+                'post_excerpt' => $post->post_excerpt,
+                'url' => wp_get_attachment_url($attach_id)
+            ];
+
+            $alter_text = get_post_meta($attach_id, '_wp_attachment_image_alt', true);
+
+            if($alter_text){
+                $data['_wp_attachment_image_alt'] = get_post_meta($attach_id, '_wp_attachment_image_alt', true);
+            }
+
+            return $data;
         }
     }
 }

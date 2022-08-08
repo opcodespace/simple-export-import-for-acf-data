@@ -200,13 +200,13 @@ if (!class_exists('SeipImport')) {
             }
 
             if ($related_field['type'] === 'image') {
-                $upload = $this->download($value);
-                return $this->attach($upload);
+                $upload = $this->download($value['url']);
+                return $this->attach($upload, $value);
             }
 
             if ($related_field['type'] === 'file') {
-                $upload = $this->download($value);
-                return $this->attach($upload);
+                $upload = $this->download($value['url']);
+                return $this->attach($upload, $value);
             }
 
             if ($related_field['type'] === 'gallery') {
@@ -214,8 +214,8 @@ if (!class_exists('SeipImport')) {
 
                 $new_images = [];
                 foreach ($images as $image) {
-                    $upload = $this->download($image);
-                    $new_images[] = $this->attach($upload);
+                    $upload = $this->download($image['url']);
+                    $new_images[] = $this->attach($upload, $image);
                 }
 
                 return $new_images;
@@ -239,7 +239,6 @@ if (!class_exists('SeipImport')) {
                 )
             );
 
-
             $response_code = wp_remote_retrieve_response_code($response);
             $content       = wp_remote_retrieve_body($response);
 
@@ -258,17 +257,29 @@ if (!class_exists('SeipImport')) {
 
         /**
          * @param $upload
-         * @return int|WP_Error
+         * @param $media_data
+         * @return mixed
          */
-        public function attach($upload)
+        public function attach($upload, $media_data)
         {
             $attachment = array(
                 'post_mime_type' => $upload['type'],
                 'guid'           => $upload['url'],
-                'post_title'     => sanitize_title(basename($upload['file'])),
-                'post_content'   => '',
+                'post_title'     => empty($media_data['post_title']) ? sanitize_title(basename($upload['file'])) : sanitize_text_field( $media_data['post_title'] ),
+                'post_content'   => isset($media_data['post_content']) ? sanitize_text_field($media_data['post_content']) : '',
+                'post_excerpt'   => isset($media_data['post_excerpt']) ? sanitize_text_field($media_data['post_excerpt']) : '',
             );
-            return wp_insert_attachment($attachment, $upload['file']);
+            $attach_id = wp_insert_attachment($attachment, $upload['file']);
+
+            if (is_wp_error($attach_id)) {
+                return $attach_id;
+            }
+
+            if(isset($media_data['_wp_attachment_image_alt'])){
+                update_post_meta($attach_id, '_wp_attachment_image_alt', $media_data['_wp_attachment_image_alt']);
+            }
+
+            return $attach_id;
         }
 
         /**
