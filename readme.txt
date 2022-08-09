@@ -11,7 +11,9 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 With this plugin you simply export and import page, post and custom post. This plugin supports ACF fields.
 
 == Description ==
-This "Simple Export Import for ACF Data" plugin is very helpful for developers who develop theme in staging website with ACF and deploy to live.
+This "Simple Export Import for ACF Data" plugin is very helpful for developers who develop theme in staging website with ACF and deploy to live.  If you want to use this plugin, you must have ACF installed and activated.
+
+** Important Note: ** Both sites must have the same version of "Simple Export Import for ACF Data".
 
 = Supported Post/Page data in FREE Plugin =
 * Title
@@ -49,7 +51,7 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 [Simple Export Import PRO for ACF](https://opcodespace.com/product/simple-export-import-pro-for-acf/)
 [Simple Export Import PRO for ACF – Unlimited](https://opcodespace.com/product/simple-export-import-pro-for-acf-unlimited/)
 
-**Notes:** Image, Gallery will work if your website is public. From localhost to live website will not work as localhost is not publicly accessable. If you can set your website public, image, gallery fields will work.
+**Notes:** Image, Gallery will work if your website is public. From localhost to live website will not work as localhost is not publicly accessible. If you can set your website public, image, gallery fields will work.
 
 **Notes for Taxonomy:** If you have already related terms of post, this plugin can import and attach terms to the post or custom post type. If you have hierarchical taxonomies, you must have taxonomies in your destination site. If slug of term is matched, it attaches to post. Otherwise, it creates a new term, but does not maintain hierarchy.
 
@@ -62,7 +64,9 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 We are not disclosing or storing any data outside your website. Moreover, we are not storing data in browser cookie as well. So, it is safe to use. While you insert License key, we are storing only your domain in our system.
 
 = Terms & Condition =
-We strongly recommend that you should keep your website backup before importing data. If your site get broken due to importing data or using this plugin, we cannot compensate or fix your site. This plugin depends on [Adavnced Custom Fields plugin](https://www.advancedcustomfields.com/). If ACF updates its field structure, it could be affected.  If ACF gets terminated, "Simple export import for ACF data" will be terminated. While you are using this plugin, you agree to these terms & condition.
+We strongly recommend that you should keep your website backup before importing data. If your site get broken due to importing data or using this plugin, we cannot compensate or fix your site. This plugin depends on [Advanced Custom Fields plugin](https://www.advancedcustomfields.com/). If ACF updates its field structure, it could be affected. OP Code Space LLC has right to terminate this plugin if it is found that it is not working as expected or if Op Code Space LLC is unable to support anymore or if it is found that it is not compatible with ACF. We do not guarantee that this plugin will work on all websites. 
+
+While you are using this plugin, you agree to these terms & condition.
 
 == Installation ==
 
