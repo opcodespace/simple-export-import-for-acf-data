@@ -4,7 +4,7 @@ Tags: Export, Import, Page, Post, Custom Post Type, ACF, Advanced custom field
 Requires at least: 5.4.0
 Tested up to: 6.0.1
 Requires PHP: 7.0
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,6 +84,9 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 2. Import
 
 == Changelog ==
+= 1.2.1 =
+* Bug Fix: Fatal Error on importing featured Image
+
 = 1.2.1 =
 * Bug Fix: Meta data of media file
 

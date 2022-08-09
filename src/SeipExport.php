@@ -71,7 +71,7 @@ if (!class_exists('SeipExport')) {
                 'post_status'  => $post->post_status,
                 'post_excerpt' => $post->post_excerpt,
                 'post_password' => $post->post_password,
-                'featured_image' => get_the_post_thumbnail_url($post, 'full'),
+                'featured_image' => $this->media_file(get_post_thumbnail_id($post_id)),
                 'metas'             => $sorted_metas,
                 'terms'             => isset($_POST['export_taxonomy']) ? $this->terms($post) : ''
             ];

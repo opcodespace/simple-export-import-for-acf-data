@@ -152,10 +152,11 @@ if (!class_exists('SeipImport')) {
             }
 
             # Adding Featured image
-            $featured_image = sanitize_url($data['featured_image']);
+            $featured_image = (array) $data['featured_image'];
+
             if (!empty($featured_image)) {
-                $upload = $this->download($featured_image);
-                $this->set_featured_image($post_id, $upload);
+                $upload = $this->download( $featured_image['url'] );
+                $this->set_featured_image($post_id, $upload, $featured_image);
             }
 
             # Setting Terms
@@ -283,16 +284,17 @@ if (!class_exists('SeipImport')) {
         }
 
         /**
-         * @param $upload
          * @param $post
+         * @param $upload
+         * @param $data
          * @return int|WP_Error
          */
-        protected function set_featured_image($post, $upload)
+        protected function set_featured_image($post, $upload, $media_data)
         {
-            $attachment_id = $this->attach($upload);
+            echo $attachment_id = $this->attach($upload, $media_data);
 
             if (is_wp_error($attachment_id)) {
-                return $attachment_id;
+                return false;
             }
 
             return set_post_thumbnail($post, $attachment_id);
