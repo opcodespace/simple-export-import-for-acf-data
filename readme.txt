@@ -53,16 +53,16 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 
 **Notes for Taxonomy:** If you have already related terms of post, this plugin can import and attach terms to the post or custom post type. If you have hierarchical taxonomies, you must have taxonomies in your destination site. If slug of term is matched, it attaches to post. Otherwise, it creates a new term, but does not maintain hierarchy.
 
-*If you want new features or have bug, please send an email to mehedee@opcodespace.com or send a request [here](https://opcodespace.com/contact-us/)*
+*If you want new features or have bugged, please email support@opcodespace.com or send a request [here](https://opcodespace.com/contact-us/)*
+
+= Tutorial =
+[youtube https://www.youtube.com/watch?v=VovrgBe3VJ0]
 
 = Privacy Policy =
 We are not disclosing or storing any data outside your website. Moreover, we are not storing data in browser cookie as well. So, it is safe to use. While you insert License key, we are storing only your domain in our system.
 
 = Terms & Condition =
 We strongly recommend that you should keep your website backup before importing data. If your site get broken due to importing data or using this plugin, we cannot compensate or fix your site. This plugin depends on [Adavnced Custom Fields plugin](https://www.advancedcustomfields.com/). If ACF updates its field structure, it could be affected.  If ACF gets terminated, "Simple export import for ACF data" will be terminated. While you are using this plugin, you agree to these terms & condition.
-
-= Tutorial =
-[youtube https://www.youtube.com/watch?v=VovrgBe3VJ0]
 
 == Installation ==
 
