@@ -66,7 +66,7 @@ if (!defined('ABSPATH')) {
                                 <tr class="">
                                     <td><label for="file">Upload File</label></td>
                                     <td>
-                                        <input type="file" name="file" id="file">
+                                        <input type="file" name="file" id="file" accept="application/json">
                                     </td>
                                 </tr>
                                 </tbody>
@@ -98,7 +98,7 @@ if (!defined('ABSPATH')) {
                                     <label for="file" class="label_block">Upload File</label>
                                 </td>
                                 <td>
-                                    <input type="file" name="file"
+                                    <input type="file" name="file" accept="application/json"
                                            id="file" <?php echo !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>>
                                 </td>
                             </tr>
