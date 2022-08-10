@@ -231,6 +231,10 @@ if (!class_exists('SeipImport')) {
          */
         public function download($value)
         {
+            if(empty($value)){
+//                seip_log('Empty file ', $value);
+                return false;
+            }
 
             $response = wp_remote_get(
                 $value,
@@ -244,12 +248,14 @@ if (!class_exists('SeipImport')) {
             $content       = wp_remote_retrieve_body($response);
 
             if ($response_code != 200) {
+//                seip_log('Error while fetching file ', 'Response code: ' . $response_code . $value);
                 return false;
             }
 
             $upload = wp_upload_bits(basename($value), null, $content);
 
             if (!empty($upload['error'])) {
+//                seip_log('Error while uploading file ', $value .' '. $upload['error']);
                 return false;
             }
 
@@ -263,6 +269,10 @@ if (!class_exists('SeipImport')) {
          */
         public function attach($upload, $media_data)
         {
+            if(empty($upload)) {
+                return false;
+            }
+
             $attachment = array(
                 'post_mime_type' => $upload['type'],
                 'guid'           => $upload['url'],
@@ -273,6 +283,7 @@ if (!class_exists('SeipImport')) {
             $attach_id = wp_insert_attachment($attachment, $upload['file']);
 
             if (is_wp_error($attach_id)) {
+//                seip_log('Error while attaching media', $attach_id->get_error_messages());
                 return $attach_id;
             }
 
@@ -291,7 +302,11 @@ if (!class_exists('SeipImport')) {
          */
         protected function set_featured_image($post, $upload, $media_data)
         {
-            echo $attachment_id = $this->attach($upload, $media_data);
+            if(empty($upload)) {
+                return false;
+            }
+
+            $attachment_id = $this->attach($upload, $media_data);
 
             if (is_wp_error($attachment_id)) {
                 return false;
@@ -327,6 +342,8 @@ if (!class_exists('SeipImport')) {
                 }
 
             }
+
+            return true;
         }
     }
 }

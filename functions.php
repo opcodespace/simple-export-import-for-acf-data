@@ -34,3 +34,12 @@ if(!function_exists('seip_notices_with_redirect')) {
         exit();
     }
 }
+
+if(!function_exists('seip_log')) {
+    function seip_log($name, $message)
+    {
+//        $log_file = WP_CONTENT_DIR . '/uploads/seip_log.txt';
+//        $message  = date('Y-m-d H:i:s') . ' == ' . $name . ' == ' . $message . PHP_EOL;
+//        file_put_contents($log_file, $message, FILE_APPEND);
+    }
+}

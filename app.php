@@ -4,7 +4,7 @@ Plugin Name: Simple Export Import for ACF Data
 Description: Exporting and importing data on specific page
 Plugin URI: https://www.opcodespace.com
 Author: Opcodespace <mehedee@opcodespace.com>
-Version: 1.2.2
+Version: 1.2.3
 Text Domain: simple-export-import-for-acf-data
 */
 
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 
 define("SEIP_VIEW_PATH", wp_normalize_path(plugin_dir_path(__FILE__) . "view/"));
 define("SEIP_ASSETSURL", plugins_url("assets/", __FILE__));
-define('SEIP_PLUGIN_VERSION', '1.2.2');
+define('SEIP_PLUGIN_VERSION', '1.2.3');
 define('PAID_TEXT', '<small class="paid_text">(This is for paid user)</small>');
 
 include_once 'functions.php';
