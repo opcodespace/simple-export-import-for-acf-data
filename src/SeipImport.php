@@ -7,6 +7,8 @@ if (!class_exists('SeipImport')) {
     class SeipImport
     {
         private $post_metas;
+        private $execution_time;
+        private $current_post_id;
 
         public static function init()
         {
@@ -68,8 +70,14 @@ if (!class_exists('SeipImport')) {
 
             $posts = $this->upload();
 
+            if(isset($_POST['bulk_import'])){
+                $this->execution_time = time();
+            }
+
             foreach ($posts as $post) {
                 $this->post_data($post, $settings);
+
+                $this->sleep();
             }
 
             seip_notices_with_redirect('msg1', __('Successfully imported', 'simple-export-import-for-acf-data'), 'success');
@@ -145,6 +153,7 @@ if (!class_exists('SeipImport')) {
                 );
             }
 
+            $this->current_post_id = $post_id;
             $this->post_metas = $data['metas'];
 
             foreach ($data['metas'] as $key => $value) {
@@ -279,6 +288,7 @@ if (!class_exists('SeipImport')) {
                 'post_title'     => empty($media_data['post_title']) ? sanitize_title(basename($upload['file'])) : sanitize_text_field( $media_data['post_title'] ),
                 'post_content'   => isset($media_data['post_content']) ? sanitize_text_field($media_data['post_content']) : '',
                 'post_excerpt'   => isset($media_data['post_excerpt']) ? sanitize_text_field($media_data['post_excerpt']) : '',
+                'post_parent'    => $this->current_post_id > 0 ? $this->current_post_id : 0,
             );
             $attach_id = wp_insert_attachment($attachment, $upload['file']);
 
@@ -286,6 +296,9 @@ if (!class_exists('SeipImport')) {
 //                seip_log('Error while attaching media', $attach_id->get_error_messages());
                 return $attach_id;
             }
+
+            $attach_data = wp_generate_attachment_metadata( $attach_id, $upload['file'] );
+            wp_update_attachment_metadata( $attach_id,  $attach_data );
 
             if(isset($media_data['_wp_attachment_image_alt'])){
                 update_post_meta($attach_id, '_wp_attachment_image_alt', $media_data['_wp_attachment_image_alt']);
@@ -345,5 +358,13 @@ if (!class_exists('SeipImport')) {
 
             return true;
         }
+
+        private function sleep()
+        {
+            if($this->execution_time > 0 && (time() - $this->execution_time) > 20){
+                sleep(1);
+            }
+        }
     }
+
 }

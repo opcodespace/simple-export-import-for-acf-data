@@ -4,7 +4,7 @@ Tags: Export, Import, Page, Post, Custom Post Type, ACF, Advanced custom field
 Requires at least: 5.4.0
 Tested up to: 6.0.1
 Requires PHP: 7.0
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,6 +88,9 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 2. Import
 
 == Changelog ==
+= 1.2.4 =
+* Bug Fix: Regenerate thumbnail Image. This process is slower for bulk import.
+
 = 1.2.3 =
 * Bug Fix: Empty file is attaching to post.
 
@@ -103,7 +106,7 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 = 1.1.0 =
 * New Feature: Flexible Content Layout supported
 * New Feature: File field supported
-* New Feature: Multiple selecte supported
+* New Feature: Multiple select supported
 
 = 1.0.1 =
 * Bug Fix: Bulk Export
