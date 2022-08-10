@@ -64,7 +64,7 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 We are not disclosing or storing any data outside your website. Moreover, we are not storing data in browser cookie as well. So, it is safe to use. While you insert License key, we are storing only your domain in our system.
 
 = Terms & Condition =
-We strongly recommend that you should keep your website backup before importing data. If your site get broken due to importing data or using this plugin, we cannot compensate or fix your site. This plugin depends on [Advanced Custom Fields plugin](https://www.advancedcustomfields.com/). If ACF updates its field structure, it could be affected. OP Code Space LLC has right to terminate this plugin if it is found that it is not working as expected or if Op Code Space LLC is unable to support anymore or if it is found that it is not compatible with ACF. We do not guarantee that this plugin will work on all websites. 
+We strongly recommend that you should keep your website backup before importing data. If your site get broken due to importing data or using this plugin, we cannot compensate or fix your site. This plugin depends on [Advanced Custom Fields plugin](https://www.advancedcustomfields.com/). If ACF updates its field structure, it could be affected. OP Code Space LLC has right to terminate this plugin if it is found that it is not working as expected or if Op Code Space LLC is unable to support anymore or if it is found that it is not compatible with ACF. We do not guarantee that this plugin will work on all websites.
 
 While you are using this plugin, you agree to these terms & condition.
 
