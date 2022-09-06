@@ -1,6 +1,6 @@
 === Simple Export Import for ACF Data ===
 Contributors: opcodespace
-Tags: Export, Import, Page, Post, Custom Post Type, ACF, Advanced custom field
+Tags: Export, Import, Page, Post, Custom Post Type, Advanced custom field, Field Value
 Requires at least: 5.4.0
 Tested up to: 6.0.2
 Requires PHP: 7.0
