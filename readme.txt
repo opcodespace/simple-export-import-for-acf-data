@@ -2,18 +2,18 @@
 Contributors: opcodespace
 Tags: Export, Import, Page, Post, Custom Post Type, ACF, Advanced custom field
 Requires at least: 5.4.0
-Tested up to: 6.0.1
+Tested up to: 6.0.2
 Requires PHP: 7.0
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 With this plugin you simply export and import page, post and custom post. This plugin supports ACF fields.
 
 == Description ==
-This "Simple Export Import for ACF Data" plugin is very helpful for developers who develop theme in staging website with ACF and deploy to live.  If you want to use this plugin, you must have ACF installed and activated.
+This "Simple Export Import for ACF Data" plugin is very helpful for developers who develop a theme in a staging website with ACF and deploy it to live.  You must have ACF installed and activated, before using this plugin.
 
-** Important Note: ** Both sites must have the same version of "Simple Export Import for ACF Data".
+**Important Note:** Both sites must have the same version of "Simple Export Import for ACF Data".
 
 = Supported Post/Page data in FREE Plugin =
 * Title
@@ -37,9 +37,13 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 * Date Picker
 * Date Time Picker
 * Time Picker
-* Group
 
-= Supported ACF fields in Paid Plugin =
+= Supported ACF layout in FREE Plugin =
+* Repeater
+* Group
+* Clone
+
+= Supported ACF fields and layout in Paid Plugin =
 * Flexible Content
 * Image
 * Gallery
@@ -88,6 +92,9 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 2. Import
 
 == Changelog ==
+= 1.2.5 =
+* New Feature: Clone layout
+
 = 1.2.4 =
 * Bug Fix: Regenerate thumbnail Image. This process is slower for bulk import.
 
