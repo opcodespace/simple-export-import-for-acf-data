@@ -62,7 +62,7 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 *If you want new features or have bugged, please email support@opcodespace.com or send a request [here](https://opcodespace.com/contact-us/)*
 
 = Tutorial =
-[youtube https://www.youtube.com/watch?v=VovrgBe3VJ0]
+[vimeo https://vimeo.com/748514481]
 
 = Privacy Policy =
 We are not disclosing or storing any data outside your website. Moreover, we are not storing data in browser cookie as well. So, it is safe to use. While you insert License key, we are storing only your domain in our system.
