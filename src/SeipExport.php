@@ -167,6 +167,10 @@ if (!class_exists('SeipExport')) {
                 return $this->get_file_link($value);
             }
 
+            if ($field['type'] === 'link') {
+                return $this->link_field($value);
+            }
+
             if ($field['type'] === 'gallery') {
                 $image_links = [];
                 $attach_ids = maybe_unserialize($value);
@@ -207,6 +211,13 @@ if (!class_exists('SeipExport')) {
             }
 
             return $this->media_file($acf_field_value);
+        }
+
+        protected function link_field($value){
+            return [
+                'link' => maybe_unserialize($value),
+                'source_domain' => home_url()
+            ];
         }
 
         protected function taxonomies($post_type)

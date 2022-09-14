@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 	<div class="sidebar_ttl">Pro Features</div>
 	<div class="sidebar_box_body">
 		<ul>
-			<li><span class="li_icon"><span class="dashicons dashicons-saved"></span></span><strong>Pro Fields:</strong> Image, Gallery, File</li>
+			<li><span class="li_icon"><span class="dashicons dashicons-saved"></span></span><strong>Pro Fields:</strong> Image, Gallery, File, Link</li>
 			<li><span class="li_icon"><span class="dashicons dashicons-saved"></span></span><strong>Flexible Content Layout</strong></li>
 			<li><span class="li_icon"><span class="dashicons dashicons-saved"></span></span>Bulk Export/Import</li>
 			<li><span class="li_icon"><span class="dashicons dashicons-saved"></span></span>Export/Import ACF Options Data</li>

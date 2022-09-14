@@ -4,7 +4,7 @@ Tags: Export, Import, Page, Post, Custom Post Type, Advanced custom field, Field
 Requires at least: 5.4.0
 Tested up to: 6.0.2
 Requires PHP: 7.0
-Stable tag: 1.2.5
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,7 +30,7 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 * Email
 * Url
 * Password
-* Editor
+* Wysiwyg Editor
 * Choice (Select, Multi-select, Checkbox, Radio, Button Group, True / False)
 * User
 * Google Map
@@ -48,6 +48,7 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 * Image
 * Gallery
 * File
+* Link (Source domain will be replaced with target domain)
 * Bulk Export/Import
 * ACF Options
 * Taxonomy (Category, Tag, Custom Taxonomy) of Post / Custom Post Type.
@@ -92,6 +93,9 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 2. Import
 
 == Changelog ==
+= 1.3.0 =
+* New Feature: Link Field is supported (Source domain will be replaced with target domain)
+
 = 1.2.5 =
 * New Feature: Clone layout
 

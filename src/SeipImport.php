@@ -209,6 +209,10 @@ if (!class_exists('SeipImport')) {
                 return maybe_unserialize($value);
             }
 
+            if ($related_field['type'] === 'link') {
+                return $this->link_field($value);
+            }
+
             if ($related_field['type'] === 'image') {
                 $upload = $this->download($value['url']);
                 return $this->attach($upload, $value);
@@ -364,6 +368,13 @@ if (!class_exists('SeipImport')) {
             if($this->execution_time > 0 && (time() - $this->execution_time) > 20){
                 sleep(1);
             }
+        }
+
+        protected function link_field($value){
+            $url = str_replace($value['source_domain'], home_url(), $value['link']['url']);
+            $link = $value['link'];
+            $link['url'] = $url;
+            return $link;
         }
     }
 
