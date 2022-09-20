@@ -136,6 +136,7 @@ if (!class_exists('SeipImport')) {
                         'post_status'  => sanitize_text_field($data['post_status']),
                         'post_excerpt' => sanitize_textarea_field($data['post_excerpt']),
                         'post_password' => sanitize_text_field($data['post_password']),
+                        'post_type' => sanitize_text_field($settings['post_type'])
                     ];
 
                     $post_id = wp_insert_post($primary_data);
