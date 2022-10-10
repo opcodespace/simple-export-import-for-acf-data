@@ -86,6 +86,15 @@ if (!defined('ABSPATH')) {
         ?>
     </div>
 
+    <div class="subscription_modal_wrapper active">
+        <div class="subscription_modal">
+            <div class="close_subscibe_modal">X</div>
+            <h3>Subscribe Us</h3>
+            <input type="text" class="custom_input_style" placeholder="Subscription Email">
+            <button class="seip_btn_submit seip_btn seip_btn-warning">Submit</button>
+        </div>
+    </div>
+
 </div>
 
 
