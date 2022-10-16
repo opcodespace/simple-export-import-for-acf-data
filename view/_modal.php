@@ -9,7 +9,7 @@
                     <h2>Subscribe With Us</h2>
                 </div>
                 <div class="formkit-subheader" style="color: rgb(104, 104, 104); font-size: 18px;" data-element="subheader">
-                    <p>Subscribe to get new offers by email.</p>
+                    <p>Subscribe to get exciting offers by email.</p>
                 </div>
                 <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
                 <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields">

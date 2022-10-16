@@ -4,7 +4,7 @@ Tags: Export, Import, Page, Post, Custom Post Type, Advanced custom field, Field
 Requires at least: 5.4.0
 Tested up to: 6.0.2
 Requires PHP: 7.0
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,9 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 2. Import
 
 == Changelog ==
+= 1.3.2 =
+* Enhancement: Subscription modal added.
+
 = 1.3.1 =
 * Bug Fixed: Incorrect post type on bulk importing
 
