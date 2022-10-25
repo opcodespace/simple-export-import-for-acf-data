@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 ?>
 <?php  if(!SeipOpcodespace::isPaid()): ?>
 <div class="sidebar_box">
-	<div class="sidebar_ttl">Pro Features</div>
+	<div class="sidebar_ttl"><i class="fa fa-star"></i> Pro Features</div>
 	<div class="sidebar_box_body">
 		<ul>
 			<li><span class="li_icon"><span class="dashicons dashicons-saved"></span></span><strong>Pro Fields:</strong> Image, Gallery, File, Link</li>
@@ -18,3 +18,17 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 	</div>
 </div>
 <?php endif ?>
+
+<div class="sidebar_box">
+  <div class="sidebar_ttl"><i class="fa fa-exclamation-circle"></i> Facing issues ?</div>
+  <div class="sidebar_box_body">
+    <p>Stuck with something? <a href="">Please open a ticke</a>. For emergency case join our live chat.</p>
+  </div>
+</div>
+
+<div class="sidebar_box">
+  <div class="sidebar_ttl"><i class="fa fa-heart"></i> Love Our Plugin?</div>
+  <div class="sidebar_box_body">
+    <p>Thank you for choosing <b>Variation Swatches for WooCommerce</b>. If you have found our plugin useful and makes you smile. <a href="">please consider giving us a 5-star rating.</a> It will help us to grow</p>
+  </div>
+</div>

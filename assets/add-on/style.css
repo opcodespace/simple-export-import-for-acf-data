@@ -95,6 +95,10 @@ a{
     font-weight: 700;
     text-align: left;
 }
+.sidebar_ttl i {
+    color: #fe7e17;
+    padding-right: 5px;
+}
 .sidebar_box_body {
     padding: 10px;
 }
