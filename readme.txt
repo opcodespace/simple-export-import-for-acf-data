@@ -2,9 +2,9 @@
 Contributors: opcodespace
 Tags: Export, Import, Page, Post, Custom Post Type, Advanced custom field, Field Value
 Requires at least: 5.4.0
-Tested up to: 6.0.2
+Tested up to: 6.0.3
 Requires PHP: 7.0
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 = Supported Post/Page data in FREE Plugin =
 * Title
 * Slug
-* Content (Just copy editor content. It does not export, import files or images which are in post content )
+* Content (*Importing Image, File from source site to target site is supported in paid plugin.)
 * Featured Image
 * Excerpt
 * Status of Post / Page including password
@@ -52,6 +52,7 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 * Bulk Export/Import
 * ACF Options
 * Taxonomy (Category, Tag, Custom Taxonomy) of Post / Custom Post Type.
+* Content (*Importing Image, File from source site to target site is supported. Links are replaced with new domain)
 
 [Simple Export Import PRO for ACF](https://opcodespace.com/product/simple-export-import-pro-for-acf/)
 [Simple Export Import PRO for ACF – Unlimited](https://opcodespace.com/product/simple-export-import-pro-for-acf-unlimited/)
@@ -93,6 +94,10 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 2. Import
 
 == Changelog ==
+= 1.3.3 =
+* Enhancement: Published Date preserved
+* Enhancement: Editor Image, Object file, link are replaced with new domain.
+
 = 1.3.2 =
 * Enhancement: Subscription modal added.
 

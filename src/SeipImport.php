@@ -20,17 +20,20 @@ if (!class_exists('SeipImport')) {
         public function upload()
         {
             if (empty($_FILES['file']['size'])) {
-                seip_notices_with_redirect('msg1', __('No file selected', 'simple-export-import-for-acf-data'), 'error');
+                seip_notices_with_redirect('msg1', __('No file selected', 'simple-export-import-for-acf-data'),
+                    'error');
             }
 
             $file = $_FILES['file'];
 
             if ($file['error']) {
-                seip_notices_with_redirect('msg1', __('Error uploading file. Please try again', 'simple-export-import-for-acf-data'), 'error');
+                seip_notices_with_redirect('msg1',
+                    __('Error uploading file. Please try again', 'simple-export-import-for-acf-data'), 'error');
             }
 
             if (pathinfo($file['name'], PATHINFO_EXTENSION) !== 'json') {
-                seip_notices_with_redirect('msg1', __('Incorrect file type', 'simple-export-import-for-acf-data'), 'error');
+                seip_notices_with_redirect('msg1', __('Incorrect file type', 'simple-export-import-for-acf-data'),
+                    'error');
             }
 
             if (function_exists('wp_json_file_decode')) {
@@ -44,7 +47,8 @@ if (!class_exists('SeipImport')) {
             }
 
             if (!$posts || !is_array($posts)) {
-                seip_notices_with_redirect('msg1', __('Import file empty', 'simple-export-import-for-acf-data'), 'error');
+                seip_notices_with_redirect('msg1', __('Import file empty', 'simple-export-import-for-acf-data'),
+                    'error');
             }
 
             return $posts;
@@ -53,24 +57,26 @@ if (!class_exists('SeipImport')) {
         public function seip_import()
         {
             if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(
-                $_POST['_wpnonce'],
-                'seip_import'
-            ) || (!current_user_can('administrator') && !current_user_can('editor'))) {
-                wp_send_json_error(['message' => __('You are not allowed to submit data.', 'simple-export-import-for-acf-data')]);
+                    $_POST['_wpnonce'],
+                    'seip_import'
+                ) || (!current_user_can('administrator') && !current_user_can('editor'))) {
+                wp_send_json_error([
+                    'message' => __('You are not allowed to submit data.', 'simple-export-import-for-acf-data')
+                ]);
             }
 
-            $post_id = (int) $_POST['post_id'];
+            $post_id  = (int) $_POST['post_id'];
             $settings = [
-                'bulk_import' => isset($_POST['bulk_import']),
+                'bulk_import'           => isset($_POST['bulk_import']),
                 'update_post_page_ttl'  => isset($_POST['update_post_page_ttl']),
                 'update_post_page_slug' => isset($_POST['update_post_page_slug']),
-                'single_post_id' => $post_id,
-                'post_type' => sanitize_text_field($_POST['post_type'])
+                'single_post_id'        => $post_id,
+                'post_type'             => sanitize_text_field($_POST['post_type'])
             ];
 
             $posts = $this->upload();
 
-            if(isset($_POST['bulk_import'])){
+            if (isset($_POST['bulk_import'])) {
                 $this->execution_time = time();
             }
 
@@ -80,16 +86,19 @@ if (!class_exists('SeipImport')) {
                 $this->sleep();
             }
 
-            seip_notices_with_redirect('msg1', __('Successfully imported', 'simple-export-import-for-acf-data'), 'success');
+            seip_notices_with_redirect('msg1', __('Successfully imported', 'simple-export-import-for-acf-data'),
+                'success');
         }
 
         public function seip_import_options()
         {
             if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(
-                $_POST['_wpnonce'],
-                'seip_option_import'
-            ) || (!current_user_can('administrator') && !current_user_can('editor'))) {
-                wp_send_json_error(['message' => __('You are not allowed to submit data.', 'simple-export-import-for-acf-data')]);
+                    $_POST['_wpnonce'],
+                    'seip_option_import'
+                ) || (!current_user_can('administrator') && !current_user_can('editor'))) {
+                wp_send_json_error([
+                    'message' => __('You are not allowed to submit data.', 'simple-export-import-for-acf-data')
+                ]);
             }
 
             $data = $this->upload();
@@ -98,16 +107,25 @@ if (!class_exists('SeipImport')) {
                 update_field($key, $value, 'option');
             }
 
-            seip_notices_with_redirect('msg1', __('Successfully imported', 'simple-export-import-for-acf-data'), 'success');
+            seip_notices_with_redirect('msg1', __('Successfully imported', 'simple-export-import-for-acf-data'),
+                'success');
         }
 
         private function post_data($data, $settings)
         {
 
+            if (SeipOpcodespace::isPaid()) {
+                $SeipImportEditorMediaFile = new SeipImportEditorMediaFile($data['source_domain']);
+                $content = wp_kses_post($SeipImportEditorMediaFile->download_editor_media_files($data['post_content']));
+            }
+            else{
+                $content = wp_kses_post($data['post_content']);
+            }
+
             $post_data = [
-                'post_content' => wp_kses_post($data['post_content']),
-                'post_status'  => sanitize_text_field($data['post_status']),
-                'post_excerpt' => sanitize_textarea_field($data['post_excerpt']),
+                'post_content'  => $content,
+                'post_status'   => sanitize_text_field($data['post_status']),
+                'post_excerpt'  => sanitize_textarea_field($data['post_excerpt']),
                 'post_password' => sanitize_text_field($data['post_password']),
             ];
 
@@ -121,32 +139,36 @@ if (!class_exists('SeipImport')) {
             if ($settings['bulk_import']) {
 
                 if (!SeipOpcodespace::isPaid()) {
-                    wp_send_json_error(['message' => __('You are using free plugin. Please upgrade to access this feature.', 'simple-export-import-for-acf-data')]);
+                    wp_send_json_error([
+                        'message' => __('You are using free plugin. Please upgrade to access this feature.',
+                            'simple-export-import-for-acf-data')
+                    ]);
                 }
 
                 $post = get_posts([
-                    'name' => sanitize_title($data['post_name']),
+                    'name'      => sanitize_title($data['post_name']),
                     'post_type' => sanitize_text_field($settings['post_type'])
                 ]);
 
                 if (empty($post)) {
                     $primary_data = [
-                        'post_content' => wp_kses_post($data['post_content']),
-                        'post_title'   => sanitize_text_field($data['post_title']),
-                        'post_status'  => sanitize_text_field($data['post_status']),
-                        'post_excerpt' => sanitize_textarea_field($data['post_excerpt']),
+                        'post_date'     => sanitize_text_field($data['post_date']),
+                        'post_content'  => $content,
+                        'post_title'    => sanitize_text_field($data['post_title']),
+                        'post_status'   => sanitize_text_field($data['post_status']),
+                        'post_excerpt'  => sanitize_textarea_field($data['post_excerpt']),
                         'post_password' => sanitize_text_field($data['post_password']),
-                        'post_type' => sanitize_text_field($settings['post_type'])
+                        'post_type'     => sanitize_text_field($settings['post_type'])
                     ];
 
                     $post_id = wp_insert_post($primary_data);
                 } else {
-                    $post_id = $post[0]->ID;
+                    $post_id         = $post[0]->ID;
                     $post_data['ID'] = $post_id;
                     wp_update_post($post_data);
                 }
             } else {
-                $post_id = (int)$settings['single_post_id'];
+                $post_id         = (int) $settings['single_post_id'];
                 $post_data['ID'] = $post_id;
 
                 wp_update_post(
@@ -155,7 +177,7 @@ if (!class_exists('SeipImport')) {
             }
 
             $this->current_post_id = $post_id;
-            $this->post_metas = $data['metas'];
+            $this->post_metas      = $data['metas'];
 
             foreach ($data['metas'] as $key => $value) {
                 update_post_meta($post_id, $key, $this->get_field_value($key, $value));
@@ -165,7 +187,7 @@ if (!class_exists('SeipImport')) {
             $featured_image = (array) $data['featured_image'];
 
             if (!empty($featured_image)) {
-                $upload = $this->download( $featured_image['url'] );
+                $upload = $this->download($featured_image['url']);
                 $this->set_featured_image($post_id, $upload, $featured_image);
             }
 
@@ -184,11 +206,11 @@ if (!class_exists('SeipImport')) {
                 return $value;
             }
 
-            if (!isset($this->post_metas['_' . $key]) || empty($this->post_metas['_' . $key])) {
+            if (!isset($this->post_metas['_'.$key]) || empty($this->post_metas['_'.$key])) {
                 return $value;
             }
 
-            $related_field = get_field_object($this->post_metas['_' . $key]);
+            $related_field = get_field_object($this->post_metas['_'.$key]);
 
             if (!$related_field) {
                 return $value;
@@ -229,7 +251,7 @@ if (!class_exists('SeipImport')) {
 
                 $new_images = [];
                 foreach ($images as $image) {
-                    $upload = $this->download($image['url']);
+                    $upload       = $this->download($image['url']);
                     $new_images[] = $this->attach($upload, $image);
                 }
 
@@ -245,7 +267,7 @@ if (!class_exists('SeipImport')) {
          */
         public function download($value)
         {
-            if(empty($value)){
+            if (empty($value)) {
 //                seip_log('Empty file ', $value);
                 return false;
             }
@@ -283,29 +305,29 @@ if (!class_exists('SeipImport')) {
          */
         public function attach($upload, $media_data)
         {
-            if(empty($upload)) {
+            if (empty($upload)) {
                 return false;
             }
 
             $attachment = array(
                 'post_mime_type' => $upload['type'],
                 'guid'           => $upload['url'],
-                'post_title'     => empty($media_data['post_title']) ? sanitize_title(basename($upload['file'])) : sanitize_text_field( $media_data['post_title'] ),
+                'post_title'     => empty($media_data['post_title']) ? sanitize_title(basename($upload['file'])) : sanitize_text_field($media_data['post_title']),
                 'post_content'   => isset($media_data['post_content']) ? sanitize_text_field($media_data['post_content']) : '',
                 'post_excerpt'   => isset($media_data['post_excerpt']) ? sanitize_text_field($media_data['post_excerpt']) : '',
                 'post_parent'    => $this->current_post_id > 0 ? $this->current_post_id : 0,
             );
-            $attach_id = wp_insert_attachment($attachment, $upload['file']);
+            $attach_id  = wp_insert_attachment($attachment, $upload['file']);
 
             if (is_wp_error($attach_id)) {
 //                seip_log('Error while attaching media', $attach_id->get_error_messages());
                 return $attach_id;
             }
 
-            $attach_data = wp_generate_attachment_metadata( $attach_id, $upload['file'] );
-            wp_update_attachment_metadata( $attach_id,  $attach_data );
+            $attach_data = wp_generate_attachment_metadata($attach_id, $upload['file']);
+            wp_update_attachment_metadata($attach_id, $attach_data);
 
-            if(isset($media_data['_wp_attachment_image_alt'])){
+            if (isset($media_data['_wp_attachment_image_alt'])) {
                 update_post_meta($attach_id, '_wp_attachment_image_alt', $media_data['_wp_attachment_image_alt']);
             }
 
@@ -320,7 +342,7 @@ if (!class_exists('SeipImport')) {
          */
         protected function set_featured_image($post, $upload, $media_data)
         {
-            if(empty($upload)) {
+            if (empty($upload)) {
                 return false;
             }
 
@@ -334,29 +356,30 @@ if (!class_exists('SeipImport')) {
         }
 
 
-        protected function set_terms($post, $terms){
+        protected function set_terms($post, $terms)
+        {
             if (!SeipOpcodespace::isPaid()) {
                 return false;
             }
 
-            if(empty($terms)){
+            if (empty($terms)) {
                 return false;
             }
 
-            foreach($terms as $_term){
-                foreach($_term as $term){
-                    if(empty($term)){
+            foreach ($terms as $_term) {
+                foreach ($_term as $term) {
+                    if (empty($term)) {
                         continue;
                     }
 
                     $post_term = get_term_by('slug', $term['slug'], $term['taxonomy']);
 
-                    if(!$post_term){
-                        wp_set_object_terms($post, $term['name'],  $term['taxonomy'], true);
+                    if (!$post_term) {
+                        wp_set_object_terms($post, $term['name'], $term['taxonomy'], true);
                         continue;
                     }
 
-                    wp_set_object_terms($post, [$post_term->term_id],  $post_term->taxonomy, true);
+                    wp_set_object_terms($post, [$post_term->term_id], $post_term->taxonomy, true);
                 }
 
             }
@@ -366,14 +389,15 @@ if (!class_exists('SeipImport')) {
 
         private function sleep()
         {
-            if($this->execution_time > 0 && (time() - $this->execution_time) > 20){
+            if ($this->execution_time > 0 && (time() - $this->execution_time) > 20) {
                 sleep(1);
             }
         }
 
-        protected function link_field($value){
-            $url = str_replace($value['source_domain'], home_url(), $value['link']['url']);
-            $link = $value['link'];
+        protected function link_field($value)
+        {
+            $url         = str_replace($value['source_domain'], home_url(), $value['link']['url']);
+            $link        = $value['link'];
             $link['url'] = $url;
             return $link;
         }
