@@ -22,13 +22,13 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 <div class="sidebar_box">
   <div class="sidebar_ttl"><i class="fa fa-exclamation-circle"></i> Facing issues ?</div>
   <div class="sidebar_box_body">
-    <p>Stuck with something? <a href="">Please open a ticke</a>. For emergency case join our live chat.</p>
+    <p>Stuck with something? <a href="" target="_blank">Please open a ticke</a>. For emergency case join our live chat.</p>
   </div>
 </div>
 
 <div class="sidebar_box">
   <div class="sidebar_ttl"><i class="fa fa-heart"></i> Love Our Plugin?</div>
   <div class="sidebar_box_body">
-    <p>Thank you for choosing <b>Variation Swatches for WooCommerce</b>. If you have found our plugin useful and makes you smile. <a href="">please consider giving us a 5-star rating.</a> It will help us to grow</p>
+    <p>Thank you for choosing <b>Variation Swatches for WooCommerce</b>. If you have found our plugin useful and makes you smile. <a href="" target="_blank">please consider giving us a 5-star rating.</a> It will help us to grow</p>
   </div>
 </div>

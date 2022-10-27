@@ -114,6 +114,10 @@ a{
     font-size: 14px;
     line-height: 20px;
 }
+.sidebar_box_body p {
+    font-size: 14px;
+    line-height: 20px;
+}
 .sidebar_box_body ul li span.li_icon{
     color: #fe7e17;
     position: absolute;
