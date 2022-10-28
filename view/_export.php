@@ -45,6 +45,22 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 							</tr>
 							<tr class="bulk_export_visible">
 								<td>
+									<label class="label_block">Number Of Page</label>
+								</td>
+								<td>
+									<div class="page_from">
+										<label>From</label>
+										<input type="text" class="form-control width_60">
+									</div>
+									<div class="page_to">
+										<label>To</label>
+										<input type="text" class="form-control width_60">
+									</div>
+
+								</td>
+							</tr>
+							<tr class="bulk_export_visible">
+								<td>
 									<label class="label_block">Posts/Pages</label>
 								</td>
 								<td>

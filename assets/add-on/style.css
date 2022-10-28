@@ -211,3 +211,14 @@ a{
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     margin-bottom: 15px;
 }
+
+.form-control.width_60 {
+    max-width: 60px;
+}
+.page_to {
+    display: inline-block;
+    padding-left: 20px;
+}
+.page_from {
+    display: inline-block;
+}
