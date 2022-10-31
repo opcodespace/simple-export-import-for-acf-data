@@ -222,3 +222,13 @@ a{
 .page_from {
     display: inline-block;
 }
+.sidebar_box.subscribe_sidebar .sidebar_box_body .seva-form.formkit-form{
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+}
+.sidebar_box.subscribe_sidebar .sidebar_box_body .formkit-form[data-uid="d1f5a8698d"] [data-style="minimal"]{
+    padding: 0 !important;
+}
+.sidebar_box.subscribe_sidebar .sidebar_box_body .seva-form.formkit-form h2{display: none !important;}
+.sidebar_box.subscribe_sidebar .sidebar_box_body .seva-form.formkit-form p{display: none !important;}
