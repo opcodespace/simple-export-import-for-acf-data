@@ -78,6 +78,7 @@ if (!defined('ABSPATH')) {
     <nav class="nav-tab-wrapper">
         <a class="nav-tab <?php echo $tab === 'export' || empty($tab) ? 'nav-tab-active' : ''  ?>" href="<?php echo esc_url(admin_url('options-general.php?page=seip-simple-export-import&tab=export')) ?>">Export</a>
         <a class="nav-tab <?php echo $tab === 'import' ? 'nav-tab-active' : ''  ?>" href="<?php echo esc_url(admin_url('options-general.php?page=seip-simple-export-import&tab=import')) ?>">Import</a>
+        <a class="nav-tab <?php echo $tab === 'import-csv' ? 'nav-tab-active' : ''  ?>" href="<?php echo esc_url(admin_url('options-general.php?page=seip-simple-export-import&tab=import-csv')) ?>">Import CSV File</a>
         <a class="nav-tab <?php echo $tab === 'license' ? 'nav-tab-active' : ''  ?>" href="<?php echo  esc_url(admin_url('options-general.php?page=seip-simple-export-import&tab=license')) ?>">License</a>
     </nav>
     <div class="tap-contet-wrapper">
@@ -88,6 +89,9 @@ if (!defined('ABSPATH')) {
             break;
             case 'license':
             $path = '_license.php';
+            break;
+            case 'import-csv':
+            $path = '_import_csv.php';
             break;
             default:
             $path = '_export.php';
