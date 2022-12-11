@@ -44,7 +44,7 @@ a{
 
 .export_import_wrapper .chosen-container {
     min-width: 250px !important;
-    width: 100% !important;
+    width: 100%;
     display: block !important;
     background: #fff !important;
 }
@@ -205,6 +205,10 @@ a{
     margin-bottom: 15px;
 }
 
+.block_csv_box table{
+    width: 100%;
+}
+
 .maping_block_wrapper{
     position: relative;
     padding-left: 20px;
@@ -236,15 +240,29 @@ a{
 .csv_meta_key,
 .csv_type{
     font-size: 12px;
+    color: #a7a6a6;
 }
 .maping_row {
- border-bottom: 1px dotted #7B7B7B !important;
- padding-bottom: 30px;
+ margin: 0;
+ padding: 10px 10px;
 }
-tr:last-child.maping_row{
- border-bottom: none !important;
- padding-bottom: 0;
+.maping_row:nth-child(2n+1) {
+    background: #F5F5F5;
 }
-.maping_row td {
+
+tr.maping_row td:first-child {
+    vertical-align: top;
+}
+tr.maping_row td {
     vertical-align: bottom;
+}
+tr.maping_row td p{
+    font-size: 12px;
+    color: #a7a6a6;
+    margin: 0;
+}
+.seip_td_second_label {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 5px;
 }
