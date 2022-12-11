@@ -46,6 +46,7 @@ a{
     min-width: 250px !important;
     width: 100% !important;
     display: block !important;
+    background: #fff !important;
 }
 .export_import_wrapper .btn-group {
     min-width: 250px !important;
@@ -206,7 +207,7 @@ a{
 
 .maping_block_wrapper{
     position: relative;
-    padding-left: 30px;
+    padding-left: 20px;
 }
 .item_number {
     position: absolute;
@@ -229,8 +230,21 @@ a{
     text-align: right;
     padding-right: 6px;
 }
-.maping_row{
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-    padding: 5px;
-    border-radius: 4px;
+.csv_meta_key{
+    margin-top: 5px;    
+}
+.csv_meta_key,
+.csv_type{
+    font-size: 12px;
+}
+.maping_row {
+ border-bottom: 1px dotted #7B7B7B !important;
+ padding-bottom: 30px;
+}
+tr:last-child.maping_row{
+ border-bottom: none !important;
+ padding-bottom: 0;
+}
+.maping_row td {
+    vertical-align: bottom;
 }
