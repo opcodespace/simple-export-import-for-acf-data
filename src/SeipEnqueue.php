@@ -19,7 +19,7 @@ class SeipEnqueue
             wp_enqueue_style('grid', SEIP_ASSETSURL . "add-on/grid/grid.css", false, '1.0.0');
             wp_enqueue_style('tooltip', SEIP_ASSETSURL . "add-on/virtual-select/tooltip.min.css", false, $version);
 
-            wp_enqueue_style('main-style', SEIP_ASSETSURL . "add-on/style.css", array(), 'time()');
+            wp_enqueue_style('main-style', SEIP_ASSETSURL . "add-on/style.css", array(), time());
 
 
             wp_enqueue_script('tooltip-js', SEIP_ASSETSURL . "add-on/virtual-select/tooltip.min.js", array(), $version, true);
