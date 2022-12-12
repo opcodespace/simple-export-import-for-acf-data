@@ -20,6 +20,7 @@ include_once 'src/SeipFront.php';
 include_once 'src/SeipExport.php';
 include_once 'src/SeipEnqueue.php';
 include_once 'src/SeipImport.php';
+include_once 'src/SeipImportCSV.php';
 include_once 'src/SeipOpcodespace.php';
 include_once 'src/SeipTransientAdminNotices.php';
 include_once 'src/SeipImportEditorMediaFile.php';
@@ -27,6 +28,7 @@ include_once 'src/SeipImportEditorMediaFile.php';
 add_action('plugins_loaded', array('SeipFront', 'init'));
 add_action('plugins_loaded', array('SeipExport', 'init'));
 add_action('plugins_loaded', array('SeipImport', 'init'));
+add_action('plugins_loaded', array('SeipImportCSV', 'init'));
 add_action('plugins_loaded', array('SeipEnqueue', 'init'));
 
 add_action( 'admin_init', function() {
