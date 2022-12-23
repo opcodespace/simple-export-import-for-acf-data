@@ -2,6 +2,33 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+
+$options = array();
+
+$field_groups = acf_get_field_groups();
+foreach ( $field_groups as $group ) {
+    // DO NOT USE here: $fields = acf_get_fields($group['key']);
+    // because it causes repeater field bugs and returns "trashed" fields
+    $fields = get_posts(array(
+        'posts_per_page'   => -1,
+        'post_type'        => 'acf-field',
+        'orderby'          => 'menu_order',
+        'order'            => 'ASC',
+        'suppress_filters' => true, // DO NOT allow WPML to modify the query
+        'post_parent'      => $group['ID'],
+        'post_status'      => 'any',
+        'update_post_meta_cache' => false
+    ));
+
+    echo "<pre>"; print_r($fields); echo "</pre>";
+    foreach ( $fields as $field ) {
+        $options[$field->post_name] = $field->post_title;
+    }
+}
+
+echo "<pre>"; print_r($options); echo "</pre>";
+
+echo "<pre>"; print_r(acf_get_field('field_63178cd663ed3')); echo "</pre>";
 ?>
 
 <div class="seip_row">
