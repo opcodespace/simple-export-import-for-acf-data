@@ -2,9 +2,9 @@
 Contributors: opcodespace
 Tags: Export, Import, Page, Post, Custom Post Type, Advanced custom field, Field Value
 Requires at least: 5.4.0
-Tested up to: 6.0.3
+Tested up to: 6.1.1
 Requires PHP: 7.0
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,9 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 2. Import
 
 == Changelog ==
+= 1.3.4 =
+* Bug Fixed: If empty image or file, throwing fatal error
+
 = 1.3.3 =
 * Enhancement: Published Date preserved
 * Enhancement: Editor Image, Object file, link are replaced with new domain.

@@ -206,6 +206,10 @@ if (!class_exists('SeipImport')) {
                 return $value;
             }
 
+            if(empty($value)){
+                return $value;
+            }
+
             if (!isset($this->post_metas['_'.$key]) || empty($this->post_metas['_'.$key])) {
                 return $value;
             }
