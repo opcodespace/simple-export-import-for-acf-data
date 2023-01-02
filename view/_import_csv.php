@@ -3,32 +3,34 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$options = array();
-
 $field_groups = acf_get_field_groups();
 foreach ( $field_groups as $group ) {
+    echo '<pre>'; print_r($group ); echo '</pre>';
     // DO NOT USE here: $fields = acf_get_fields($group['key']);
     // because it causes repeater field bugs and returns "trashed" fields
-    $fields = get_posts(array(
-        'posts_per_page'   => -1,
-        'post_type'        => 'acf-field',
-        'orderby'          => 'menu_order',
-        'order'            => 'ASC',
-        'suppress_filters' => true, // DO NOT allow WPML to modify the query
-        'post_parent'      => $group['ID'],
-        'post_status'      => 'any',
-        'update_post_meta_cache' => false
-    ));
+    $fields = acf_get_fields($group['key']);
+//    $fields = get_posts(array(
+//        'posts_per_page'   => -1,
+//        'post_type'        => 'acf-field',
+//        'orderby'          => 'menu_order',
+//        'order'            => 'ASC',
+//        'suppress_filters' => true, // DO NOT allow WPML to modify the query
+//        'post_parent'      => $group['ID'],
+//        'post_status'      => 'any',
+//        'update_post_meta_cache' => false
+//    ));
 
     echo "<pre>"; print_r($fields); echo "</pre>";
-    foreach ( $fields as $field ) {
-        $options[$field->post_name] = $field->post_title;
-    }
+
 }
 
-echo "<pre>"; print_r($options); echo "</pre>";
 
 echo "<pre>"; print_r(acf_get_field('field_63178cd663ed3')); echo "</pre>";
+$header_options = '<option></option>';
+$options = get_option('seip_import_csv');
+foreach($options['header'] as $key => $header){
+    $header_options .= sprintf('<option value="%d">%s</option>', $key, $header);
+}
 ?>
 
 <div class="seip_row">
@@ -77,8 +79,10 @@ echo "<pre>"; print_r(acf_get_field('field_63178cd663ed3')); echo "</pre>";
             </div>
         </div>
         <?php
-        echo "<pre>"; print_r(get_option('seip_import_csv')); echo "</pre>";
+
+        echo "<pre>"; print_r($options); echo "</pre>";
         ?>
+        <?php if(!empty($options['header']) && !empty($options['fields'])): ?>
         <div class="card" style="max-width: 100%;">
             <h2>Mapping</h2>
             <div class="import-form-wrapper">
@@ -89,6 +93,42 @@ echo "<pre>"; print_r(acf_get_field('field_63178cd663ed3')); echo "</pre>";
                     <div class="block_csv_box">
                         <table>
                             <tbody>
+                            <?php
+                            $cnt = 1;
+                            foreach($options['fields']['default'] as $field): ?>
+                            <tr class="maping_row">
+                                <td>
+                                    <div class="maping_block_wrapper">
+                                        <div class="item_number"><?php echo $cnt++ ?>.</div>
+                                        <div class="csv_ttl"><?php echo $field['post_title'] ?></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="post_type" class="chosen-select" name="map[default][<?php echo $field['post_title'] ?>][value]">
+                                       <?php echo $header_options ?>
+                                    </select>
+                                    <p><?php echo $field['note'] ?? '' ?></p>
+                                </td>
+                            </tr>
+                            <?php endforeach ?>
+                            <?php foreach($options['fields']['meta'] as $field): ?>
+                            <tr class="maping_row">
+                                <td>
+                                    <div class="maping_block_wrapper">
+                                        <div class="item_number"><?php echo $cnt++ ?>. </div>
+                                        <div class="csv_ttl"><?php echo $field['post_title'] ?></div>
+                                        <div class="csv_meta_key"><b>Meta Key : </b><?php echo $field['post_excerpt'] ?></div>
+                                        <div class="csv_type"><b>Type : </b><?php echo $field['post_content']['type'] ?></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="post_type" class="chosen-select" name="map[meta][<?php echo $field['post_title'] ?>][value]">
+                                        <?php echo $header_options ?>
+                                    </select>
+                                    <p><?php echo $field['note'] ?? '' ?></p>
+                                </td>
+                            </tr>
+                            <?php endforeach ?>
                             <tr class="maping_row">
                                 <td>
                                     <div class="maping_block_wrapper">
@@ -99,7 +139,7 @@ echo "<pre>"; print_r(acf_get_field('field_63178cd663ed3')); echo "</pre>";
                                     </div>
                                 </td>
                                 <td>
-                                    <select name="post_type" class="chosen-select">
+                                    <select name="post_type" class="chosen-select" >
                                         <option value="">Please Select Type</option>
                                         <?php foreach (get_post_types([], 'objects') as $post_type):
                                             ?>
@@ -113,6 +153,7 @@ echo "<pre>"; print_r(acf_get_field('field_63178cd663ed3')); echo "</pre>";
                                         explicabo reiciendis, voluptates ipsam minima in, architecto consectetur.</p>
                                 </td>
                             </tr>
+
                             <tr class="maping_row">
                                 <td>
                                     <div class="maping_block_wrapper">
@@ -182,6 +223,7 @@ echo "<pre>"; print_r(acf_get_field('field_63178cd663ed3')); echo "</pre>";
                 </form>
             </div>
         </div>
+        <?php endif; ?>
     </div>
     <div class="seip_col-md-4 seip_col-lg-4">
         <?php include '_sidebar.php'; ?>
