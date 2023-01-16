@@ -214,7 +214,70 @@ foreach($options['header'] as $key => $header){
 </div>
 
 <div class="csv_repeater_boxes_wrapper">
-    <ul>
+    <ul class="csv_main_row">
+        <li class="csv_repeater_box">
+            <div class="csv_ttl_section">
+                <div class="csv_box_ttl">Tab</div>
+                <div class="csv_box_meta"><span>Meta Key:</span>Object</div>
+                <div class="csv_box_meta"><span>Type:</span>Object</div>
+            </div>
+            <div class="csv_field_section">
+                <div class="csv_input_group">
+                    <label class="input_label">Label 1</label>
+                    <select name="" id="" class="csv_select_style">
+                        <option>option 1</option>
+                        <option>option 2</option>
+                        <option>option 3</option>
+                        <option>option 4</option>
+                    </select>
+                </div>
+                <div class="csv_input_group">
+                    <label class="input_label">Label 2</label>
+                    <select name="" id="" class="csv_select_style">
+                        <option>option 1</option>
+                        <option>option 2</option>
+                        <option>option 3</option>
+                        <option>option 4</option>
+                    </select>
+                </div>
+                <div class="csv_input_group">
+                    <label class="input_label">Label 1</label>
+                    <select name="" id="" class="csv_select_style">
+                        <option>option 1</option>
+                        <option>option 2</option>
+                        <option>option 3</option>
+                        <option>option 4</option>
+                    </select>
+                </div>
+                <div class="csv_input_group">
+                    <label class="input_label">Label 2</label>
+                    <select name="" id="" class="csv_select_style">
+                        <option>option 1</option>
+                        <option>option 2</option>
+                        <option>option 3</option>
+                        <option>option 4</option>
+                    </select>
+                </div>
+                <div class="csv_input_group">
+                    <label class="input_label">Label 1</label>
+                    <select name="" id="" class="csv_select_style">
+                        <option>option 1</option>
+                        <option>option 2</option>
+                        <option>option 3</option>
+                        <option>option 4</option>
+                    </select>
+                </div>
+                <div class="csv_input_group">
+                    <label class="input_label">Label 2</label>
+                    <select name="" id="" class="csv_select_style">
+                        <option>option 1</option>
+                        <option>option 2</option>
+                        <option>option 3</option>
+                        <option>option 4</option>
+                    </select>
+                </div>
+            </div>
+        </li>
         <li class="csv_repeater_box">
             <div class="csv_ttl_section">
                 <div class="csv_box_ttl">Tab</div>
@@ -241,6 +304,62 @@ foreach($options['header'] as $key => $header){
                     </select>
                 </div>
             </div>
+        </li>
+        <ul>
+            <li class="csv_repeater_box">
+                <div class="csv_ttl_section">
+                    <div class="csv_box_ttl">Tab</div>
+                    <div class="csv_box_meta"><span>Meta Key:</span>Object</div>
+                    <div class="csv_box_meta"><span>Type:</span>Object</div>
+                </div>
+                <div class="csv_field_section">
+                    <div class="csv_input_group">
+                        <label class="input_label">Label 1</label>
+                        <select name="" id="" class="csv_select_style">
+                            <option>option 1</option>
+                            <option>option 2</option>
+                            <option>option 3</option>
+                            <option>option 4</option>
+                        </select>
+                    </div>
+                    <div class="csv_input_group">
+                        <label class="input_label">Label 2</label>
+                        <select name="" id="" class="csv_select_style">
+                            <option>option 1</option>
+                            <option>option 2</option>
+                            <option>option 3</option>
+                            <option>option 4</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="csv_repeater_box">
+                <div class="csv_ttl_section">
+                    <div class="csv_box_ttl">Tab</div>
+                    <div class="csv_box_meta"><span>Meta Key:</span>Object</div>
+                    <div class="csv_box_meta"><span>Type:</span>Object</div>
+                </div>
+                <div class="csv_field_section">
+                    <div class="csv_input_group">
+                        <label class="input_label">Label 1</label>
+                        <select name="" id="" class="csv_select_style">
+                            <option>option 1</option>
+                            <option>option 2</option>
+                            <option>option 3</option>
+                            <option>option 4</option>
+                        </select>
+                    </div>
+                    <div class="csv_input_group">
+                        <label class="input_label">Label 2</label>
+                        <select name="" id="" class="csv_select_style">
+                            <option>option 1</option>
+                            <option>option 2</option>
+                            <option>option 3</option>
+                            <option>option 4</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
             <ul>
                 <li class="csv_repeater_box">
                     <div class="csv_ttl_section">
@@ -269,7 +388,62 @@ foreach($options['header'] as $key => $header){
                         </div>
                     </div>
                 </li>
+                <li class="csv_repeater_box">
+                    <div class="csv_ttl_section">
+                        <div class="csv_box_ttl">Tab</div>
+                        <div class="csv_box_meta"><span>Meta Key:</span>Object</div>
+                        <div class="csv_box_meta"><span>Type:</span>Object</div>
+                    </div>
+                    <div class="csv_field_section">
+                        <div class="csv_input_group">
+                            <label class="input_label">Label 1</label>
+                            <select name="" id="" class="csv_select_style">
+                                <option>option 1</option>
+                                <option>option 2</option>
+                                <option>option 3</option>
+                                <option>option 4</option>
+                            </select>
+                        </div>
+                        <div class="csv_input_group">
+                            <label class="input_label">Label 2</label>
+                            <select name="" id="" class="csv_select_style">
+                                <option>option 1</option>
+                                <option>option 2</option>
+                                <option>option 3</option>
+                                <option>option 4</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                
                 <ul>
+                    <li class="csv_repeater_box">
+                        <div class="csv_ttl_section">
+                            <div class="csv_box_ttl">Tab</div>
+                            <div class="csv_box_meta"><span>Meta Key:</span>Object</div>
+                            <div class="csv_box_meta"><span>Type:</span>Object</div>
+                        </div>
+                        <div class="csv_field_section">
+                            <div class="csv_input_group">
+                                <label class="input_label">Label 1</label>
+                                <select name="" id="" class="csv_select_style">
+                                    <option>option 1</option>
+                                    <option>option 2</option>
+                                    <option>option 3</option>
+                                    <option>option 4</option>
+                                </select>
+                            </div>
+                            <div class="csv_input_group">
+                                <label class="input_label">Label 2</label>
+                                <select name="" id="" class="csv_select_style">
+                                    <option>option 1</option>
+                                    <option>option 2</option>
+                                    <option>option 3</option>
+                                    <option>option 4</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
                     <li class="csv_repeater_box">
                         <div class="csv_ttl_section">
                             <div class="csv_box_ttl">Tab</div>
@@ -299,7 +473,7 @@ foreach($options['header'] as $key => $header){
                     </li>
                 </ul>
             </ul>
-        </li>
+        </ul>
     </ul>
 </div>
 

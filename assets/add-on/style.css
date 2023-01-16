@@ -270,6 +270,7 @@ tr.maping_row td p{
 .csv_repeater_box {
     display: block;
     width: 100%;
+    overflow: hidden;
 }
 .csv_ttl_section {
     display: block;
@@ -312,6 +313,33 @@ tr.maping_row td p{
     font-weight: 700;
     margin-bottom: 5px;
 }
-.csv_repeater_boxes_wrapper ul li ul{
-    padding-left: 20px;
+.csv_repeater_boxes_wrapper ul.csv_main_row{
+    padding: 10px;
+    border: 1px solid #c3c4c7;
+    background: #F5F5F5;
+    border-radius: 4px;
+}
+.csv_repeater_boxes_wrapper ul ul{
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top:5px;
+    padding-bottom: 5px;
+    border-left:5px solid #D8E2EF;
+    background: #EDF2F9;
+}
+.csv_repeater_boxes_wrapper ul ul ul{
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top:5px;
+    padding-bottom: 5px;
+    border-left:5px solid #B5C1D3;
+    background: #E3E6EA;
+}
+.csv_repeater_boxes_wrapper ul ul ul ul{
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-top:5px;
+    border-left: 5px solid #c3c4c7;
+    background: #e2e2e2;
 }
