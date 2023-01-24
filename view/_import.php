@@ -67,6 +67,7 @@ if (!defined('ABSPATH')) {
                                     <td><label for="file">Upload File</label></td>
                                     <td>
                                         <input type="file" name="file" id="file" accept="application/json">
+                                        <br><span class="description">Only JSON format is supported.</span>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -76,7 +77,7 @@ if (!defined('ABSPATH')) {
                             <tr>
                                 <td></td>
                                 <td>
-                                    <input type="submit" class="button button-primary" value="Import">
+                                    <input type="submit" class="button button-primary" value="Import ACF Data (JSON)">
                                 </td>
                             </tr>
                         </table>
@@ -106,7 +107,7 @@ if (!defined('ABSPATH')) {
                                 <td></td>
                                 <td>
                                     <input type="submit" class="button button-primary"
-                                           value="Import" <?php echo !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>> <br>
+                                           value="Import ACF Data (JSON)" <?php echo !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>> <br>
                                     <?php echo !SeipOpcodespace::isPaid() ? PAID_TEXT : '' ?>
                                 </td>
                             </tr>

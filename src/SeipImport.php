@@ -179,14 +179,16 @@ if (!class_exists('SeipImport')) {
             $this->current_post_id = $post_id;
             $this->post_metas      = $data['metas'];
 
-            foreach ($data['metas'] as $key => $value) {
-                update_post_meta($post_id, $key, $this->get_field_value($key, $value));
+            if(isset($data['metas']) && !empty($data['metas'])){
+                foreach ($data['metas'] as $key => $value) {
+                    update_post_meta($post_id, $key, $this->get_field_value($key, $value));
+                }
             }
 
             # Adding Featured image
             $featured_image = (array) $data['featured_image'];
 
-            if (!empty($featured_image)) {
+            if (!empty($featured_image) && isset($featured_image['url'])) {
                 $upload = $this->download($featured_image['url']);
                 $this->set_featured_image($post_id, $upload, $featured_image);
             }

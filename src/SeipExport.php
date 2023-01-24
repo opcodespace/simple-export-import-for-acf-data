@@ -35,11 +35,24 @@ if (!class_exists('SeipExport')) {
                             'simple-export-import-for-acf-data'), 'error');
                 }
 
+                $post_ids = isset($_POST['post_ids']) ? explode(',', $_POST['post_ids']) : false;
+
+                if(empty($post_ids)){
+                    seip_notices_with_redirect('msg1',
+                        __('Please select single post.',
+                            'simple-export-import-for-acf-data'), 'error');
+                }
+
                 foreach (explode(',', $_POST['post_ids']) as $post_id) {
                     $post_data[] = $this->post_data((int) trim($post_id));
                 }
             } else {
-                $post_id     = (int) $_POST['post_id'];
+                $post_id     = isset($_POST['post_id']) ? (int) $_POST['post_id'] : false;
+                if(empty($post_id)){
+                    seip_notices_with_redirect('msg1',
+                        __('Please select single post.',
+                            'simple-export-import-for-acf-data'), 'error');
+                }
                 $post_data[] = $this->post_data($post_id);
             }
 

@@ -76,8 +76,8 @@ if (!defined('ABSPATH')) {
     <h5 class="main_title">Simple Export Import for ACF Data</h5>
     <?php $tab = sanitize_text_field($_GET['tab']) ?>
     <nav class="nav-tab-wrapper">
-        <a class="nav-tab <?php echo $tab === 'export' || empty($tab) ? 'nav-tab-active' : ''  ?>" href="<?php echo esc_url(admin_url('options-general.php?page=seip-simple-export-import&tab=export')) ?>">Export</a>
-        <a class="nav-tab <?php echo $tab === 'import' ? 'nav-tab-active' : ''  ?>" href="<?php echo esc_url(admin_url('options-general.php?page=seip-simple-export-import&tab=import')) ?>">Import</a>
+        <a class="nav-tab <?php echo $tab === 'export' || empty($tab) ? 'nav-tab-active' : ''  ?>" href="<?php echo esc_url(admin_url('options-general.php?page=seip-simple-export-import&tab=export')) ?>">Export (JSON)</a>
+        <a class="nav-tab <?php echo $tab === 'import' ? 'nav-tab-active' : ''  ?>" href="<?php echo esc_url(admin_url('options-general.php?page=seip-simple-export-import&tab=import')) ?>">Import (JSON)</a>
         <a class="nav-tab <?php echo $tab === 'license' ? 'nav-tab-active' : ''  ?>" href="<?php echo  esc_url(admin_url('options-general.php?page=seip-simple-export-import&tab=license')) ?>">License</a>
     </nav>
     <div class="tap-contet-wrapper">
@@ -179,7 +179,7 @@ if (!defined('ABSPATH')) {
                             value: post.ID
                         });
                     })
-
+                    $('[name="post_id"]').siblings('.chosen-container').find('.chosen-single').attr('style', '');
                     _this_parent.find('[name="post_id"]').html(options).trigger("chosen:updated");
                     $('#export_mulit_pages').html(options);
 
