@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 		<a href="https://opcodespace.com/product/simple-export-import-pro-for-acf/" class="seip_btn seip_btn-warning" target="_blank">Upgrade Now (only $9 for two sites)</a>
         <br><br>
 		<a href="https://opcodespace.com/product/simple-export-import-pro-for-acf-unlimited/" class="seip_btn seip_btn-warning" target="_blank">Upgrade Now (only $49/year for unlimited sites)</a>
+        <p><strong>Notes:</strong> License key is not transferable to another domain.</p>
 	</div>
 </div>
 <?php endif ?>
