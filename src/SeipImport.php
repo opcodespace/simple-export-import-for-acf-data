@@ -230,6 +230,24 @@ if (!class_exists('SeipImport')) {
                 return maybe_unserialize($value);
             }
 
+
+            if ($related_field['type'] === 'image' && !SeipOpcodespace::isPaid()) {
+                $seip_settings = get_option('seip_settings');
+                $total_uploaded_images = $seip_settings['import_images'];
+
+                if($total_uploaded_images >= 10){
+                    return $value;
+                }
+
+                $total_uploaded_images++;
+                $seip_settings['import_images'] = $total_uploaded_images;
+                update_option( 'seip_settings', $seip_settings);
+
+                $upload = $this->download($value['url']);
+                return $this->attach($upload, $value);
+
+            }
+
             if (!SeipOpcodespace::isPaid()) {
                 return $value;
             }

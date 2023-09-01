@@ -176,6 +176,22 @@ if (!class_exists('SeipExport')) {
 
         private function get_value_based_on_field_type($field, $value)
         {
+
+            if ($field['type'] === 'image' && !SeipOpcodespace::isPaid()) {
+                $seip_settings = get_option('seip_settings');
+                $total_uploaded_images = $seip_settings['import_import'];
+
+                if($total_uploaded_images >= 10){
+                    return $value;
+                }
+
+                $this->get_image_link($value);
+                $total_uploaded_images++;
+                $seip_settings['import_import'] = $total_uploaded_images;
+                update_option( 'seip_settings', $seip_settings);
+
+            }
+
             if (!SeipOpcodespace::isPaid()) {
                 return $value;
             }

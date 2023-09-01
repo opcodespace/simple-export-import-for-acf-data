@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class SeipOpcodespace
 {
     protected $token;
-    protected $url = 'https://www.opcodespace.com/wp-admin/admin-post.php?action=check_seip_validation';
+    protected $url = 'https://opcodespace.com/wp-admin/admin-post.php?action=check_seip_validation';
 
     public function __construct($token = null)
     {
@@ -30,6 +30,8 @@ class SeipOpcodespace
         ]);
 
         $code = wp_remote_retrieve_response_code($response);
+
+        echo '<pre>'; print_r($response); echo '</pre>';
 
         if($code != 200){
             throw new Exception(wp_remote_retrieve_body($response));

@@ -47,6 +47,7 @@ if (!defined('ABSPATH')) {
                                         </select>
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <td></td>
                                     <td>
@@ -80,6 +81,11 @@ if (!defined('ABSPATH')) {
                                     <input type="submit" class="button button-primary" value="Import ACF Data (JSON)">
                                 </td>
                             </tr>
+                            <?php if(!SeipOpcodespace::isPaid()): ?>
+                                <tr >
+                                    <td colspan="2"><span class="dashicons dashicons-bell"></span> <i>You can import only <b>10 Images</b> in your free plugin.</i></td>
+                                </tr>
+                                <?php endif ?>
                         </table>
                     </form>
                 </div>

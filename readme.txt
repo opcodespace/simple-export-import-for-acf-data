@@ -2,9 +2,9 @@
 Contributors: opcodespace
 Tags: Export, Import, Page, Post, Custom Post Type, Advanced custom field, Field Value
 Requires at least: 5.4.0
-Tested up to: 6.1.1
+Tested up to: 6.3.1
 Requires PHP: 7.0
-Stable tag: 1.3.6
+Stable tag: 1.3.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,6 +24,7 @@ This "Simple Export Import for ACF Data" plugin is very helpful for developers w
 * Status of Post / Page including password
 
 = Supported ACF fields in FREE Plugin =
+* Image (* only you can import 10 images in total)
 * Text
 * Text Area
 * Number
@@ -94,6 +95,9 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 2. Import
 
 == Changelog ==
+= 1.3.7 =
+* Enhancement: Free Plugin is supporting to import max 10 Images.
+
 = 1.3.6 =
 * Bug Fixed: Preventing to display warning message
 
