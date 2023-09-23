@@ -2,7 +2,9 @@
 
 	jQuery(document).ready(function($){
 
-		$(".chosen-select").chosen();
+		$(".chosen-select").chosen({
+			allow_single_deselect: true
+		});
 
 
 

@@ -10,6 +10,8 @@ if(!class_exists('SeipFront')) {
             $self = new self;
             add_action( 'admin_menu', [$self, 'export_import'] );
             add_action('wp_ajax_seip_get_all_posts', [$self, 'seip_get_all_posts']);
+            add_action('wp_ajax_seip_get_all_taxonomies', [$self, 'seip_get_all_taxonomies']);
+            add_action('wp_ajax_seip_get_all_terms', [$self, 'seip_get_all_terms']);
             add_action('wp_ajax_seip_save_license_key', [$self, 'seip_save_license_key']);
 
         }
@@ -34,18 +36,68 @@ if(!class_exists('SeipFront')) {
             echo $html;
         }
 
+        public function seip_get_all_taxonomies()
+        {
+             if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'seip_export_import' ) ) {
+                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
+             }
+
+             $post_type = sanitize_text_field($_POST['post_type']);
+
+            $taxonomies = get_object_taxonomies( $post_type, 'objects' );
+
+            wp_send_json_success(['taxonomies' => $taxonomies]);
+        }
+
+        public function seip_get_all_terms()
+        {
+            if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'seip_export_import' ) ) {
+                wp_send_json_error(['message' => 'You are not allowed to submit data.']);
+            }
+
+            $taxonomy = sanitize_text_field($_POST['taxonomy']);
+
+            $terms = get_terms([
+                'taxonomy' => $taxonomy
+            ]);
+
+            wp_send_json_success(['terms' => $terms]);
+        }
+
         public function seip_get_all_posts()
         {
-            // if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'seip_export' ) ) {
-            //     wp_send_json_error(['message' => 'You are not allowed to submit data.']);
-            // }
+             if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'seip_export_import' ) ) {
+                 wp_send_json_error(['message' => 'You are not allowed to submit data.']);
+             }
 
             $post_type = sanitize_text_field($_POST['post_type']);
+            $taxonomy = sanitize_text_field($_POST['taxonomy']);
+            $terms = (array)($_POST['terms']);
 
-            $posts = get_posts([
+            $args = [
                 'post_type' => $post_type,
                 'numberposts' => - 1
-            ]);
+            ];
+
+            if(!empty($terms) && !empty($taxonomy)){
+                $args['tax_query'] = [
+                    [
+                        'taxonomy' => $taxonomy,
+                        'field' => 'slug',
+                        'terms' => $terms
+                    ]
+                ];
+            }
+            else if(!empty($taxonomy)){
+                $args['tax_query'] = [
+                    [
+                        'taxonomy' => $taxonomy,
+                    ]
+                ];
+            }
+
+
+            $posts = get_posts($args);
 
             $sorted_posts = [];
 
