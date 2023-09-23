@@ -37,6 +37,29 @@ if (!defined('ABSPATH')) {
                                         </select>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                        <label for="seip_taxonomies" class="label_block">Filter by Taxonomies</label>
+                                    </td>
+                                    <td>
+                                        <select name="taxonomies"
+                                                class="chosen-select seip_taxonomies"
+                                                id="seip_taxonomies"
+                                                data-placeholder="Please Select Taxonomy"
+                                                data-allow_single_deselect="true"
+                                        >
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="seip_terms" class="label_block">Filter by Terms</label>
+                                    </td>
+                                    <td>
+                                        <select name="terms[]" class="chosen-select seip_terms" id="seip_terms" multiple data-placeholder="Please Select Terms">
+                                        </select>
+                                    </td>
+                                </tr>
                                 <tr class="bulk_import_block">
                                     <td>
                                         <label class="label_block">Post/Page</label>

@@ -92,6 +92,7 @@ if(!class_exists('SeipFront')) {
                 $args['tax_query'] = [
                     [
                         'taxonomy' => $taxonomy,
+                        'operator' => 'EXISTS'
                     ]
                 ];
             }
