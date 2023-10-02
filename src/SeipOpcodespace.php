@@ -31,8 +31,6 @@ class SeipOpcodespace
 
         $code = wp_remote_retrieve_response_code($response);
 
-        echo '<pre>'; print_r($response); echo '</pre>';
-
         if($code != 200){
             throw new Exception(wp_remote_retrieve_body($response));
         }

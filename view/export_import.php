@@ -75,7 +75,7 @@ if (!defined('ABSPATH')) {
 <?php wp_nonce_field('seip_export_import', 'seip_export_import_nonce') ?>
 <div class="export_import_wrapper">
     <h5 class="main_title">Simple Export Import for ACF Data</h5>
-    <?php $tab = sanitize_text_field($_GET['tab']) ?>
+    <?php $tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'export' ?>
     <nav class="nav-tab-wrapper">
         <a class="nav-tab <?php echo $tab === 'export' || empty($tab) ? 'nav-tab-active' : '' ?>"
            href="<?php echo esc_url(admin_url('options-general.php?page=seip-simple-export-import&tab=export')) ?>">Export

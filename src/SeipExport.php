@@ -56,7 +56,7 @@ if (!class_exists('SeipExport')) {
                 $post_data[] = $this->post_data($post_id);
             }
 
-            $data = json_encode($post_data);
+            $data = wp_json_encode($post_data);
 
             $json_file_name = 'post-export-'.date('y-m-d').'.json';
 
