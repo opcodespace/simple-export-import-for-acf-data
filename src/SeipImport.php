@@ -81,6 +81,9 @@ if (!class_exists('SeipImport')) {
             }
 
             foreach ($posts as $post) {
+                if(empty($post)){
+                    continue;
+                }
                 $this->post_data($post, $settings);
 
                 $this->sleep();
@@ -216,7 +219,15 @@ if (!class_exists('SeipImport')) {
                 return $value;
             }
 
-            $related_field = get_field_object($this->post_metas['_'.$key]);
+            $keys = explode('_field_', $this->post_metas['_'.$key]);
+            $no_of_keys = count($keys);
+            if($no_of_keys > 1){
+                $related_field = get_field_object('field_'.$keys[$no_of_keys - 1]);
+            }
+            else{
+                $related_field = get_field_object($this->post_metas['_'.$key]);
+            }
+
 
             if (!$related_field) {
                 return $value;

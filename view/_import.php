@@ -26,7 +26,7 @@ if (!defined('ABSPATH')) {
                                         <label class="label_block">Type</label>
                                     </td>
                                     <td>
-                                        <select name="post_type" class="chosen-select">
+                                        <select name="post_type" class="chosen-select post_type">
                                             <option value="">Please Select Type</option>
                                             <?php foreach (get_post_types([], 'objects') as $post_type):
                                                 ?>
