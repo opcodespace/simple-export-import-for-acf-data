@@ -197,7 +197,9 @@ if (!class_exists('SeipImport')) {
             }
 
             # Setting Terms
-            $this->set_terms($post_id, $data['terms']);
+            if(!empty($data['terms'])){
+                $this->set_terms($post_id, $data['terms']);
+            }
         }
 
         /**
@@ -397,10 +399,6 @@ if (!class_exists('SeipImport')) {
                 return false;
             }
 
-            if (empty($terms)) {
-                return false;
-            }
-
             foreach ($terms as $_term) {
                 foreach ($_term as $term) {
                     if (empty($term)) {
@@ -431,6 +429,9 @@ if (!class_exists('SeipImport')) {
 
         protected function link_field($value)
         {
+            if(empty($value['link']['url'])){
+                return $value;
+            }
             $url         = str_replace($value['source_domain'], home_url(), $value['link']['url']);
             $link        = $value['link'];
             $link['url'] = $url;

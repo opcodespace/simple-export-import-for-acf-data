@@ -13,7 +13,7 @@ class SeipEnqueue
     public function enqueue_admin_script()
     {
         $version = SEIP_PLUGIN_VERSION;
-        if($_GET['page'] === 'seip-simple-export-import'){
+        if(isset($_GET['page']) && $_GET['page'] === 'seip-simple-export-import'){
             wp_enqueue_style('chosen-style', SEIP_ASSETSURL . "add-on/chosen-js/chosen.min.css");
             wp_enqueue_style('virtual-select', SEIP_ASSETSURL . "add-on/virtual-select/virtual-select.min.css", false, $version);
             wp_enqueue_style('grid', SEIP_ASSETSURL . "add-on/grid/grid.css", false, '1.0.0');
