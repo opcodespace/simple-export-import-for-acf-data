@@ -273,12 +273,12 @@ if (!class_exists('SeipImport')) {
                 return $this->link_field($value);
             }
 
-            if ($related_field['type'] === 'image') {
+            if ($related_field['type'] === 'image' && !empty($value['url'])) {
                 $upload = $this->download($value['url']);
                 return $this->attach($upload, $value);
             }
 
-            if ($related_field['type'] === 'file') {
+            if ($related_field['type'] === 'file' && !empty($value['url'])) {
                 $upload = $this->download($value['url']);
                 return $this->attach($upload, $value);
             }
@@ -288,6 +288,9 @@ if (!class_exists('SeipImport')) {
 
                 $new_images = [];
                 foreach ($images as $image) {
+                    if(empty($image['url'])){
+                        continue;
+                    }
                     $upload       = $this->download($image['url']);
                     $new_images[] = $this->attach($upload, $image);
                 }
