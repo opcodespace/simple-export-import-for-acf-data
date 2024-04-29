@@ -173,6 +173,8 @@ if (!defined('ABSPATH')) {
                     post_type: $('.post_type').val(),
                     terms: $('#seip_terms').val() || '',
                     taxonomy: $('#seip_taxonomies').val() || '',
+                    from: $('#split_post_from').val() || '',
+                    to: $('#split_post_to').val() || '',
                     _wpnonce: $('#seip_export_import_nonce').val()
                 }
             })
@@ -267,6 +269,14 @@ if (!defined('ABSPATH')) {
 
         $('[name="post_type"]').change(function () {
             get_all_taxonomies($(this).val())
+            seip_get_all_posts($(this));
+        })
+
+        $('[name="split_post_from"]').change(function () {
+            seip_get_all_posts($(this));
+        })
+
+        $('[name="split_post_to"]').change(function () {
             seip_get_all_posts($(this));
         })
     })

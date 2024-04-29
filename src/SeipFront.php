@@ -73,11 +73,23 @@ if(!class_exists('SeipFront')) {
             $post_type = sanitize_text_field($_POST['post_type']);
             $taxonomy = sanitize_text_field($_POST['taxonomy']);
             $terms = (array)($_POST['terms']);
+            $from = isset($_POST['from']) ? (int) $_POST['from'] : 0;
+            $to = isset($_POST['to']) ? (int) $_POST['to'] : 0;
+
+            $posts_per_page = -1;
+
+            if($from > 0 && $to > 0){
+                $posts_per_page = $to - $from + 1;
+            }
 
             $args = [
                 'post_type' => $post_type,
-                'numberposts' => - 1
+                'posts_per_page' => $posts_per_page
             ];
+
+            if($from > 0 && $to > 0){
+                $args['offset'] = $from - 1;
+            }
 
             if(!empty($terms) && !empty($taxonomy)){
                 $args['tax_query'] = [
@@ -104,7 +116,7 @@ if(!class_exists('SeipFront')) {
 
             foreach($posts as $post){
                 $sorted_posts[] = [
-                  'ID' => (int)$post->ID,
+                  'ID' => $post->ID,
                   'post_name' => esc_attr($post->post_name)
                 ];
             }

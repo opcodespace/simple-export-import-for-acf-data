@@ -68,6 +68,18 @@ if (!defined('ABSPATH')) {
                                     </select>
                                 </td>
                             </tr>
+                            <tr  class="bulk_export_visible">
+                                <td colspan="2"><label class="label_block">If you have large number of posts and images, you should split post to get rid of time out issue.</label></td>
+                            </tr>
+                            <tr class="bulk_export_visible">
+                                <td>
+                                    <label class="label_block">Split Post</label>
+                                </td>
+                                <td>
+                                    <input type="number" name="split_post_from" id="split_post_from" placeholder="From"><br><br>
+                                    <input type="number" name="split_post_to" id="split_post_to" placeholder="To">
+                                </td>
+                            </tr>
                             <tr class="bulk_export_visible">
                                 <td>
                                     <label class="label_block">Posts/Pages</label>
@@ -79,6 +91,7 @@ if (!defined('ABSPATH')) {
 
                                 </td>
                             </tr>
+
 
                         </table>
                     </div>

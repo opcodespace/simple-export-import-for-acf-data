@@ -37,6 +37,8 @@ if (!class_exists('SeipExport')) {
 
                 $post_ids = isset($_POST['post_ids']) ? explode(',', $_POST['post_ids']) : false;
 
+
+
                 if(empty($post_ids)){
                     seip_notices_with_redirect('msg1',
                         __('Please select single post.',
