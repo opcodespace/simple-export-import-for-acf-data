@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 		$('.save-license-key').click(function(){
 			$.ajax({
 				method: 'POST',
-				url: frontend_form_object.ajaxurl,
+				url: seip_frontend_form_object.ajaxurl,
 				data: { action: 'seip_save_license_key', _wpnonce: $('#_wpnonce').val(), seip_license_key: $('[name="seip_license_key"]').val()}
 			})
 			.done(function( response ) {
