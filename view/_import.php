@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
                             <input type="checkbox" id="bulk_import"
                                    name="bulk_import" <?php echo !SeipOpcodespace::isPaid() ? 'disabled' : '' ?>><label
                                     for="bulk_import" class="checkbox_label">Bulk Import</label> <br>
-                            <?php echo !SeipOpcodespace::isPaid() ? PAID_TEXT : '(If slug is matched, it will update that post/page. Otherwise, it creates a new post.)' ?>
+                            <?php echo !SeipOpcodespace::isPaid() ? PAID_TEXT : 'If slug is matched, it will update that post/page. Otherwise, it creates a new post.' ?>
                         </div>
                         <div class="block_imports">
                             <table>
@@ -100,7 +100,7 @@ if (!defined('ABSPATH')) {
                                             <input type="checkbox" id="background_import" name="background_import">
                                             <label for="background_import"><strong>Import in Background</strong></label>
                                         </div>
-                                        <p>If you have a large number posts and images, and you have time out issue, you can select background upload. You should open this browser window until complete the process. Otherwise, importing will not work.</p></td>
+                                        <p>If you have a large number of posts and images, and you have a timeout issue, you can select background upload. You should open this browser window until complete the process. Otherwise, importing will not work.</p></td>
                                 </tr>
                                 <tr>
                                     <td></td>
