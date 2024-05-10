@@ -88,10 +88,24 @@ if (!defined('ABSPATH')) {
                                     </td>
                                 </tr>
                                 <tr class="">
-                                    <td><label for="file">Upload File</label></td>
+                                    <td><label for="file" class="label_block">Upload File</label></td>
                                     <td>
                                         <input type="file" name="file" id="file" accept="application/json">
                                         <br><span class="description">Only JSON format is supported.</span>
+                                    </td>
+                                </tr>
+                                <tr class="">
+                                    <td colspan="2">
+                                        <div>
+                                            <input type="checkbox" id="background_import" name="background_import">
+                                            <label for="background_import"><strong>Import in Background</strong></label>
+                                        </div>
+                                        <p>If you have a large number posts and images, and you have time out issue, you can select background upload. You should open this browser window until complete the process. Otherwise, importing will not work.</p></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+
                                     </td>
                                 </tr>
                                 </tbody>

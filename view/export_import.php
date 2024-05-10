@@ -75,6 +75,20 @@ if (!defined('ABSPATH')) {
 <?php wp_nonce_field('seip_export_import', 'seip_export_import_nonce') ?>
 <div class="export_import_wrapper">
     <h5 class="main_title">Simple Export Import for ACF Data</h5>
+
+<!--    // Background Process-->
+    <?php if(get_option('seip_background_import_status') === 'processing'): ?>
+    <div class="notice notice-warning">
+        <p style="color: tomato; font-weight: bold">Importing is processing in background. Please don't close this window.</p>
+        <div class="seip_background_import_status">
+            <ul>
+
+            </ul>
+        </div>
+    </div>
+    <?php endif; ?>
+<!--  // End Background Process  -->
+
     <?php $tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'export' ?>
     <nav class="nav-tab-wrapper">
         <a class="nav-tab <?php echo $tab === 'export' || empty($tab) ? 'nav-tab-active' : '' ?>"
@@ -161,6 +175,36 @@ if (!defined('ABSPATH')) {
             optionHeight: 36,
             minWidth: 250
         });
+
+        console.log(seip_frontend_form_object.seip_background_import_status);
+
+        if(seip_frontend_form_object.seip_background_import_status === 'processing'){
+            seip_banckground_import();
+        }
+
+        function seip_banckground_import() {
+            $.ajax({
+                method: "POST",
+                url: "<?php echo esc_url(admin_url('/admin-ajax.php')); ?>",
+                data: {
+                    action: "seip_banckground_import",
+                    _wpnonce: $('#seip_export_import_nonce').val()
+                }
+            })
+                .done(function (response) {
+                    if (response.success) {
+                        if(response.data.imported_posts.length > 0){
+                            response.data.imported_posts.map(post => {
+                                $('.seip_background_import_status ul').append(`<li>Imported: #${post}</li>`);
+                            })
+                            seip_banckground_import();
+                        }
+                        else{
+                            $('.seip_background_import_status ul').append(`<li>Completed</li>`);
+                        }
+                    }
+                });
+        }
 
 
         function seip_get_all_posts(_this) {

@@ -84,6 +84,7 @@ if (!class_exists('SeipExport')) {
             }
 
             return [
+                'ID'             => $post->ID,
                 'post_date'      => $post->post_date,
                 'post_title'     => $post->post_title,
                 'post_name'      => $post->post_name,

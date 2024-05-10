@@ -30,9 +30,10 @@ class SeipEnqueue
 
             wp_localize_script(
                 'admin-script',
-                'frontend_form_object',
+                'seip_frontend_form_object',
                 array(
-                    'ajaxurl' => admin_url('admin-ajax.php')
+                    'ajaxurl' => admin_url('admin-ajax.php'),
+                    'seip_background_import_status' => get_option('seip_background_import_status'),
                 )
             );
         }

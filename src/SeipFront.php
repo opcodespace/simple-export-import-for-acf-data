@@ -13,6 +13,7 @@ if(!class_exists('SeipFront')) {
             add_action('wp_ajax_seip_get_all_taxonomies', [$self, 'seip_get_all_taxonomies']);
             add_action('wp_ajax_seip_get_all_terms', [$self, 'seip_get_all_terms']);
             add_action('wp_ajax_seip_save_license_key', [$self, 'seip_save_license_key']);
+            add_action('wp_ajax_seip_banckground_import', [$self, 'seip_banckground_import']);
 
         }
 
@@ -138,6 +139,15 @@ if(!class_exists('SeipFront')) {
             $SeipOpcodespace = new SeipOpcodespace($license_key);
             $SeipOpcodespace->setSubscriptionStatus();
 
+        }
+
+        public function seip_banckground_import()
+        {
+            if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'seip_export_import' ) ) {
+                wp_send_json_error(['message' => 'You are not allowed to submit data.']);
+            }
+
+            (new SeipImport())->seip_import_background();
         }
     }
 }
