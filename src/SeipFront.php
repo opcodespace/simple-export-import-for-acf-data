@@ -112,6 +112,7 @@ if(!class_exists('SeipFront')) {
 
 
             $posts = get_posts($args);
+            $query = new WP_Query($args);
 
             $sorted_posts = [];
 

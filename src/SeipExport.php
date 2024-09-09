@@ -115,26 +115,66 @@ if (!class_exists('SeipExport')) {
                         'simple-export-import-for-acf-data'), 'error');
             }
 
-            $options = get_fields('options');
+            // New Option Export
+            global $wpdb;
+            $options = $wpdb->get_results( "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE 'options_%'" );
+            $option_fields = $wpdb->get_results( "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE '_options_%'" );
+            $sorted_option_fields = array_column((array)$option_fields, 'option_value', 'option_name');
 
-            $sorted_metas = [];
+            $exported_data = [];
+            foreach ($options as $option) {
+                $field_key = $sorted_option_fields['_'.$option->option_name];
+                $field = get_field_object($field_key, 'option');
 
-            foreach ($options as $key => $value) {
-                // Need work here
-                $field = get_field_object(get_option('_options_'.$key));
-
-                if (empty($field)) {
-                    $sorted_metas[$key] = $value;
+                if(empty($field)){
                     continue;
                 }
 
-                $sorted_metas[$key] = $this->get_value_based_on_field_type($field, $value);
+                $exported_data[$option->option_name]  = $this->get_value_based_on_field_type($field, $option->option_value);
+                $exported_data['_'.$option->option_name] = $field_key;
             }
+
+            // End New Option Export
+
+
+//            $options = get_fields('options');
+//
+//            $sorted_metas = [];
+//
+//            foreach ($options as $key => $value) {
+//                // Need work here
+//                $field = get_field_object(get_option('_options_'.$key));
+//
+//                if (empty($field)) {
+//                    $sorted_metas[$key] = $value;
+//                    continue;
+//                }
+//
+//                if($field['type'] === 'repeater') {
+//                    $sorted_subfields = $this->sort_repeater_sub_fields($field['sub_fields']);
+//
+//                    $exported_data = [];
+//                    foreach ($value as $row_key => $row_value) {
+//                        foreach ($row_value as $field_name => $repeater_field_value) {
+//                            $option_key = 'options_repeater_'.$row_key.'_'.$field_name;
+//                            $option_value = get_option($option_key);
+//                            $exported_data[$row_key][$field_name] = $this->get_value_based_on_field_type($sorted_subfields[$field_name], $option_value);
+//                        }
+//                    }
+//
+//                    $sorted_metas[$key] = $exported_data;
+//
+//                    continue;
+//                }
+//
+//                $sorted_metas[$key] = $this->get_value_based_on_field_type($field, $value);
+//            }
 
             $data = [
                 'type'    => 'options',
-                'options' => $sorted_metas
+                'options' => $exported_data
             ];
+
 
             $data = json_encode($data);
 
@@ -146,6 +186,16 @@ if (!class_exists('SeipExport')) {
             header('Cache-Control: must-revalidate');
             header('Content-Length: '.strlen($data));
             file_put_contents('php://output', $data);
+        }
+
+        private function sort_repeater_sub_fields($subfields)
+        {
+            $sorted_fields = [];
+            foreach ($subfields as $subfield) {
+                $sorted_fields[$subfield['name']] = $subfield;
+            }
+
+            return $sorted_fields;
         }
 
         /**

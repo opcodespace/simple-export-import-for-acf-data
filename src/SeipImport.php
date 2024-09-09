@@ -157,12 +157,35 @@ if (!class_exists('SeipImport')) {
 
             $data = $this->upload();
 
+
+            // End New Option Import
             foreach ($data['options'] as $key => $value) {
-                update_field($key, $value, 'option');
+
+                $field = get_field_object($data['options']['_'.$key], 'option');
+
+                if(empty($field)) {
+                    continue;
+                }
+
+                $value = $this->get_field_value($field, $value);
+
+                update_option($key, $value);
+                update_option('_'.$key, $data['options']['_'.$key]);
+
             }
 
             seip_notices_with_redirect('msg1', __('Successfully imported', 'simple-export-import-for-acf-data'),
                 'success');
+        }
+
+        private function sort_repeater_sub_fields($subfields)
+        {
+            $sorted_fields = [];
+            foreach ($subfields as $subfield) {
+                $sorted_fields[$subfield['name']] = $subfield;
+            }
+
+            return $sorted_fields;
         }
 
         private function post_data($data, $settings)
@@ -234,7 +257,7 @@ if (!class_exists('SeipImport')) {
 
             if (isset($data['metas']) && !empty($data['metas'])) {
                 foreach ($data['metas'] as $key => $value) {
-                    update_post_meta($post_id, $key, $this->get_field_value($key, $value));
+                    update_post_meta($post_id, $key, $this->get_post_field_value($key, $value));
                 }
             }
 
@@ -257,29 +280,8 @@ if (!class_exists('SeipImport')) {
          * @param $value
          * @return false|mixed|string
          */
-        public function get_field_value($key, $value)
+        public function get_field_value($related_field, $value)
         {
-            if (!function_exists('get_field_object')) {
-                return $value;
-            }
-
-            if (empty($value)) {
-                return $value;
-            }
-
-            if (!isset($this->post_metas['_' . $key]) || empty($this->post_metas['_' . $key])) {
-                return $value;
-            }
-
-            $keys = explode('_field_', $this->post_metas['_' . $key]);
-            $no_of_keys = count($keys);
-            if ($no_of_keys > 1) {
-                $related_field = get_field_object('field_' . $keys[$no_of_keys - 1]);
-            } else {
-                $related_field = get_field_object($this->post_metas['_' . $key]);
-            }
-
-
             if (!$related_field) {
                 return $value;
             }
@@ -297,13 +299,13 @@ if (!class_exists('SeipImport')) {
                 $seip_settings = get_option('seip_settings');
                 $total_uploaded_images = $seip_settings['import_images'];
 
-                if ($total_uploaded_images >= 10) {
+                if($total_uploaded_images >= 10){
                     return $value;
                 }
 
                 $total_uploaded_images++;
                 $seip_settings['import_images'] = $total_uploaded_images;
-                update_option('seip_settings', $seip_settings);
+                update_option( 'seip_settings', $seip_settings);
 
                 $upload = $this->download($value['url']);
                 return $this->attach($upload, $value);
@@ -322,12 +324,12 @@ if (!class_exists('SeipImport')) {
                 return $this->link_field($value);
             }
 
-            if ($related_field['type'] === 'image' && !empty($value['url'])) {
+            if ($related_field['type'] === 'image') {
                 $upload = $this->download($value['url']);
                 return $this->attach($upload, $value);
             }
 
-            if ($related_field['type'] === 'file' && !empty($value['url'])) {
+            if ($related_field['type'] === 'file') {
                 $upload = $this->download($value['url']);
                 return $this->attach($upload, $value);
             }
@@ -337,10 +339,7 @@ if (!class_exists('SeipImport')) {
 
                 $new_images = [];
                 foreach ($images as $image) {
-                    if (empty($image['url'])) {
-                        continue;
-                    }
-                    $upload = $this->download($image['url']);
+                    $upload       = $this->download($image['url']);
                     $new_images[] = $this->attach($upload, $image);
                 }
 
@@ -348,6 +347,57 @@ if (!class_exists('SeipImport')) {
             }
 
             return $value;
+        }
+
+        /**
+         * @param $key
+         * @param $value
+         * @return false|mixed|string
+         */
+        public function get_post_field_value($key, $value)
+        {
+            if (!function_exists('get_field_object')) {
+                return $value;
+            }
+
+            if(empty($value)){
+                return $value;
+            }
+
+            if (!isset($this->post_metas['_'.$key]) || empty($this->post_metas['_'.$key])) {
+                return $value;
+            }
+
+            $keys = explode('_field_', $this->post_metas['_'.$key]);
+            $no_of_keys = count($keys);
+            if($no_of_keys > 1){
+                $related_field = get_field_object('field_'.$keys[$no_of_keys - 1]);
+            }
+            else{
+                $related_field = get_field_object($this->post_metas['_'.$key]);
+            }
+
+
+            return $this->get_field_value($related_field, $value);
+        }
+
+        public function get_option_field_value($key, $value)
+        {
+            if (!function_exists('get_field_object')) {
+                return $value;
+            }
+
+            if(empty($value)){
+                return $value;
+            }
+
+            $field = get_field_object($key, 'option');
+
+            if(!$field){
+                return $value;
+            }
+
+            return $this->get_field_value($field, $value);
         }
 
         /**
@@ -512,5 +562,6 @@ if (!class_exists('SeipImport')) {
             $file_path = get_option('seip_export_file');
             return wp_json_file_decode($file_path, ['associative' => true]);
         }
+
     }
 }

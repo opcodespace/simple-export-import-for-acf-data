@@ -1,10 +1,10 @@
 === Simple Export Import for ACF Data ===
 Contributors: opcodespace
-Tags: Export, Import, Page, Post, Custom Post Type, Advanced custom field, Field Value
+Tags: Export, Import, Page, Post, Custom Post Type
 Requires at least: 5.4.0
-Tested up to: 6.5.2
+Tested up to: 6.6.2
 Requires PHP: 7.0
-Stable tag: 1.3.18
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,15 @@ Yes, free plugin is supporting many fields including repeater, groups. Please se
 2. Import
 
 == Changelog ==
+= 1.4.1 (September 9, 2024) =
+* Enhancement: Minor text update
+
+= 1.4.0 (August 18, 2024) =
+* Enhancement: Repeater, flexible objects are supported in ACF Option
+
+= 1.3.19 (July 20, 2024) =
+* Bug Fixed: Out of memory issue
+
 = 1.3.18 (May 10, 2024) =
 * Enhancement: Bulk import in background for large data
 
