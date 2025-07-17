@@ -4,7 +4,7 @@ Plugin Name: Simple Export Import for ACF Data
 Description: Exporting and importing ACF field value. It can export and import options, page, custom post type data of ACF field from one site to another site.
 Plugin URI: https://www.opcodespace.com
 Author: Opcodespace <mehedee@opcodespace.com>
-Version: 1.4.4
+Version: 1.4.3
 Text Domain: simple-export-import-for-acf-data
 */
 
