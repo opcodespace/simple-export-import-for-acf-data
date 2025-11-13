@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {exit;}
 			$.ajax({
 				method: 'POST',
 				url: seip_frontend_form_object.ajaxurl,
-				data: { action: 'seip_save_license_key', _wpnonce: $('#_wpnonce').val(), seip_license_key: $('[name="seip_license_key"]').val()}
+				data: { action: 'seip_save_license_key', _wpnonce: $('.license_wrapper #_wpnonce').val(), seip_license_key: $('.license_wrapper [name="seip_license_key"]').val()}
 			})
 			.done(function( response ) {
 				if(response.success){
